@@ -1,0 +1,9 @@
+Deck AI_Persona5
+Name Persona 5 Joker (old)
+File PersonaAIVersion5
+Version 5
+
+Deck AI_AxisChurch
+Name Konosuba Axis Church (old)
+File AxisAIVersion5
+Version 5

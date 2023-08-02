@@ -1,0 +1,8 @@
+Series: Madoka Magica
+Folder: Madoka Magica/W17
+Prefix: MM/W17
+SetName: Madoka Magica Volume 1 (W17)
+
+Folder: Madoka Magica/W35
+Prefix: MM/W35
+SetName: Madoka Magica Rebellion (W35)

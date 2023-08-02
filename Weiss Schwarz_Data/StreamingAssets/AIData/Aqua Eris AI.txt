@@ -1,0 +1,78 @@
+//["Beauty in a Yukata" Darkness]
+//[Kazuma]
+//["Construction Operator" Aqua]
+//["Cunning Idea" Aqua]
+//["Gentle Goddess" Eris]
+//["Giving Full Support" Aqua]
+//["Significance of Killing Snow Sprites?" Aqua]
+//["Soul Salvation" Aqua]
+//[Swimsuit Eris]
+//["Shaken" Megumin]
+//["Sacred Create Water" Aqua]
+//["Sacred Turn Undead" Aqua]
+//["Setting Out" Aqua]
+//["Sightseeing in the Crimson Demon Village!" Aqua]
+//["Menacing Pose" Aqua]
+//["Pride of A Goddess" Aqua]
+//["Blessed With Kind Encounters" Eris]
+//["Mesmerizing Water Goddess" Aqua]
+//["To the Crimson Demon Village!" Aqua]
+//[Aqua]
+//[In the Name of the Goddess]
+//[Protection of a Goddess]
+
+FirstTurnDiscard
+KeepIf CardLevel = 0 && IsCharacter
+KeepCopies(1) [In the Name of the Goddess]
+
+
+
+
+
+Section ["Beauty in a Yukata" Darkness]
+OnPlayMayMill3(1)
+ClimaxExchange(2)
+
+Section [Kazuma]
+OnPlayPay1Discard1ToCheck3(1)
+
+Section ["Construction Operator" Aqua]
+OnReverseWithClimax
+
+Section ["Cunning Idea" Aqua]
+
+Section ["Gentle Goddess" Eris]
+BounceOnClimaxPlay
+
+Section ["Giving Full Support" Aqua]
+Act1RestSelfSearchBrainstorm(1)
+
+Section ["Significance of Killing Snow Sprites?" Aqua]
+OnPlayHandClockToSearch(1,If(HasTrait Goddess))
+
+Section ["Soul Salvation" Aqua]
+
+
+Section [Swimsuit Eris]
+Assist(500)
+
+
+Section ["Shaken" Megumin]
+Backup 1000
+AntiEarlyBackup(1) Hand > 3
+
+Section ["Sacred Create Water" Aqua]
+
+Section ["Sacred Turn Undead" Aqua]
+CannotAttackHigherLevel
+
+Section ["Setting Out" Aqua]
+Section ["Sightseeing in the Crimson Demon Village!" Aqua]
+Section ["Menacing Pose" Aqua]
+Section ["Pride of A Goddess" Aqua]
+Section ["Blessed With Kind Encounters" Eris]
+Section ["Mesmerizing Water Goddess" Aqua]
+Section ["To the Crimson Demon Village!" Aqua]
+Section [Aqua]
+Section [In the Name of the Goddess]
+Section [Protection of a Goddess]

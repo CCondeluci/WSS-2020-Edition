@@ -1,0 +1,4 @@
+Series: Cardcaptor Sakura
+Folder: Cardcaptor Sakura/WX01
+Prefix: CCS/WX01
+SetName: Clear Card - English (WX01)

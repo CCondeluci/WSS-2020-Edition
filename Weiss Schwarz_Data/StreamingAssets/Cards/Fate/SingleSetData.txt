@@ -1,0 +1,15 @@
+Series: Fate
+Folder: Fate/S17
+Prefix: FZ/S17
+SetName: Fate/Zero (S17)
+
+Folder: Fate/S34
+Prefix: FS/S34
+SetName: Unlimited Blade Works (S34)
+Folder: Fate/S36
+Prefix: FS/S36
+SetName: Unlimited Blade Works Vol.2 (S36)
+
+Folder: Fate/S64
+Prefix: FS/S64
+SetName: Heaven's Feel (S64)

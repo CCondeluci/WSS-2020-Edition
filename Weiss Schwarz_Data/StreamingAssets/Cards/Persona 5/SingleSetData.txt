@@ -1,0 +1,4 @@
+Series: Persona 5
+Folder: Persona 5
+Prefix: P5/S45
+SetName: Persona 5

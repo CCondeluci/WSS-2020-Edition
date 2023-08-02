@@ -1,0 +1,25 @@
+//["Real Magic Power is Down to Luck Too" Aqua]
+//["Significance of Killing Snow Sprites?" Aqua]
+//["Soul Salvation" Aqua]
+//["Swarmed on the Street" Axis Church Devotee]
+//["Nature's Beauty" Aqua]
+//["Setting Out" Aqua]
+//["Tipsy" Aqua]
+//["Supportive Magic" Aqua]
+//["Pride of A Goddess" Aqua]
+//["Tipsy" Aqua]
+//["Furious Fist" Aqua]
+//["Mesmerizing Water Goddess" Aqua]
+//[Aqua]
+//[Axis Church Creed]
+
+//Open: Discard all non-devotees
+//If you drew more that 1 copy of the brainstormer hold on to only 1 copy
+
+//New features:  Army Power, Reverse combo, Rest Healer, Split 3K climax, Early play 4 or more, rest 2 brainstormer, can't attack without 2 backstage
+
+//Level 0 - Wall of Devotees, (EndOfMainPhase)
+//Level 1 - Keep wall until it's broken, then use reverse combo
+//Level 2 - Build new wall with Tipsy Aqua or use early play healer
+//Level 3 - Attempt to refresh with several markers under Furious Fist
+

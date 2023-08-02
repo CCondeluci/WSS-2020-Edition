@@ -1,0 +1,9 @@
+Series: Love Live! Sunshine!!
+
+Folder: Love Live Sunshine/W45
+Prefix: LSS/W45
+SetName: Volume 1 (W45)
+
+Folder: Love Live Sunshine/WE27
+Prefix: LSS/WE27
+SetName: EB (WE27)

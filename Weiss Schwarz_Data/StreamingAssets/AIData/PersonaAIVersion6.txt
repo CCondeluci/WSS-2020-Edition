@@ -1,0 +1,187 @@
+//[Protagonist as JOKER: Destiny Awaits]
+//[Protagonist: Leblanc's Troublesome Guest]
+//[Protagonist: The Will of Rebellion]
+//[Ryuji as SKULL: A Big Smile]
+//[Ryuji: It's a Deal]
+//[Swimsuit Protagonist]
+//[Sadayo Kawakami]
+//[Protagonist (P5)]
+//[Protagonist as JOKER: Lurking in the Dark]
+//[Protagonist as JOKER: Thief Clad in Black]
+//[Calling Card]
+//[Protagonist as JOKER: ALL-out Attack]
+//[Protagonist as JOKER: Phantop Thief of Hearts] //Backup
+//[Protagonist: Prisoner of Fate]
+//[Protagonist as JOKER & Arsene]
+//[Ryuji as SKULL: All-out Attack]
+//[FREAKIN' BORNING]
+//[THE SHOW'S OVER]
+
+Section Header
+ColorPriority Yellow
+Experience 0
+ActMode Auto
+BackstageMode Auto //Try to keep 1 assist and 1 brainstorm esque effect.
+
+Section GoingFirst_Attacker
+//Only 2 good choices
+Priority(1000) [Protagonist as JOKER: Destiny Awaits]
+Priority(900) [Sadayo Kawakami]
+Priority(800) [Ryuji: It's a Deal] && WRContains(1,[Calling Card])
+Priority(700) [Protagonist: The Will of Rebellion] && HandContains(1,[Protagonist: The Will of Rebellion]) //not only copy
+Priority(600) [Protagonist: Leblanc's Troublesome Guest]
+Priority(500) [Ryuji: It's a Deal]
+Priority(400) [Swimsuit Protagonist]
+Priority(300) [Protagonist: The Will of Rebellion]
+
+Section GoingFirst_BackStage
+Priority(500) [Ryuji as SKULL: A Big Smile]
+
+Section AttackerValue
+
+Section ReverseValue
+
+Section DefenderValue
+
+Section BackstageValue
+Priority(200) [Protagonist: The Will of Rebellion]
+Priority(200) [Ryuji as SKULL: A Big Smile]
+Priority(500) [Protagonist: Prisoner of Fate]
+
+Section SearchValue
+Priority(100) [Protagonist as JOKER: Destiny Awaits]
+//Get Leblanc's troublesome guest if you need a 4k at level 0 or you need to shuffle back for All-out attack or Joker & Arsene
+
+Priority(550) [Protagonist: The Will of Rebellion] && Not Have(1,[Protagonist: The Will of Rebellion])
+Priority(250) [Ryuji as SKULL: A Big Smile] && OpenBackstage > 0
+Priority(150) [Ryuji: It's a Deal]
+Priority(300) [Ryuji: It's a Deal] && UnwantedCardsInHand > 0 && WRContains(1,[Calling Card])
+Priority(220) [Swimsuit Protagonist]
+Priority(600) [Sadayo Kawakami] && Level == 2 && Hand > 5 && Not Have(1,[Sadayo Kawakami])
+Priority(800) [Sadayo Kawakami] && Level == 3 && HandContains(1,[Protagonist as JOKER & Arsene])
+
+
+
+Section ProtectValue
+
+
+Section WRValue
+Priority(100) [Protagonist as JOKER: Lurking in the Dark] && HandContains(1,[Protagonist as JOKER: Thief Clad in Black])
+Priority(100) [Protagonist as JOKER: Thief Clad in Black] && HandContains(1,[Protagonist as JOKER: Lurking in the Dark])
+
+Section OverplayValue
+
+
+
+Section StartMainPhase
+//At level 2 or 3 make sure you have 1 Prisoner of Fate
+
+//At level 3, Do everything to reverse or remove characters
+//Joker's power is 14500 with 1 assist
+//First play 1 Ryuji to find materials
+//You only need the climax if there's a character you can't reverse
+//Needs to enter a state where it never side attacks for exacy soul if you have joker and can reverse everyone
+//If you would begin the attack phase with 5 stock you could play an extra joker
+
+
+
+Section EndMainPhase
+
+
+
+
+
+Section ShouldClock
+
+
+Section BounceTarget
+//New feature
+
+
+Section [Protagonist as JOKER: Destiny Awaits]
+OnPlayScryToBottom(1)
+AutoIf(2) Level == 0
+AutoIf(2) Level < 3 && Hand <= Stock && Hand < 7
+DontUseAuto(2) //Make it defaut to false
+
+Section [Protagonist: Leblanc's Troublesome Guest]
+ResolutionPriority(1,-100) Deck <= 2
+ResolutionPriority(1,100) Deck > 2
+AutoIf(2) Level == 3 && WRContains(2,CardLevel >= 2) //Shuffle back characters for finisher
+AutoIf(2) Deck <= 3 && Level <= 2
+AutoIf(2) WantGiveSoul(1) //If opponent has low compression?
+DontUseAuto(2)
+
+Section [Protagonist: The Will of Rebellion]
+OnUseActGivePower(1,500)
+Rest2SearchBrainstorm(1,If(HasTrait Thief))
+
+
+Section [Ryuji as SKULL: A Big Smile]
+ContPowerToMiddle(1000,True)
+
+Section [Ryuji: It's a Deal]
+OnPlayTradeWR(1,[Calling Card])
+
+Section [Swimsuit Protagonist]
+DropSearch(1,If(HasTrait Thief))
+
+Section [Sadayo Kawakami]
+OffTrait
+PlayInsteadOf([Protagonist as JOKER & Arsene]) //If you would play that card from your hand play this instead
+InstantAct(0) Level == 3 && HandContains(1,[Protagonist as JOKER & Arsene]) //Use this act as soon as it is possible
+
+Section [Protagonist (P5)]
+OnAttackGivePowerForEachOther(1,500)
+
+Section [Protagonist as JOKER: Lurking in the Dark]
+ContSelfPower(3000)
+AutoIf(2) Facing(If(ColorIs Red || ColorIs Green)) &&& WRContains(1,[Protagonist as JOKER: Thief Clad in Black]) || If(HasMarker)
+AutoIf(2) FacingEmpty && CountCards(OpponentStage,If(ColorIs Red || ColorIs Green)) > CountCards(OpponentStage,If(ColorIs Blue || ColorIs Yellow)) &&& WRContains(1,[Protagonist as JOKER: Thief Clad in Black]) || If(HasMarker)
+DontUseAuto(2)
+
+Section [Protagonist as JOKER: Thief Clad in Black]
+ContSelfPower(3000)
+AutoIf(2) Facing(If(ColorIs Yellow || ColorIs Blue)) &&& WRContains(1,[Protagonist as JOKER: Thief Clad in Black]) || If(HasMarker)
+AutoIf(2) FacingEmpty && CountCards(OpponentStage,If(ColorIs Yellow || ColorIs Blue)) > CountCards(OpponentStage,If(ColorIs Red || ColorIs Green)) &&& WRContains(1,[Protagonist as JOKER: Thief Clad in Black]) || If(HasMarker)
+DontUseAuto(2)
+
+Section [Calling Card]
+Check4Add1Event(If(HasTrait Thief))
+BounceCharacterEvent(CardCost <= 0 && If(InLocation CenterStage))
+
+Section [Protagonist as JOKER: ALL-out Attack]
+EarlyPlay4OrMore(If(HasTrait Thief))
+OnReverseCombo([THE SHOW'S OVER])
+ComboRequires4Characters
+
+Section [Protagonist as JOKER: Phantop Thief of Hearts]
+Backup 3000
+MemoryBackup
+
+Section [Protagonist: Prisoner of Fate]
+DoubleLevelAssist
+GlobalPower(500,[Protagonist as JOKER & Arsene])
+
+Section [Protagonist as JOKER & Arsene]
+GainPowerForEachOther(500,If(HasTrait Thief))
+Healer
+AutoIf(2) True
+SaveHandIfAttacking(1,HasTrait Thief) Facing(IsCharacter)
+
+Section [Ryuji as SKULL: All-out Attack]
+OnPlayCheck3
+OnAttackCombo([FREAKIN' BORNING])
+//TODO Don't pay the cost if it means you wouldn't have enough cards in hand to pay for the jokers
+AutoIf(2) IrreversableCharacters > 0 //This would get screwed up by hexproof
+
+Section [FREAKIN' BORNING]
+ComboLevel 3
+StockSoul
+OnAttackCombo([Ryuji as SKULL: All-out Attack])
+
+Section [THE SHOW'S OVER]
+ComboLevel 1
+BasicClimax
+OnReverseCombo([Protagonist as JOKER: ALL-out Attack])
+

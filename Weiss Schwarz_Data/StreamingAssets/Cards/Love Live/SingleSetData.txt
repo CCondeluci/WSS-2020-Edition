@@ -1,0 +1,30 @@
+Series: Love Live
+
+Folder: Love Live/W24
+Prefix: LL/W24
+SetName: Volume 1 (W24)
+
+Folder: Love Live/W28
+Prefix: LL/W28
+SetName: feat. School Idol Festival (W28)
+
+Folder: Love Live/WE19
+Prefix: LL/WE19
+SetName: Love Live! EB (WE19)
+
+Folder: Love Live/W34
+Prefix: LL/W34
+SetName: Love Live! Vol 2 (W34)
+
+Folder: Love Live/W36
+Prefix: LL/W36
+SetName: School Idol Festival Vol. 2 (W36)
+
+Folder: Love Live/WE25
+Prefix: LL/WE25
+SetName: feat. School Idol Festival Variety Set (WE25)
+
+Folder: Love Live/WE24
+Prefix: LL/WE24
+SetName: The School Idol Movie EB (WE24)
+

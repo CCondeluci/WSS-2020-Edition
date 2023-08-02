@@ -1,0 +1,148 @@
+//CommonEffects DO NOT work here.
+
+Button Deck -> Hand
+{
+	SearchLocationForTargets Deck 0 50 Any
+	MoveCard Hand
+}
+
+Button +Stock
+{
+	TargetTop Deck 1
+	MoveCard Stock
+}
+
+Button Level Up
+{
+	If Compare MyLevel 3 Exactly
+	{
+		TargetBottom Level 1
+		MoveCard WaitingRoom
+	}
+	SetXValue 7
+	SubtractFromXValue CardsInClock
+	If Compare CardsInDeck X OrMore
+	{
+		TargetTop Deck X
+		MoveCard Clock
+	}
+	Else
+	{
+		LevelUp
+	}
+}
+
+Button Deck -> W.R
+{
+	SearchLocationForTargets Deck 0 50 Any
+	MoveCard WaitingRoom
+	ShuffleLocation Deck
+}
+
+Button W.R -> Deck
+{
+	SearchLocationForTargets WaitingRoom 0 50 Any
+	MoveCard Deck
+	ShuffleLocation Deck
+}
+
+
+
+Button Fix Top Deck
+{
+	Message Choose a card to move to the top of your deck.
+	SearchLocationForTargets Deck 1 1 Any
+	RevealTargets
+	MoveCard Deck
+}
+
+Button Stand
+{
+	TargetLocation AnyStage
+	ChooseCharacterFromTargets_Optional Choose a character to stand.
+	Stand
+}
+
+Button W.R -> Hand
+{
+	Message Choose cards to add to your hand.
+	SearchLocationForTargets WaitingRoom 0 50 Any
+	MoveCard Hand
+}
+
+
+
+Button Hand -> W.R
+{
+	Message Choose cards to discard.
+	SearchLocationForTargets Hand 0 50 Any
+	MoveCard WaitingRoom
+}
+
+Button Deck -> Clock
+{
+	Message Choose a card to put into your clock.
+	SearchLocationForTargets Deck 0 1 Any
+	MoveCard Clock
+	ShuffleLocation Deck
+}
+
+Button +10000 Power
+{
+	TargetLocation AnyStage
+	ChooseCharacterFromTargets_Optional Choose a character to give +10000 power.
+	GainPower 10000
+}
+
+Button Set Power 500
+{
+	TargetLocation AnyStage
+	ChooseCharacterFromTargets_Optional Choose a character to to give -X power until end of opponent's turn. (X is this cards power minus 500)
+	If HasTarget
+	{
+		SetXValue TargetCardsPower
+		UntilEndOfOpponentsTurn
+		SubtractFromXValue 500
+		LosePower X
+	}
+}
+
+Button +1 Soul
+{
+	TargetLocation AnyStage
+	ChooseCharacterFromTargets_Optional Choose a character to give +1 soul.
+	GainSoul 1
+}
+
+Button +1 Level
+{
+	TargetLocation AnyStage
+	ChooseCharacterFromTargets_Optional Choose a character to give +1 level until end of opponent's turn.
+	UntilEndOfOpponentsTurn
+	GainLevel 1
+}
+
+Button Stage -> W.R
+{
+	TargetLocation AnyStage
+	ChooseCharacterFromTargets_Optional Choose a character to set power to 0.
+	LosePower TargetCardsPower
+}
+
+Button Heal Everyone
+{
+	If Compare CardsInClock 1 OrMore || Compare CardsInOpponentsClock 1 OrMore
+	{
+		TargetLocation Clock
+		MoveCard WaitingRoom
+		TargetLocation OpponentClock
+		MoveCard OpponentWaitingRoom
+	}
+	Else
+	{
+		TargetTop Level 1
+		MoveCard WaitingRoom
+		TargetTop OpponentLevel 1
+		MoveCard OpponentWaitingRoom
+	}
+}

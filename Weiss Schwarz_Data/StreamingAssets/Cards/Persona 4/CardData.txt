@@ -1,0 +1,89 @@
+
+Character: P4/ENS01-001
+Image P4_EN_S01_001
+Name Protagonist (P4)
+Color Y
+Level 3
+Cost 2
+Trigger Soul
+Power 9000
+Soul 2
+Trait1 Magic
+Trait2 Glasses
+Combo Emerged Izanagi
+Auto: OnPlay
+{
+	PayCost 1
+	{
+		Message Search for up to 1 <Glasses> character
+		SearchDeck HasTrait Glasses
+		Message Search for up to 1 character with "&" in its name.
+		SearchDeck IsCharacter && NameContains &
+	}
+}
+Text Auto: [(1)] When this card is placed on the stage from your hand, you may pay the cost, search your deck for up to 1 <Glasses> character and up to 1 character with "&" in its name and add them to your hand.
+Auto: OnAttack
+{
+	ChooseAnyTrait
+	GainEffectUntil OnAttack
+	{
+		Cont: GiveSelf
+		{
+			GainTrait CHOSEN_TRAIT
+		}
+	}
+}
+Text Auto: When this card attacks, choose a trait. Until the next time you choose a trait with this ability, this card gains the chosen trait.
+Auto: OnAttack
+{
+	If Climax Emerged Izanagi
+	{
+		TargetLocation Stage
+		NarrowTargets HasTrait Magic
+		GainPower 2000
+		GainSoul 1
+	}
+}
+Text Auto: CxCombo When this card attacks, if "Emerged Izanagi" is in your climax area, all of your <Magic> characters get +2000 power and +1 soul until end of turn.
+EndCard
+
+Climax: P4/ENS01-018
+Image P4_EN_S01_018
+Name Emerged Izanagi
+Color Y
+*2SoulClimax
+EndCard
+
+
+Character: P4/ENS01-T01
+Image P4_EN_S01_T01
+Name "Contract Key" Protagonist
+Color Y
+Level 1
+Cost 0
+Power 5000
+Trait1 Magic
+Cont: GiveSelf
+{
+	If StageContains 1 RememberedByThisCard
+	{
+		GainPower 2000
+	}
+}
+Text Cont: If you have a character chosen by this card's effect, this card gets +2000 power.
+Auto: OnPlay
+{
+	TargetLocation Stage
+	NarrowTargets Other
+	ChooseCharacterFromTargets Choose a character.
+	RememberTargets
+}
+Text Auto: When this card is placed on the stage from your hand, choose one of your other characters.
+Auto: OnSentFromStageToWaitingRoom
+{
+	TargetRemembered
+	NarrowTargets OnStage
+	MoveCard WaitingRoom
+}
+Text Auto: When this card is put into yout waiting room from the stage, put the character chosen by this card's effect into your waiting room.
+EndCard

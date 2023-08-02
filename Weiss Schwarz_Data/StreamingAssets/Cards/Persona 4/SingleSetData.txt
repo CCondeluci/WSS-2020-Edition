@@ -1,0 +1,4 @@
+Series: Persona 4
+Folder: Persona 4
+Prefix: P4/ENS01
+SetName: Persona 4 (EN)

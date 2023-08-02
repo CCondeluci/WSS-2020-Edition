@@ -1,0 +1,4 @@
+Series: Kill la Kill
+Folder: Kill la Kill/S27
+Prefix: KLK/S27
+SetName: Kill la Kill (S27)

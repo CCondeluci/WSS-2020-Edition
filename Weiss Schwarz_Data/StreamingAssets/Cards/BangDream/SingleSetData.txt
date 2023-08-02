@@ -1,0 +1,16 @@
+Series: BanG Dream!
+Folder: BangDream/W47
+Prefix: BD/W47
+SetName: BanG Dream Volume 1 (W47)
+Folder: BangDream/W54
+Prefix: BD/W54
+SetName: Girls Band Party! (W54)
+Folder: BangDream/W63
+Prefix: BD/W63
+SetName: Girls Band Party! Volume 2 (W63)
+Folder: BangDream/ENW03
+Prefix: BD/ENW03
+SetName: MultiLive (EN W03)
+Folder: BangDream/W73
+Prefix: BD/W73
+SetName: BanG Dream Volume 2 (W73)

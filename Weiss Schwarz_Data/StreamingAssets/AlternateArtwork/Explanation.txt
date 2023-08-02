@@ -1,0 +1,9 @@
+Folder for the user to add additional rarities / alternate artwork to a card.  When used in multiplayer, the opponent will see the original artwork unless they have the same mod.
+
+Place files inside a folder with the same name as the set number, for example W40.
+
+File names should be the same as the number within the set of the card you want to copy with exactly 1 letter added to the end. (Number includes letter prefixes like the T in trial deck cards or the P in some promos)  If it doesn't work for an english card try adding E at the start of the name.
+
+Files can be .jpg or .png
+
+For example to add another image to a card with the ID GRI/S72-100 the file would be StreamingAssets/AlternateArtwork/S72/100a.jpg

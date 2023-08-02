@@ -1,0 +1,4 @@
+Series: Log Horizon
+Folder: Log Horizon/SE20
+Prefix: LH/SE20
+SetName: Log Horizon (SE20)

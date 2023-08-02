@@ -1,0 +1,1 @@
+Paste jpg or png files to use for custom card sleeves here. The opponent will be able to see the image even if they don't have the same file as long it is enabled in settings. (disabled by default)

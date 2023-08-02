@@ -1,0 +1,4 @@
+Series: That Time I Got Reincarnated as a Slime
+Folder: SlimeTensei/S70
+Prefix: TSK/S70
+SetName: Volume 1 (S70)

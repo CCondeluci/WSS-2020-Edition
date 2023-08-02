@@ -1,0 +1,4 @@
+Series: Jojo's Bizarre Adventure
+Folder: Jojo/S66
+Prefix: JJ/S66
+SetName: Golden Wind (S66)

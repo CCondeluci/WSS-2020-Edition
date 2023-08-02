@@ -1,0 +1,8 @@
+Series: Haruhi Suzumiya
+Folder: Haruhi/W08
+Prefix: SY/W08
+SetName: Haruhi Suzumiya Volume 1 (W08)
+
+Folder: Haruhi/WE09
+Prefix: SY/WE09
+SetName: Haruhi Extra Booster (WE09)

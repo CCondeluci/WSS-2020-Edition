@@ -1,0 +1,834 @@
+
+Variables
+{
+	WantRefresh = 0
+}
+
+SearchActs
+{
+	//Not considered a brainstorm here since it does not look for climax
+	Rest2(0,"Real Magic Power is Down to Luck Too" Aqua)
+}
+
+//Section not yet implemented
+IdealBackstage
+{
+	If(Level == 0){
+		Backstage(1,"Real Magic Power is Down to Luck Too" Aqua)
+		Backstage(1,"Swarmed on the Street" Axis Church Devotee)
+		Alt(1,"Swarmed on the Street" Axis Church Devotee)
+	}
+	If(Level == 1){
+		Backstage(1,"Real Magic Power is Down to Luck Too" Aqua)
+		Backstage(1,"Nature's Beauty" Aqua)
+	}
+	If(Level == 2 || Level == 3){
+		Backstage(1,"Nature's Beauty" Aqua")
+		Backstage(1,"Pride of a Goddess" Aqua)
+		Backstage(1,"Providing Magic" Aqua)
+		Backstage(1,"Real Magic Power is Down to Luck Too" Aqua)
+	}
+}
+
+PowerSources
+{
+	"Nature's Beauty" Aqua
+	{
+		ContGivePower(500)
+	}
+	
+	"Pride of a Goddess" Aqua
+	{
+		LevelAssist(500)
+	}
+	
+	"Swarmed on the Street" Axis Church Devotee
+	{
+		ContSelfTimesOther(1500,NameEquals("Swarmed on the Street" Axis Church Devotee))
+	}
+	
+	"Tipsy" Aqua
+	{
+		ContSelfTimesOther(2000,NameEquals("Tipsy" Aqua) && DeckCardIf(InLocation CenterStage))
+	}
+	
+	"Mesmerizing Water Goddess" Aqua
+	{
+		ContSelf(2000)
+	}
+}
+
+GoingFirst
+{
+	//If you don't have at least 3 Devotees, use Soul Salvation to try to get one
+	If(Not LocationContains(Hand,3,NameEquals("Swarmed on the Street" Axis Church Devotee)))
+	{
+		//If you don't need to save soul salvation for refreshing then use it for its first effect
+		If(ClimaxInDeck >= 6){
+			Play("Soul Salvation" Aqua)
+		}
+	}
+
+	If(LocationContains(Hand,5,NameEquals("Swarmed on the Street" Axis Church Devotee)))
+	{
+		Play("Swarmed on the Street" Axis Church Devotee)
+		Play("Swarmed on the Street" Axis Church Devotee)
+		Play("Swarmed on the Street" Axis Church Devotee)
+		PlayBackstage("Swarmed on the Street" Axis Church Devotee)
+		PlayBackstage("Swarmed on the Street" Axis Church Devotee)
+	}
+	If(LocationContains(Hand,4,NameEquals("Swarmed on the Street" Axis Church Devotee)))
+	{
+		Play("Swarmed on the Street" Axis Church Devotee)
+		Play("Swarmed on the Street" Axis Church Devotee)
+		Play("Swarmed on the Street" Axis Church Devotee)
+		PlayBackstage("Swarmed on the Street" Axis Church Devotee)
+		PlayBackstage("Real Magic Power is Down to Luck Too" Aqua)
+	}
+	If(LocationContains(Hand,3,NameEquals("Swarmed on the Street" Axis Church Devotee)))
+	{
+		Play("Swarmed on the Street" Axis Church Devotee)
+		Play("Swarmed on the Street" Axis Church Devotee)
+		Play("Swarmed on the Street" Axis Church Devotee)
+		PlayBackstage("Real Magic Power is Down to Luck Too" Aqua)
+	}
+	If(LocationContains(Hand,2,NameEquals("Swarmed on the Street" Axis Church Devotee)))
+	{
+		Play("Swarmed on the Street" Axis Church Devotee)
+		PlayBackstage("Swarmed on the Street" Axis Church Devotee)
+		PlayBackstage("Real Magic Power is Down to Luck Too" Aqua)
+	}
+}
+
+MainPhase
+{
+	If(Level < 3 && CardsInDeck > 6 && Compression <= 0.12 && Stock >= 2){ //Worse than 5/40
+		//Refresh using soul salvation
+		If(HandContains(1,NameEquals("Soul Salvation" Aqua))){
+			//TODO Reserve the stock for the effect to force using it
+			WantRefresh = 1
+			Play("Soul Salvation" Aqua);
+			WantRefresh = 0
+		}
+		Else
+		{
+			If(Compression < 0.10 && CardsInDeck >= 10 && Stock >= 3){
+				//Don't have the card, but now this is an emergency
+				SearchTarget("Soul Salvation" Aqua)
+				IfSpecial(Not HandContains(1, NameEquals("Soul Salvation" Aqua)))
+				{
+					PlaySingle("Real Magic Power is Down to Luck Too" Aqua)
+					PlayRestTarget()
+					Act(0,"Real Magic Power is Down to Luck Too" Aqua)
+					If(Stock >= 3 && Level >= 2 && CardsInHand >= 2 && LocationContains(Deck,1,NameEquals("Soul Salvation" Aqua))){
+						PlayBackstage("Pride of a Goddess" Aqua)
+					}
+					If(Stock >= 3){
+						Act(0,"Real Magic Power is Down to Luck Too" Aqua)
+					}
+				}
+				WantRefresh = 1
+				Play("Soul Salvation" Aqua);
+				WantRefresh = 0
+			}
+		}
+	}
+	
+	//Try to keep up 4-5 devotee wall until level 1 and have the combo or level 1 and the wall is broken
+	If(Level == 0){
+		//If you don't have at least 3 Devotees, use Soul Salvation to try to get one
+		//Copy of going first
+		SpecialIf(StageCount<5){
+			If(Not LocationContains(Hand,3,NameEquals("Swarmed on the Street" Axis Church Devotee)))
+			{
+				//If you don't need to save soul salvation for refreshing then use it for its first effect
+				If(ClimaxInDeck >= 6){
+					Play("Soul Salvation" Aqua)
+				}
+			}
+
+			If(LocationContains(Hand,5,NameEquals("Swarmed on the Street" Axis Church Devotee)))
+			{
+				Play("Swarmed on the Street" Axis Church Devotee)
+				Play("Swarmed on the Street" Axis Church Devotee)
+				Play("Swarmed on the Street" Axis Church Devotee)
+				PlayBackstage("Swarmed on the Street" Axis Church Devotee)
+				PlayBackstage("Swarmed on the Street" Axis Church Devotee)
+			}
+			Else
+			{
+				//On play auto to find the brainstormer
+				If(Not Have("Real Magic Power is Down to Luck Too" Aqua)){
+					SearchTarget("Real Magic Power is Down to Luck Too" Aqua)
+					Play("Significance of Killing Snow Sprites?" Aqua)
+					If(Not Have("Real Magic Power is Down to Luck Too" Aqua)){
+						Play("Soul Salvation" Aqua)
+					}
+				}
+			}
+			If(LocationContains(Hand,4,NameEquals("Swarmed on the Street" Axis Church Devotee)))
+			{
+				Play("Swarmed on the Street" Axis Church Devotee)
+				Play("Swarmed on the Street" Axis Church Devotee)
+				Play("Swarmed on the Street" Axis Church Devotee)
+				PlayBackstage("Swarmed on the Street" Axis Church Devotee)
+				PlayBackstage("Real Magic Power is Down to Luck Too" Aqua)
+			}
+			If(LocationContains(Hand,3,NameEquals("Swarmed on the Street" Axis Church Devotee)))
+			{
+				Play("Swarmed on the Street" Axis Church Devotee)
+				Play("Swarmed on the Street" Axis Church Devotee)
+				Play("Swarmed on the Street" Axis Church Devotee)
+				PlayBackstage("Real Magic Power is Down to Luck Too" Aqua)
+			}
+			If(LocationContains(Hand,2,NameEquals("Swarmed on the Street" Axis Church Devotee)))
+			{
+				Play("Swarmed on the Street" Axis Church Devotee)
+				PlayBackstage("Swarmed on the Street" Axis Church Devotee)
+				PlayBackstage("Real Magic Power is Down to Luck Too" Aqua)
+			}
+		}
+	}
+	
+	//Healing with the level 1
+	If(Clock > 0){
+		If(Level == 1){
+			If(Stock >= 7){
+				If(StageCount < 5){
+					PlaySingle("Nature's Beauty" Aqua)
+				}
+				Act(0,"Nature's Beauty" Aqua)
+			}
+		}
+		
+		If(Level >= 2){
+			//Only heal with nature's beauty if it doesn't have "mesmerizing water goddess"
+			If(Stock >= 9){
+				If(StageCount < 5 || Level == 3){
+					PlaySingle("Nature's Beauty" Aqua)
+				}
+				Act(0,"Nature's Beauty" Aqua)
+			}
+			Else
+			{
+				If(Stock >= 7 && Not LocationContains(Hand,1,NameEquals("Mesmerizing Water Goddess" Aqua))){
+					If(StageCount < 5 || Level == 3){
+						PlaySingle("Nature's Beauty" Aqua)
+					}
+					Act(0,"Nature's Beauty" Aqua)
+				}
+			}
+		}
+		
+		//Don't use the early play healer yet
+	}
+	
+	//Use the brainstormer once unless you need the stock
+	//If(Level <= 1 || Stock > 3 || CardsInHand <=3){
+	//	If(StageCount < 5){
+	//		PlaySingle("Real Magic Power is Down to Luck Too" Aqua)
+	//	}
+	//	PlayRestTarget()
+	//	Act(0,"Real Magic Power is Down to Luck Too" Aqua)
+	//}
+	
+	If(Level == 1){
+		//Try to do the level 1 combo
+		If(HandContains(1,NameEquals(In the Name of the Goddess))){
+			If(LocationContains(OpponentCenterStage,1,Any) && LowestOpponentPower <= 8000)
+			{
+				If(Not CouldAttackWith(2, "Setting Out" Aqua)){
+					//Search for "Setting Out" Aqua
+					SearchTarget("Setting Out" Aqua)
+					PlaySingle("Real Magic Power is Down to Luck Too" Aqua)
+					Act(0,"Real Magic Power is Down to Luck Too" Aqua)
+				}
+				
+			}
+		}
+	}
+	
+	
+	
+	If(Level == 2){
+		//Before search acts level 2
+		//Make sure you have 2 backstage characters so that tipsy aqua can attack
+		//Do the level 1 combo once
+		
+		PlayBackstage("Pride of a Goddess" Aqua)
+		
+		Strategy(FillStage)
+		If(Have(1,"Tipsy" Aqua)){
+			
+			If(Not Have(3,"Tipsy" Aqua)){
+				SearchTarget("Tipsy" Aqua)
+			}
+			If(Not Have(2,"Tipsy" Aqua)){
+				SearchTarget("Tipsy" Aqua)
+			}
+		}
+	}
+	
+	DoSearchActs()
+	
+	
+	If(Level == 3){
+		//Look for furious fist
+		//Play furious fist
+		//Get 3 markers into waiting room
+		//Play axis church creed
+		//Repeat
+		If(Not StageContains(3, NameEquals("Furious Fist" Aqua))){
+			Play("Furious Fist" Aqua)
+		}
+		IfSpecial(Not LocationContains(WaitingRoom,3,NameEquals("Swarmed on the Street" Axis Church Devotee))){
+			Play("Pride of a Goddess" Aqua)
+			PlaySingle("Real Magic Power is Down to Luck Too" Aqua)
+			Act(0,"Real Magic Power is Down to Luck Too" Aqua)
+			If(LocationContains(Hand,1,Swarmed on the Street" Axis Church Devotee)){
+				Play("Soul Salvation" Aqua)//Play for the check top
+			}
+		}
+		If(Not StageContains(3, NameEquals("Furious Fist" Aqua))){
+			Play("Furious Fist" Aqua)
+		}
+		Play(Axis Church Creed)
+		If(Not StageContains(3, NameEquals("Furious Fist" Aqua))){
+			Play("Furious Fist" Aqua)
+		}
+		Play(Axis Church Creed)
+		DoSearchActs()
+		If(Not StageContains(3, NameEquals("Furious Fist" Aqua))){
+			Play("Furious Fist" Aqua)
+		}
+		Play(Axis Church Creed)
+		If(Not StageContains(3, NameEquals("Furious Fist" Aqua))){
+			Play("Furious Fist" Aqua)
+		}
+		Play(Axis Church Creed)
+	}
+	
+	
+}
+
+
+CardValues
+{
+	
+	//Climaxes
+	In the Name of the Goddess
+	{
+		ClimaxPower = 3000
+		ClimaxTargetCount = 2
+		If(Level == 0 || Level == 1){
+			Hand = 900
+			Duplicate:Hand = -500
+		}
+		If(Level == 2){
+			Hand = 600
+			Duplicate:Hand = -500
+		}
+		If(Level == 3){
+			Hand = 300
+			Duplicate:Hand = -300
+		}
+		
+		If(AttackersContains(NameEquals("Setting Out" Aqua))){
+			PlayCx = 1
+		}
+		
+	}
+	
+	Goddess' Fury
+	{
+		ClimaxPower = 1000
+		ClimaxTargetCount = 3
+		Hand = 300
+		Duplicate:Hand = -400
+		If(Level == 2){
+			Hand = 500
+			Duplicate:Hand = -400
+		}
+		If(Level == 3){
+			Hand = 1000
+			Duplicate:Hand = -800
+		}
+		
+		If(AttackersContains(NameEquals("Furious Fist" Aqua))){
+			PlayCx = 1
+		}
+	}
+	
+	Aqua
+	{
+		Hand = 50
+		CenterStage = 600
+		Backstage = 100
+		PlayPriority = 600
+		
+		If(Stock >= 3 && LocationContains(OpponentWaitingRoom,10,Not DeckCardIf(IsClimax)) && Not LocationContains(OpponentWaitingRoom,5,DeckCardIf(IsClimax)))
+		{
+			PlayPriority = 900
+		}
+		
+		If(Level == 2){
+			Hand = 350
+			Duplicate:Hand = -100
+		}
+		If(Level == 3){
+			//Want to use it if the it will decrease opponent's compression sygnificantly
+			If(Stock >= 3){
+				If(LocationContains(OpponentWaitingRoom,10,Not DeckCardIf(IsClimax)) && Not LocationContains(OpponentWaitingRoom,5,DeckCardIf(IsClimax))){
+					Hand = 800
+					Duplicate:Hand = -600
+				}
+			}
+		}
+		Auto(0)
+		{
+			Use = 0
+			If(LocationContains(OpponentWaitingRoom,12,Not DeckCardIf(IsClimax)) && Not LocationContains(OpponentWaitingRoom,5,DeckCardIf(IsClimax))){
+				Use = 1
+			}
+		}
+	}
+	
+	"Sacred Create Water" Aqua
+	{
+		AttackerPriority = 550
+		CenterStage = 550
+		Backstage = 120
+		PlayPriority = 500
+		If(Level == 0){
+			Hand = 200
+		}
+		If(Level == 1){
+			Hand = 500
+		}
+		If(Level == 2){
+			Hand = 300
+		}
+		If(Level == 3){
+			Hand = 100
+		}
+		Auto(0)
+		{
+			Use = 1
+		}
+	}
+	
+	"Being Shy" Eris
+	{
+		//Already has bomb tag
+		CenterStage = 600
+		Backstage = 110
+		PlayPriority = 450
+		If(LocationContins(OpponentCenterStage,1,DeckCardIf(EarlyPlay))){
+			PlayPriority = 600
+		}
+		If(CardsInHand > 5 && Stock >= 2 LocationContains(WaitingRoom(1,DeckCardIf(IsCharacter && Compare ThatCardsLevel MyLevel Exactly)))){
+			PlayPriority = 650
+		}
+		If(Level <= 1){
+			Hand = 60
+		}
+		If(Level == 2){
+			Hand = 400
+			If(CardsInHand >= 3 && Stock >= 2 && LocationContains(WaitingRoom(1,DeckCardIf(IsCharacter && Compare ThatCardsLevel MyLevel Exactly))))
+			{
+				Hand = 600
+			}
+			If(LocationContains(OpponentCenterStage,1,DeckCardIf(EarlyPlay)))
+			{
+				Hand = 750
+				CenterStage = 700
+			}
+		}
+		If(Level == 3){
+			Hand = 350
+			If(CardsInHand >= 3 && Stock >= 2 && LocationContains(WaitingRoom(1,DeckCardIf(IsCharacter && Compare ThatCardsLevel MyLevel Exactly))))
+			{
+				Hand = 550
+			}
+		}
+		Auto(0)
+		{
+			Use = 0
+			If(LowValuesInHand(500) >= 3 && Stock >= 1 && LocationContains(WaitingRoom(1,DeckCardIf(IsCharacter && Compare ThatCardsLevel MyLevel Exactly))))
+			{
+				Use = 1
+			}
+		}
+		Auto(1)
+		{
+			Use = 1
+		}
+	}
+	
+	"Providing Magic" Aqua
+	{	
+		CenterStage = 200
+		Backstage = 600
+		PlayPriority = 400
+		Duplicate:Backstage = -500
+		If(Level <= 1){
+			Hand = 90
+		}
+		If(Level == 2){
+			Hand = 550
+			Duplicate:Hand = -500
+		}
+		If(Level == 3){
+			Hand = 450
+			Duplicate:Hand = -400
+		}
+	}
+	
+	"Nature's Beauty" Aqua
+	{
+		CenterStage = 190
+		Backstage = 600
+		PlayPriority = 550
+		Duplicate:Backstage = -500
+		If(Level == 0){
+			Hand = 150
+		}
+		If(Level >= 1){
+			Hand = 600
+			Duplicate:Hand = -500
+		}
+		Act(0){
+			DontUse = 0
+			If(Clock == 0){
+				DontUse = 1
+			}
+			ActPriority = 300
+		}
+	}
+	
+	"Heaven is A Dreamy Place?" Aqua
+	{
+		CenterStage = 50
+		Backstage = 50
+		PlayPriority = 0
+		If(Level <= 1){
+			Hand = 90
+		}
+		If(Level >= 2){
+			Hand = 450
+		}
+		BackupValue = 3000
+	}
+	
+	"Pride of A Goddess" Aqua
+	{
+		PlayPriority = 700
+		CenterStage = 100
+		Backstage = 900
+		RestPriority = 1000
+		Duplicate:Backstage = -300
+		If(Level <= 1){
+			Hand = 110
+		}
+		If(Level >= 2){
+			Hand = 540
+			Duplicate:Hand = -200
+		}
+		Auto(0){
+			Use = 0
+			If(CardsInDeck >= 3){
+				Use = 1
+			}
+		}
+	}
+	
+	"Setting Out" Aqua
+	{
+		PlayPriority = 500
+		//Play
+		RestPriority = 350
+		Duplicate:PlayPriority = -100
+		If(Have(1,In The Name Of The Goddess)){
+			If(LocationContains(OpponentCenterStage,1,DeckCardIf(Compare ThatCardsPower 8000 OrLess))){
+				PlayPriority = 800
+			}
+			If(Not LocationContains(OpponentCenterStage,2,DeckCardIf(Compare ThatCardsPower 8000 OrLess))){
+				Duplicate:PlayPriority = -400
+			}
+			Else
+			{
+				Duplicate:PlayPriority = -100
+			}
+		}
+		
+		If(Have(1,In the Name of the Goddess))
+		{
+			ReversePriority = 1000
+			CenterStage = 900
+		}
+		Else
+		{
+			CenterStage = 500
+		}
+		Backstage = 100
+		If(Level == 0){
+			Hand = 500
+			Duplicate:Hand = -200
+		}
+		If(Level == 1){
+			Hand = 800
+			Duplicate:Hand = -100
+		}
+		If(Level == 2){
+			Hand = 600
+			Duplicate:Hand = -150
+			CenterStage = 700
+			ReversePriority = 800
+		}
+		If(Level == 3){
+			Hand = 500
+			Duplicate:Hand = -200
+			CenterStage = 500
+			If(Have(1,In the Name of the Goddess)){
+				ReversePriority = 800
+			}
+		}
+		Auto(0){
+			Use = 0
+			If(CardsInHand < 7 && CardsInLocation(Deck) > 2){
+				Use = 1
+			}	
+		}
+	}
+	
+	"Mesmerizing Water Goddess" Aqua
+	{
+		Tag(EarlyPlay)
+		CenterStage = 700
+		Backstage = 150
+		PlayPriority = 600
+		RestPriority = 350
+		If(CardsInHand >= 2 && Clock > 0){
+			PlayPriority = 900
+		}
+		If(Level <= 1){
+			Hand = 90
+		}
+		If(Level == 2){
+			Hand = 700
+			Duplicate:Hand = -400
+		}
+		If(Level == 3){
+			Hand = 650
+			If(CardsInHand >= 2 && Clock > 0){
+				Hand = 750
+			}
+		}
+		Auto(0)
+		{
+			Use = 0
+			If(Clock > 0){
+				If(LowValueInHand(500) || Clock >= 6){
+					Use = 1
+				}
+			}
+		}
+	}
+	
+	"Soul Salvation" Aqua
+	{
+		Hand = 400
+		CenterStage = 400
+		Backstage = 50
+		PlayPriority = 1000
+		If(WantRefresh){
+			Hand = 790
+		}
+		Auto(1){
+			Use = 0
+			If(WantRefresh){
+				Use = 1
+			}
+		}
+	}
+	
+	"Real Magic Power is Down to Luck Too" Aqua
+	{
+		Hand = 700
+		Duplicate:Hand = -400
+		Backstage = 750
+		Duplicate:Backstage = -400
+		CenterStage = 150
+		RestPriority  = 600
+		PlayPriority = 950
+		Duplicate:PlayPriority = -400
+		If(Level >= 2){
+			Backstage = 600
+			Duplicate:Backstage = -400
+		}
+		//Override default code for when to use act effect in do search acts
+		Act(0)
+		{
+			DontUse = 0
+			MaxTimesPerTurn = 1
+			//Dont use if already have 2 rested characters
+			If(LocationContains(Stage,2,DeckCardIf(CardPosition Rest))){
+				DontUse = 1
+			}
+			If(Level == 3){
+				If(Stock < 3){
+					DontUse = 1
+				}
+			}
+			If(CardsInHand > 6){
+				DontUse = 1
+			}
+			ActPriority = 800
+		}
+	}
+	
+	"Furious Fist" Aqua
+	{
+		Hand = 90
+		AttackPriority = 1000
+		ReversePriority = 700
+		CenterStage = 900
+		Backstage = 210
+		RestPriority = 100
+		PlayPriority = 950
+		Duplicate:PlayPriority = -100
+		If(StageContains(3,NameEquals("Furious Fist" Aqua))){
+			PlayPriority = 250
+		}
+		If(Level == 2){
+			Hand = 500
+			Duplicate:Hand = -100
+		}
+		If(Level == 3){
+			Hand = 500
+			If(Stock >= 2){
+				Hand = 1000
+				Duplicate:Hand = -50
+			}
+		}
+	}
+	
+	"Swarmed on the Street" Axis Church Devotee
+	{
+		PlayPriority = 200
+		Hand = 200
+		RestPriority = 550
+		If(Level == 0){
+			Hand = 700
+			CenterStage = 1000
+			Backstage = 600
+			If(Have(4,"Swarmed on the Street" Axis Church Devotee) && Have(1,"Real Magic Power is Down to Luck Too" Aqua)){
+				Hand = 0
+			}
+			If(Have(5,"Swarmed on the Street" Axis Church Devotee)){
+				Hand = 0
+			}
+		}
+		If(Level >= 1){
+			If(Have(4,"Swarmed on the Street" Axis Church Devotee)){
+				Hand = 0
+			}
+		}
+		If(Level == 1){
+			CenterStage = 500
+			Backstage = 400
+		}
+		If(Level >= 2){
+			CenterStage = 200
+			Backstage = 200
+		}
+		If(Level == 3){
+			WaitingRoomValue = 800
+		}
+		
+	}
+	
+	"Tipsy" Aqua
+	{
+		RestPriority = 400
+		If(Level == 2){
+			PlayPriority = 550
+			If(Have(2,"Tipsy" Aqua)){
+				PlayPriority(900)
+			}
+		}
+		If(Level == 3){
+			PlayPriority = 500
+		}	
+		CenterStage = 700
+		Backstage = 100
+		Duplicate:CenterStage = 100 //positive
+		If(Level == 0){
+			Hand = 100
+		}
+		If(Level == 1){
+			Hand = 500
+		}
+		If(Level == 2){
+			Hand = 750
+			If(Have(1,"Tipsy" Aqua) && Not Have(3,"Tipsy" Aqua)){
+				Hand = 900
+			}
+			If(Have(3,"Tipsy" Aqua)){
+			{
+				Hand = 300
+			}
+		}
+		If(Level == 3){
+			Hand = 300
+		}
+	}
+	
+	Axis Church Creed
+	{
+		PlayPriority = 700
+		If(StageContains("Furious Fist" Aqua) && LocationContains(WaitingRoom,3,"Swarmed On the Street" Axis Church Devotee)){
+			PlayPriority = 1000
+		}
+		Hand = 150
+		If(Level == 2){
+			Hand = 500
+		}
+		If(Level == 3){
+			Hand = 950
+		}
+	}
+	
+	"Significance of Killing Snow Sprites?" Aqua
+	{
+		Hand = 300
+		CenterStage = 251
+		Backstage = 250
+		PlayPriority = 760
+		RestPriority = 550
+		If(Level == 3){
+			Hand = 250
+		}
+		Auto(0)
+		{
+			Use = 0
+			If(Level == 0){
+				Use = 1
+			}
+			If(WouldTradeHandForCardInLocation(Deck,HasTrait(Goddess)))
+			{
+				If(Level <= 2){
+					Use = 1
+				}
+				If(Level == 3){
+					If(Clock < 5){
+						Use = 1
+					}
+				}
+			}
+		}
+	}
+	
+}
+
+

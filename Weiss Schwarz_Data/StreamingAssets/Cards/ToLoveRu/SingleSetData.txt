@@ -1,0 +1,5 @@
+Series: To Love Ru
+Folder: ToLoveRu/W37
+Prefix: TL/W37
+SetName: Vol 1 (W37)
+DLC: To Love Ru

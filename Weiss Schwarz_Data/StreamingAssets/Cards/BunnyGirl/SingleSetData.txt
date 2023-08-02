@@ -1,0 +1,4 @@
+Series: Bunny Girl Senpai
+Folder: BunnyGirl/W64
+Prefix: SBY/W64
+SetName: Bunny Girl Senpai (W64)

@@ -1,0 +1,4 @@
+Series: Revue Starlight
+Folder: Revue Starlight/S56
+Prefix: RSL/S56
+SetName: Revue Starlight (S56)

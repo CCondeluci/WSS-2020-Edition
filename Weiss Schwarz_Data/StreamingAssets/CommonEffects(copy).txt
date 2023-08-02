@@ -1,0 +1,3113 @@
+﻿//This will be read by the card library on startup to define some very common effects to make writing cards quicker
+Define: Healer
+	Tag Healer
+	Auto: OnPlay
+	{
+		If Compare CardsInClock 1 OrMore
+		{
+			Question_Obvious Put the top card of your clock into the waiting room?
+			If Yes
+			{
+				Heal
+			}
+		}
+	}
+	Text Auto: When this card is placed on the stage from your hand, you may put the top card of your clock into the waiting room.
+
+Define: 500Assist
+	Cont: Assist
+	{
+		GainPower 500
+	}
+	Text Cont: ASSIST Your characters in front of this get +500 power.
+	Tag Backstage
+
+Define: 1000Assist
+	Cont: Assist
+	{
+		GainPower 1000
+	}
+	Text Cont: ASSIST Your characters in front of this get +1000 power.
+	Tag Backstage
+Define: 1500Assist
+	Cont: Assist
+	{
+		GainPower 1500
+	}
+	Text Cont: ASSIST Your characters in front of this get +1500 power.
+	Tag Backstage
+Define: 2000Assist
+	Cont: Assist
+	{
+		GainPower 2000
+	}
+	Text Cont: ASSIST Your characters in front of this get +2000 power.
+	Tag Backstage
+
+Define: MyTurn1000Assist
+	Cont: Assist
+	{
+		If MyTurn
+		{
+			GainPower 1000
+		}
+	}
+	Text Cont: ASSIST During your turn, your characters in front of this card get +1000 power.
+	Tag Backstage
+
+Define: LevelAssist
+	Cont: Assist
+	{
+		SetXValue ThatCardsLevel
+		MultiplyXValue 500
+		GainPower X
+	}
+	Text Cont: ASSIST Your characters in front of this get +X power where X is 500 times the level of that character.
+	Tag Backstage
+
+Define: Level0Assist
+	Cont: Assist
+	{
+		If Compare ThatCardsLevel 0 OrLess
+		{
+			GainPower 1000
+		}
+	}
+	Text Cont: ASSIST Your level 0 or lower characters in front of this card get +1000 power.
+	Tag Backstage
+
+Define: RedLevel0Bomb
+	Tag Level0Bomb
+	Auto: OnReversed
+	{
+		TargetBattleOpponent
+		IfThatCard Compare ThatCardsLevel 0 OrLess && OnStage && Not CardPosition Reverse
+		{
+			Question Reverse the battle opponent?
+			If Yes
+			{
+				Reverse
+			}
+		}
+	}
+	Quick
+	Text Auto: When this card becomes reversed, if this card's battle opponent is level 0 or lower you may reverse that character.
+
+Define: RedLevel1Bomb
+	Tag Level1Bomb
+	Auto: OnReversed
+	{
+		TargetBattleOpponent
+		IfThatCard Compare ThatCardsLevel 1 OrLess && OnStage && Not CardPosition Reverse
+		{
+			Question Reverse the battle opponent?
+			If Yes
+			{
+				Reverse
+			}
+		}
+	}
+	Quick
+	Text Auto: When this card becomes reversed, if this card's battle opponent is level 1 or lower you may reverse that character.
+
+Define: RedLevel2Bomb
+	Tag Level2Bomb
+	Auto: OnReversed
+	{
+		TargetBattleOpponent
+		IfThatCard Compare ThatCardsLevel 2 OrLess && OnStage && Not CardPosition Reverse
+		{
+			Question Reverse the battle opponent?
+			If Yes
+			{
+				Reverse
+			}
+		}
+	}
+	Quick
+	Text Auto: When this card becomes reversed, if this card's battle opponent is level 2 or lower you may reverse that character.
+
+Define: RedCost0Bomb
+	Tag Cost0Bomb
+	Auto: OnReversed
+	{
+		TargetBattleOpponent
+		IfThatCard Compare ThatCardsCost 0 OrLess && OnStage && Not CardPosition Reverse
+		{
+			Question Reverse the battle opponent?
+			If Yes
+			{
+				Reverse
+			}
+		}
+	}
+	Quick
+	Text Auto: When this card becomes reversed, if this card's battle opponent is cost 0 or lower you may reverse that character.
+
+Define: RedEarlyPlayBomb
+	Tag EarlyPlayBomb
+	Auto: OnReversed
+	{
+		TargetBattleOpponent
+		SetXValue OpponentsLevel
+		AddToXValue 1
+		IfThatCard Compare ThatCardsLevel X OrMore && OnStage
+		{
+			Question_Obvious Reverse the battle opponent?
+			If Yes
+			{
+				Reverse
+			}
+		}
+	}
+	Quick
+	Text Auto: When this card becomes reversed, if the level of this card's battle opponent is higher than your opponent's level, you may reverse that character.
+
+
+Define: BlueLevel0Bomb
+	Tag Level0Bomb
+	Auto: OnReversedInBattle
+	{
+		TargetBattleOpponent
+		IfThatCard Compare ThatCardsLevel 0 OrLess && OnStage
+		{
+			Question Put the battle opponent on the bottom of the deck?
+			If Yes
+			{
+				MoveCardToBottom OpponentDeck
+			}
+		}
+	}
+	Quick
+	Text Auto: When this card becomes reversed in battle, if this card's battle opponent is level 0 or lower you may put that character on the bottom of your opponent's deck.
+
+Define: BlueLevel1Bomb
+	Tag Level1Bomb
+	Auto: OnReversedInBattle
+	{
+		TargetBattleOpponent
+		IfThatCard Compare ThatCardsLevel 1 OrLess && OnStage
+		{
+			Question Put the battle opponent on the bottom of the deck?
+			If Yes
+			{
+				MoveCardToBottom OpponentDeck
+			}
+		}
+	}
+	Quick
+	Text Auto: When this card becomes reversed in battle, if this card's battle opponent is level 1 or lower you may put that character on the bottom of your opponent's deck.
+
+Define: BlueLevel2Bomb
+	Tag Level2Bomb
+	Auto: OnReversedInBattle
+	{
+		TargetBattleOpponent
+		IfThatCard Compare ThatCardsLevel 2 OrLess && OnStage
+		{
+			Question Put the battle opponent on the bottom of the deck?
+			If Yes
+			{
+				MoveCardToBottom OpponentDeck
+			}
+		}
+	}
+	Quick
+	Text Auto: When this card becomes reversed in battle, if this card's battle opponent is level 2 or lower you may put that character on the bottom of your opponent's deck.
+
+Define: BlueCost0Bomb
+	Tag Cost0Bomb
+	Auto: OnReversedInBattle
+	{
+		TargetBattleOpponent
+		IfThatCard Compare ThatCardsCost 0 OrLess && OnStage
+		{
+			Question Put the battle opponent on the bottom of the deck?
+			If Yes
+			{
+				MoveCardToBottom OpponentDeck
+			}
+		}
+	}
+	Quick
+	Text Auto: When this card becomes reversed in battle, if this card's battle opponent is cost 0 or lower you may put that character on the bottom of your opponent's deck.
+
+Define: BlueEarlyPlayBomb
+	Tag EarlyPlayBomb
+	Auto: OnReversedInBattle
+	{
+		TargetBattleOpponent
+		SetXValue OpponentsLevel
+		AddToXValue 1
+		IfThatCard Compare ThatCardsLevel X OrMore && OnStage
+		{
+			Question Put the battle opponent on the bottom of the deck?
+			If Yes
+			{
+				MoveCardToBottom OpponentDeck
+			}
+		}
+	}
+	Quick
+	Text Auto: When this card becomes reversed in battle, if the level of this card's battle opponent is higher than your opponent's level, you may put that character on the bottom of your opponent's deck.
+
+
+
+Define: YellowLevel0Bomb
+	Tag Level0Bomb
+	Auto: OnReversed
+	{
+		TargetBattleOpponent
+		IfThatCard Compare ThatCardsLevel 0 OrLess && OnStage
+		{
+			Question Put the battle opponent into your opponent's stock?
+			If Yes
+			{
+				MoveCard OpponentStock
+				TargetBottom OpponentStock 1
+				MoveCard OpponentWaitingRoom
+			}
+		}
+	}
+	Quick
+	Text Auto: When this card becomes reversed, if this card's battle opponent is level 0 or lower, you may put that character into your opponent's stock, if you do, put a card from the bottom of your opponent's stock into his or her waiting room.
+	
+Define: YellowLevel1Bomb
+	Tag Level1Bomb
+	Auto: OnReversed
+	{
+		TargetBattleOpponent
+		IfThatCard Compare ThatCardsLevel 1 OrLess && OnStage
+		{
+			Question Put the battle opponent into your opponent's stock?
+			If Yes
+			{
+				MoveCard OpponentStock
+				TargetBottom OpponentStock 1
+				MoveCard OpponentWaitingRoom
+			}
+		}
+	}
+	Quick
+	Text Auto: When this card becomes reversed, if this card's battle opponent is level 1 or lower, you may put that character into your opponent's stock, if you do, put a card from the bottom of your opponent's stock into his or her waiting room.
+
+Define: YellowLevel2Bomb
+	Tag Level2Bomb
+	Auto: OnReversed
+	{
+		TargetBattleOpponent
+		IfThatCard Compare ThatCardsLevel 2 OrLess && OnStage
+		{
+			Question Put the battle opponent into your opponent's stock?
+			If Yes
+			{
+				MoveCard OpponentStock
+				TargetBottom OpponentStock 1
+				MoveCard OpponentWaitingRoom
+			}
+		}
+	}
+	Quick
+	Text Auto: When this card becomes reversed, if this card's battle opponent is level 2 or lower, you may put that character into your opponent's stock, if you do, put a card from the bottom of your opponent's stock into his or her waiting room.
+	
+Define: YellowCost0Bomb
+	Tag Cost0Bomb
+	Auto: OnReversed
+	{
+		TargetBattleOpponent
+		IfThatCard Compare ThatCardsCost 0 OrLess && OnStage
+		{
+			Question Put the battle opponent into your opponent's stock?
+			If Yes
+			{
+				MoveCard OpponentStock
+				TargetBottom OpponentStock 1
+				MoveCard OpponentWaitingRoom
+			}
+		}
+	}
+	Quick
+	Text Auto: When this card becomes reversed, if this card's battle opponent is cost 0 or lower, you may put that character into your opponent's stock, if you do, put a card from the bottom of your opponent's stock into his or her waiting room.
+	
+Define: YellowEarlyPlayBomb
+	Tag EarlyPlayBomb
+	Auto: OnReversed
+	{
+		TargetBattleOpponent
+		SetXValue OpponentsLevel
+		AddToXValue 1
+		IfThatCard Compare ThatCardsLevel X OrMore && OnStage
+		{
+			Question Put the battle opponent into your opponent's stock?
+			If Yes
+			{
+				MoveCard OpponentStock
+				TargetBottom OpponentStock 1
+				MoveCard OpponentWaitingRoom
+			}
+		}
+	}
+	Quick
+	Text Auto: When this card becomes reversed, if the level of this card's battle opponent is higher than your opponent's level, you may put that character into your opponent's stock, if you do, put a card from the bottom of your opponent's stock into his or her waiting room.
+		
+
+Define: GreenLevel0Bomb
+	Tag Level0Bomb
+	Auto: OnReversed
+	{
+		TargetLocation OpponentClock
+		If HasTarget
+		{
+			TargetBattleOpponent
+			IfThatCard Compare ThatCardsLevel 0 OrLess && OnStage
+			{
+				Question Put the top card of the opponent's clock into the waiting room to put the battle opponent into clock?
+				If Yes
+				{
+					TargetTop OpponentClock 1
+					MoveCard OpponentWaitingRoom
+					TargetBattleOpponent
+					MoveCard OpponentClock
+				}
+			}
+		}
+	}
+	Quick
+	Text Auto: When this card becomes reversed, if this card's battle opponent is level 0 or lower, you may put the top card of your opponent's clock into the waiting room, and if you do, put that character into your opponent's clock.
+	
+Define: GreenLevel1Bomb
+	Tag Level1Bomb
+	Auto: OnReversed
+	{
+		TargetLocation OpponentClock
+		If HasTarget
+		{
+			TargetBattleOpponent
+			IfThatCard Compare ThatCardsLevel 1 OrLess && OnStage
+			{
+				Question Put the top card of the opponent's clock into the waiting room to put the battle opponent into clock?
+				If Yes
+				{
+					TargetTop OpponentClock 1
+					MoveCard OpponentWaitingRoom
+					TargetBattleOpponent
+					MoveCard OpponentClock
+				}
+			}
+		}
+	}
+	Quick
+	Text Auto: When this card becomes reversed, if this card's battle opponent is level 1 or lower, you may put the top card of your opponent's clock into the waiting room, and if you do, put that character into your opponent's clock.
+	
+	
+Define: GreenLevel2Bomb
+	Tag Level2Bomb
+	Auto: OnReversed
+	{
+		TargetLocation OpponentClock
+		If HasTarget
+		{
+			TargetBattleOpponent
+			IfThatCard Compare ThatCardsLevel 2 OrLess && OnStage
+			{
+				Question Put the top card of the opponent's clock into the waiting room to put the battle opponent into clock?
+				If Yes
+				{
+					TargetTop OpponentClock 1
+					MoveCard OpponentWaitingRoom
+					TargetBattleOpponent
+					MoveCard OpponentClock
+				}
+			}
+		}
+	}
+	Quick
+	Text Auto: When this card becomes reversed, if this card's battle opponent is level 2 or lower, you may put the top card of your opponent's clock into the waiting room, and if you do, put that character into your opponent's clock.
+
+Define: GreenCost0Bomb
+	Tag Cost0Bomb
+	Auto: OnReversed
+	{
+		TargetLocation OpponentClock
+		If HasTarget
+		{
+			TargetBattleOpponent
+			IfThatCard Compare ThatCardsCost 0 OrLess && OnStage
+			{
+				Question Put the top card of the opponent's clock into the waiting room to put the battle opponent into clock?
+				If Yes
+				{
+					TargetTop OpponentClock 1
+					MoveCard OpponentWaitingRoom
+					TargetBattleOpponent
+					MoveCard OpponentClock
+				}
+			}
+		}
+	}
+	Quick
+	Text Auto: When this card becomes reversed, if this card's battle opponent is cost 0 or lower, you may put the top card of your opponent's clock into the waiting room, and if you do, put that character into your opponent's clock.
+	
+Define: GreenEarlyPlayBomb
+	Tag EarlyPlayBomb
+	Auto: OnReversed
+	{
+		If Compare CardsInOpponentsClock 1 OrMore
+		{
+			TargetBattleOpponent
+			IfTarget Compare ThatCardsLevel OpponentsLevel GreaterThan && OnStage
+			{
+				Question Put the top card of the opponent's clock into the waiting room to put the battle opponent into clock?
+				If Yes
+				{
+					TargetTop OpponentClock 1
+					MoveCard OpponentWaitingRoom
+					TargetBattleOpponent
+					MoveCard OpponentClock
+				}
+			}
+		}
+	}
+	Quick
+	Text Auto: When this card becomes reversed, if the level of this card's battle opponent is higher than your opponent's level, you may put the top card of your opponent's clock into the waiting room, and if you do, put that character into your opponent's clock.
+
+
+	
+
+Define: HandEncore
+Auto: Encore Discard 1 IsCharacter
+{
+}
+Text Auto: ENCORE [Discard a character]
+Tag Encore
+
+Define: HandEncoreTrait(TRAITLIST)
+Auto: Encore Discard 1 IsCharacter && HasTrait TRAITLIST
+{
+}
+Text Auto: ENCORE [Discard a $TRAITLIST character]
+Tag Encore
+
+Define: ClockEncore
+Auto: Encore Clock
+{
+}
+Text Auto: ENCORE [Put the top card of your deck into your clock]
+Tag Encore
+
+Define: Scry_Bottom
+	PeekTop Deck
+	Question Place this card on the bottom of the deck? (Press no to return it to the top)
+	If Yes
+	{
+		MoveCardToBottom Deck
+	}
+	If No
+	{
+		EndPeek Deck
+	}
+
+Define: ScryToBottom
+	PeekTop Deck
+	Question Place this card on the bottom of the deck? (Press no to return it to the top)
+	If Yes
+	{
+		MoveCardToBottom Deck
+	}
+	If No
+	{
+		EndPeek Deck
+	}
+
+Define: Scry
+	PeekTop Deck
+	Question Place this card in your waiting room? (Press no to return it to the top)
+	If Yes
+	{
+		MoveCard WaitingRoom
+	}
+	If No
+	{
+		EndPeek Deck
+	}
+	
+Define: ScryOnPlay
+	Auto: OnPlay
+	{
+		PeekTop Deck
+		Question Place this card in your waiting room? (Press no to return it to the top)
+		If Yes
+		{
+			MoveCard WaitingRoom
+		}
+		If No
+		{
+			EndPeek Deck
+		}
+	}
+	Text Auto: When this card is placed on the stage from your hand, look at the top card of your deck, put it on the top of your deck or into the waiting room.
+
+Define: OnPlayScry
+	Auto: OnPlay
+	{
+		PeekTop Deck
+		Question Place this card in your waiting room? (Press no to return it to the top)
+		If Yes
+		{
+			MoveCard WaitingRoom
+		}
+		If No
+		{
+			EndPeek Deck
+		}
+	}
+	Text Auto: When this card is placed on the stage from your hand, look at the top card of your deck, put it on the top of your deck or into the waiting room.
+
+
+Define: ScryToBottomOnPlay
+	Auto: OnPlay
+	{
+		PeekTop Deck
+		Question Place this card on the bottom of your deck? (Press no to return it to the top)
+		If Yes
+		{
+			MoveCardToBottom Deck
+		}
+		If No
+		{
+			EndPeek Deck
+		}
+	}
+	Text Auto: When this card is placed on the stage from your hand, look at the top card of your deck, put it on the top or bottom of your deck.
+
+Define: OnPlayScryToBottom
+	Auto: OnPlay
+	{
+		PeekTop Deck
+		Question Place this card on the bottom of your deck? (Press no to return it to the top)
+		If Yes
+		{
+			MoveCardToBottom Deck
+		}
+		If No
+		{
+			EndPeek Deck
+		}
+	}
+	Text Auto: When this card is placed on the stage from your hand, look at the top card of your deck, put it on the top or bottom of your deck.
+
+
+	
+Define: DrawClimax
+	Trigger DoubleSoul
+	Tag Climax_1_2K1
+	Auto: OnPlay
+	{
+		DrawCard
+		Message Choose a character to get +2000 power and +1 soul.
+		AIChoice GainPower 2000
+		ChooseCharacter InLocation CenterStage
+		GainPower 2000
+		GainSoul 1
+	}
+	Text Auto: When this is placed in your climax area, draw 1 card, choose 1 of your characters, it gets +2000 power for the turn.
+	
+Define: OldStockSoulClimax
+	Trigger DoubleSoul
+	Tag Climax_OldStockSoul
+	Auto: OnPlay
+	{
+		TargetTop Deck 1
+		MoveCard Stock
+		TargetLocation Stage
+		GainSoul 1
+	}
+	Text Auto: When this is placed in your climax area, put the top card of your deck into your stock, and all your characters get +1 soul for the turn.
+
+Define: OldStockSoul
+	Trigger DoubleSoul
+	Tag Climax_OldStockSoul
+	Auto: OnPlay
+	{
+		TargetTop Deck 1
+		MoveCard Stock
+		TargetLocation Stage
+		GainSoul 1
+	}
+	Text Auto: When this is placed in your climax area, put the top card of your deck into your stock, and all your characters get +1 soul for the turn.
+
+Define: RedStockSoul
+	Color R
+	Trigger DoubleSoul
+	Auto: OnPlay
+	{
+		AIChoice RemoveFromWaitingRoom
+		SearchWaitingRoomForTarget ColorIs Red
+		MoveCard Stock
+		TargetLocation Stage
+		GainSoul 1
+	}
+	Text Auto: When this is placed in your climax area, choose up to 1 red card in your waiting room and put it into your stock, and all your characters get +1 soul for the turn..
+
+Define: YellowStockSoul
+	Color Y
+	Trigger DoubleSoul
+	Auto: OnPlay
+	{
+		AIChoice RemoveFromWaitingRoom
+		SearchWaitingRoomForTarget ColorIs Yellow
+		MoveCard Stock
+		TargetLocation Stage
+		GainSoul 1
+	}
+	Text Auto: When this is placed in your climax area, choose up to 1 yellow card in your waiting room and put it into your stock, and all your characters get +1 soul for the turn..
+
+Define: BlueStockSoul
+	Color B
+	Trigger DoubleSoul
+	Auto: OnPlay
+	{
+		AIChoice RemoveFromWaitingRoom
+		SearchWaitingRoomForTarget ColorIs Blue
+		MoveCard Stock
+		TargetLocation Stage
+		GainSoul 1
+	}
+	Text Auto: When this is placed in your climax area, choose up to 1 blue card in your waiting room and put it into your stock, and all your characters get +1 soul for the turn..
+
+Define: GreenStockSoul
+	Color G
+	Trigger DoubleSoul
+	Auto: OnPlay
+	{
+		AIChoice RemoveFromWaitingRoom
+		SearchWaitingRoomForTarget ColorIs Green
+		MoveCard Stock
+		TargetLocation Stage
+		GainSoul 1
+	}
+	Text Auto: When this is placed in your climax area, choose up to 1 green card in your waiting room and put it into your stock, and all your characters get +1 soul for the turn..
+	
+
+Define: 2SoulClimax
+	Trigger DoubleSoul
+	Tag Climax_2Soul
+	Cont: GiveAll
+	{
+		GainSoul 2
+	}
+	Text Cont: All your characters get +2 soul.
+		
+
+Define: 1K1Climax
+	Tag Climax_All_1K1
+	Trigger DoubleSoul
+	Cont: GiveAll
+	{
+		GainPower 1000
+		GainSoul 1
+	}
+	Text Cont: All your characters get +1000 power and +1 soul.
+
+Define: BookClimax
+	Color B
+	Trigger Book
+	Tag Climax_All_1K1
+	Cont: GiveAll
+	{
+		GainPower 1000
+		GainSoul 1
+	}
+	Text When this card is triggered draw up to 1 card.
+	Text Cont: All your characters get +1000 power and +1 soul.
+
+Define: GateClimax
+	Color B
+	Trigger Gate
+	Tag Climax_All_1K1
+	Cont: GiveAll
+	{
+		GainPower 1000
+		GainSoul 1
+	}
+	Text When this card is triggered, you may choose a climax in your waiting room and return it to your hand.
+	Text Cont: All your characters get +1000 power and +1 soul.
+
+Define: BagClimax
+	Color G
+	Trigger Bag
+	Tag Climax_All_1K1
+	Cont: GiveAll
+	{
+		GainPower 1000
+		GainSoul 1
+	}
+	Text When this card is triggered, you may put the top card of your deck into your stock.
+	Text Cont: All your characters get +1000 power and +1 soul.
+	
+Define: BarClimax
+	Color G
+	Trigger Bar
+	Tag Climax_All_1K1
+	Cont: GiveAll
+	{
+		GainPower 1000
+		GainSoul 1
+	}
+	Text When this card is triggered, add this card to your hand, then you may put the top card of your deck into your stock.
+	Text Cont: All your characters get +1000 power and +1 soul.
+	
+Define: ShotClimax
+	Color Y
+	Trigger Shot
+	Tag Climax_All_1K1
+	Cont: GiveAll
+	{
+		GainPower 1000
+		GainSoul 1
+	}
+	Text When this card is triggerd, during this turn, when the next damage delt by the attacking character that triggered this card is canceled, deal 1 damage to your opponent.
+	Text Cont: All your characters get +1000 power and +1 soul.
+	
+Define: WindClimax
+	Color Y
+	Trigger Wind
+	Tag Climax_All_1K1
+	Cont: GiveAll
+	{
+		GainPower 1000
+		GainSoul 1
+	}
+	Text When this card is triggered, choose up to 1 of your opponent's characters, and return it to your opponent's hand.
+	Text Cont: All your characters get +1000 power and +1 soul.
+
+Define: DoorClimax
+	Color R
+	Trigger Door
+	Tag Climax_All_1K1
+	Cont: GiveAll
+	{
+		GainPower 1000
+		GainSoul 1
+	}
+	Text When this card is triggered, choose up to 1 character in your waiting room and return it to your hand.
+	Text Cont: All your characters get +1000 power and +1 soul.
+	
+Define: StandbyClimax
+	Color R
+	Trigger Standby
+	Tag Climax_Standby
+	Auto: OnPlay
+	{
+		SetXValue MyLevel
+		AddToXValue 1
+		AIChoice PlaceOnStageRested
+		SearchLocationForTargets WaitingRoom 0 1 IsCharacter && Compare ThatCardsLevel X OrLess
+		If HasTarget
+		{
+			PlaceOnStage false true true true
+		}
+	}
+	Text Standby: When this card is triggered, choose up to 1 character in your waiting room whose level is less than or equal to your level plus 1 and put it on any position of your stage rested.
+	Text Standby: Auto: When this is placed in your climax area, perform the above effect.
+
+Define: ChoiceClimax
+	Color Y
+	Trigger Choice
+	Cont: GiveAll
+	{
+		GainPower 1000
+		GainSoul 1
+	}
+	Text When this card is triggered, choose up to 1 character with a soul trgger in your waiting room and put it into either your hand or your stock.
+	Text Cont: All your characters get +1000 power and +1 soul.
+
+Define: Draw3SoulClimax
+	Trigger DoubleSoul
+	Auto: OnPlay
+	{
+		DrawCard
+		AIChoice GainSoul 3
+		Message Choose a character to get +3 soul.
+		AIChoice GainSoul 3
+		ChooseCharacter InLocation CenterStage
+		GainSoul 3
+	}
+	Text Auto: When this card is placed in your climax area, draw 1 card, choose 1 of your characters, it gets +3 soul for the turn.
+	
+
+Define: 2K1Climax
+	Trigger DoubleSoul
+	Auto: OnPlay
+	{
+		AIChoice GainPower 2000
+		Message Choose 2 characters to give +2000 power and +1 soul.
+		ChooseMultipleCharacters 0 2 InLocation Stage
+		GainPower 2000
+		GainSoul 1
+	}
+	Text Auto: When this card is placed in your climax area, choose up to 2 of your characters, they get +2000 power and +1 soul until end of turn.
+
+Define: 2K2Climax(COLOR)
+	Trigger DoubleSoul
+	Auto: OnPlay
+	{
+		AIChoice GainPower 2000
+		Message Choose 2 characters to give +2000 power and +2 soul.
+		ChooseMultipleCharacters 0 2 InLocation Stage && IsColor COLOR
+		GainPower 2000
+		GainSoul 2
+	}
+	Text Auto: When this card is placed in your climax area, choose up to 2 of your COLOR characters, they each get +2000 power and +2 soul until end of turn.
+
+Define: 3K1Climax(COLOR)
+	Trigger DoubleSoul
+	Auto: OnPlay
+	{
+		AIChoice GainPower 3000
+		Message Choose 2 characters to give +3000 power and +1 soul.
+		ChooseMultipleCharacters 0 2 InLocation Stage && IsColor COLOR
+		GainPower 3000
+		GainSoul 1
+	}
+	Text Auto: When this card is placed in your climax area, choose up to 2 of your COLOR characters, they each get +3000 power and +1 soul until end of turn.
+
+
+Define: ContForEachOtherTrait(POWER,LIST_TRAIT)
+	Cont: GiveSelf
+	{
+		SetXToNumberOfCharacters Other && HasTrait LIST_TRAIT
+		MultiplyXValue POWER
+		GainPower X
+	}
+	Text Cont: This card gets +POWER power for each of your other $LIST_TRAIT characters.
+
+Define: GainPowerForEachOther(POWER,LIST_TRAIT)
+	Cont: GiveSelf
+	{
+		SetXToNumberOfCharacters Other && HasTrait LIST_TRAIT
+		MultiplyXValue POWER
+		GainPower X
+	}
+	Text Cont: This card gets +POWER power for each of your other $LIST_TRAIT characters.
+	
+
+Define: ClimaxPhaseCheckTopRestIfClimax
+	Auto: StartClimaxPhase
+	{
+		TargetTop Deck 1
+		Reveal
+		IfThatCard IsClimax
+		{
+			TargetSelf
+			Rest
+		}
+	}
+	Text Auto: At the beginning of your climax phase, reveal the top card of your deck. If the revealed card is a climax, rest this card.
+	
+Define: ClimaxPhaseCheckTopTributeOtherIfClimax
+	Auto: StartClimaxPhase
+	{
+		TargetTop Deck 1
+		Reveal
+		IfThatCard IsClimax
+		{
+			TargetLocation Stage
+			NarrowTargets Other
+			If HasTarget
+			{
+				Message Choose a character to put into the waiting room.
+				ChooseCharacterFromTargets
+				MoveCard WaitingRoom
+			}
+		}
+	}
+	Text Auto: At the beginning of your climax phase, reveal the top card of your deck. If the revealed card is a climax, choose 1 of your other characters and put it into the waiting room.
+	
+Define: OnPlayCheckTopRestIfClimax
+	Auto: OnPlay
+	{
+		TargetTop Deck 1
+		Reveal
+		IfThatCard IsClimax
+		{
+			TargetSelf
+			Rest
+		}
+	}
+	Text Auto: When this card is placed on the stage from your hand, reveal the top card of your deck. If the revealed card is a climax, rest this card.
+
+Define: Bond1(CARDNAME)
+	Auto: OnPlayedNormally
+	{
+		PayCost 1
+		{
+			Bond CARDNAME
+		}
+	}
+	Text Auto: BOND/ <b>"CARDNAME"</b>" [(1)] (<i>When this card is played and placed on the stage, you may pay the cost, choose 1 "CARDNAME" in your waiting room, and return it to your hand</i>)
+	
+Define: BondClock(CARDNAME)
+	Auto: OnPlayedNormally
+	{
+		PayCost Clock
+		{
+			Bond CARDNAME
+		}
+	}
+	Text Auto: BOND/ <b>"CARDNAME"</b>[Put the top card of your deck into your clock] (<i>When this card is played and placed on the stage, you may pay the cost, choose 1 "CARDNAME" in your waiting room, and return it to your hand</i>)
+	
+Define: BondDiscard(CARDNAME)
+	Auto: OnPlayedNormally
+	{
+		PayCost Discard 1 Any
+		{
+			Bond CARDNAME
+		}
+	}
+	Text Auto: BOND/ <b>"CARDNAME"</b>[Discard 1 card] (<i>When this card is played and placed on the stage, you may pay the cost, choose 1 "CARDNAME" in your waiting room, and return it to your hand</i>)
+
+Define: Revenge(POWER)
+	Auto: OnOtherReversed
+	{
+		TargetLocation Stage
+		AIChoice GainPower POWER
+		ChooseCharacterFromTargets
+		GainPower POWER
+	}
+	Text Auto: When your other character becomes reversed in battle, choose 1 of your characters, it gets +POWER power until end of turn.
+
+Define: RevengeTrait(POWER,TRAITLIST)
+	Auto: OnOtherReversed
+	{
+		TargetLocation Stage
+		NarrowTargets HasTrait TRAITLIST
+		AIChoice GainPower POWER
+		ChooseCharacterFromTargets
+		GainPower POWER
+	}
+	Text Auto: When your other character becomes reversed in battle, choose 1 of your $TRAITLIST characters, it gets +POWER power until end of turn.
+
+Define: PowerInMiddle(POWER)
+	Cont: GiveSelf
+	{
+		If InLocation MiddleCenterStage
+		{
+			GainPower POWER
+		}
+	}
+	Text Cont: If this card is in the middle position of your center stage, this card gets +POWER power.
+	
+Define: ChangeWaitingRoom(TARGETNAME)
+	TargetLocation WaitingRoom
+	NarrowTargets NameEquals TARGETNAME
+	If HasTarget
+	{
+		AIChoice Random
+		SearchLocationForTargets WaitingRoom 1 1 NameEquals TARGETNAME
+		Change
+	}
+	Else
+	{
+		Message No change targets in waiting room :(
+	}
+	
+Define: DropSearch(TRAITLIST)
+	Auto: OnPlay
+	{
+		PayCost 1 Discard 1 Any
+		{
+			SearchDeck HasTrait TRAITLIST
+		}
+	}
+	Text Auto: [(1) Put a card from your hand into the waiting room] When this card is placed on the stage from your hand, you may pay the cost, search your deck for up to one $TRAITLIST character, and add it to your hand.
+
+Define: OptionalDraw
+	Question_Obvious Draw a card?
+	If Yes
+	{
+		DrawCard
+	}
+
+Define: OptionalDrawDiscard
+	Question Draw a card then discard a card?
+	If Yes
+	{
+		DrawCard
+		Discard 1 Any
+	}
+	
+Define: ScryWhenAttacked
+	Auto: OnFrontalAttacked
+	{
+		Peek Deck 1
+		Question Place this card in your waiting room? (Press no to return it to the top)
+		If Yes
+		{
+			MoveCard WaitingRoom
+		}
+		If No
+		{
+			EndPeek Deck
+		}
+	}
+	Text Auto: When this card is frontal attacked, look at the top card of your deck, and put it on the top of your deck or into the waiting room.
+	
+Define: GivePowerOnAct(POWER,TIMESPERTURN)
+	Auto: OnUseAct
+	{
+		TargetLocation Stage
+		AIChoice GainPower POWER
+		ChooseCharacterFromTargets
+		GainPower POWER
+	}
+	TimesPerTurn TIMESPERTURN
+	Text Auto: This ability activates up to TIMESPERTURN times per turn. When you use an Act ability, choose one of your characters, it gets +POWER power until end of turn.
+
+Define: OnActGivePower(POWER,TIMESPERTURN)
+	Auto: OnUseAct
+	{
+		TargetLocation Stage
+		AIChoice GainPower POWER
+		ChooseCharacterFromTargets
+		GainPower POWER
+	}
+	TimesPerTurn TIMESPERTURN
+	Text Auto: This ability activates up to TIMESPERTURN times per turn. When you use an Act ability, choose one of your characters, it gets +POWER power until end of turn.
+	
+
+Define: SearchDeckToPlaceOnStage(REQUIREMENT, RESTED)
+	AIChoice PlaceOnStageStanding
+	Message Choose a character to place on stage.
+	SearchLocationForTargets Deck 0 1 REQUIREMENT
+	RevealTargets
+	PlaceOnStage False True True RESTED
+	ShuffleLocation Deck
+	
+
+Define: PowerOnMyTurn(POWER)
+	Cont: GiveSelf
+	{
+		If MyTurn
+		{
+			GainPower POWER
+		}
+	}
+	Text Cont: During your turn, this card gets +POWER power.
+	
+Define: GiveOthersPowerOnMyTurn(POWER)
+	Cont: GiveAll
+	{
+		If MyTurn && Other
+		{
+			GainPower POWER
+		}
+	}
+	Text Cont: During your turn, all of your other characters get +POWER power.
+	
+Define: MoveOtherToBackstageOnReverse
+	Auto: OnOpponentReverse
+	{
+		TargetLocation Stage
+		NarrowTargets Other
+		AIChoice RestAndMoveToBackstage
+		ChooseCharacterFromTargets Choose a character to rest and move to the backstage.
+		Rest
+		If HasTarget
+		{
+			MoveToOpenPosition False True
+		}
+	}
+	Text Auto: When this card's battle opponent becomes reversed, choose one of your other characters, rest it, and move it to an open position of your backstage.
+
+Define: MoveOtherWithTraitToBackstageOnReverse(TRAITLIST)
+	Auto: OnOpponentReverse
+	{
+		TargetLocation Stage
+		NarrowTargets Other && HasTrait TRAITLIST
+		AIChoice RestAndMoveToBackstage
+		ChooseCharacterFromTargets Choose a character to rest and move to the backstage.
+		Rest
+		If HasTarget
+		{
+			MoveToOpenPosition False True
+		}
+	}
+	Text Auto: When this card's battle opponent becomes reversed, choose one of your other $TRAITLIST characters, rest it, and move it to an open position of your backstage.
+
+Define: CleanCut(TRAITLIST)
+	Auto: OnOpponentReverse
+	{
+		TargetLocation Stage
+		NarrowTargets Other && HasTrait TRAITLIST
+		AIChoice RestAndMoveToBackstage
+		ChooseCharacterFromTargets Choose a character to rest and move to the backstage.
+		Rest
+		If HasTarget
+		{
+			MoveToOpenPosition False True
+		}
+	}
+	Text Auto: When this card's battle opponent becomes reversed, choose one of your other $TRAITLIST characters, rest it, and move it to an open position of your backstage.
+
+
+Define: OptionalBlindStock
+	Question_Obvious Put the top card of your deck into your stock?
+	If Yes
+	{
+		BlindStock
+	}
+	
+Define: DrawBrainstorm
+	Brainstorm 4
+	PerClimax
+	{
+		Question_Obvious Draw a card?
+		If Yes
+		{
+			DrawCard
+		}
+	}
+	
+Define: ActDrawBrainstorm
+	Act: 1 RestSelf
+	{
+		Brainstorm 4
+		PerClimax
+		{
+			Question_Obvious Draw a card?
+			If Yes
+			{
+				DrawCard
+			}
+		}
+	}
+	Text Act: BRAINSTORM [(1) Rest this card] Flip over four cards from the top of your deck and put them into the waiting room. For each climax revealed, draw up to one card.
+
+Define: Act1RestSelfDrawBrainstorm
+	Act: 1 RestSelf
+	{
+		Brainstorm 4
+		PerClimax
+		{
+			Question_Obvious Draw a card?
+			If Yes
+			{
+				DrawCard
+			}
+		}
+	}
+	Text Act: BRAINSTORM [(1) Rest this card] Flip over four cards from the top of your deck and put them into the waiting room. For each climax revealed, draw up to one card.
+
+
+Define: SalvageBrainstorm
+	Brainstorm 4
+	If Compare BrainstormedClimax 1 OrMore
+	{
+		SearchLocationForTargets WaitingRoom 0 BrainstormedClimax IsCharacter
+	}
+	
+Define: ShuffleOpponentClimax
+	//Option to choose a climax in your opponent's waiting room and shuffle it into the deck. Keeps it targeted so you can tell if it was successful
+	TargetLocation OpponentWaitingRoom
+	NarrowTargets IsClimax
+	If HasTarget
+	{
+		Question Choose a climax in your opponent's waiting room and shuffle it into the deck?
+		If Yes
+		{
+			TargetLocation OpponentWaitingRoom
+			AIChoice Random
+			ChooseCardsFromTargets 1 1 IsClimax
+			MoveCard OpponentDeck
+			ShuffleLocation OpponentDeck
+		}
+		Else
+		{
+			ClearTargets
+		}
+	}
+	
+Define: ShuffleOpponentClimax_Required
+	//Option to choose a climax in your opponent's waiting room and shuffle it into the deck. Keeps it targeted so you can tell if it was successful
+	TargetLocation OpponentWaitingRoom
+	NarrowTargets IsClimax
+	If HasTarget
+	{
+		TargetLocation OpponentWaitingRoom
+		AIChoice Random
+		ChooseCardsFromTargets 1 1 IsClimax
+		MoveCard OpponentDeck
+		ShuffleLocation OpponentDeck
+	}
+	
+Define: Check5Add1(TRAITLIST)
+	RevealUpTo Deck 5
+	AIChoice AddToHand
+	ChooseCardsFromTargets 0 1 HasTrait TRAITLIST && IsCharacter
+	RevealTargets
+	MoveCard Hand
+	PutTheRestIntoTheWaitingRoom
+	
+Define: Check4Add1(TRAITLIST)
+	RevealUpTo Deck 4
+	AIChoice AddToHand
+	ChooseCardsFromTargets 0 1 HasTrait TRAITLIST && IsCharacter
+	RevealTargets
+	MoveCard Hand
+	PutTheRestIntoTheWaitingRoom
+	
+Define: Check3Add1(TRAITLIST)
+	RevealUpTo Deck 3
+	AIChoice AddToHand
+	ChooseCardsFromTargets 0 1 HasTrait TRAITLIST && IsCharacter
+	RevealTargets
+	MoveCard Hand
+	PutTheRestIntoTheWaitingRoom
+	
+Define: Check2Add1(TRAITLIST)
+	RevealUpTo Deck 2
+	AIChoice AddToHand
+	ChooseCardsFromTargets 0 1 HasTrait TRAITLIST && IsCharacter
+	RevealTargets
+	MoveCard Hand
+	PutTheRestIntoTheWaitingRoom
+	
+Define: Check4Add1Level1OrHigher
+	RevealUpTo Deck 4
+	AIChoice AddToHand
+	ChooseCardsFromTargets 0 1 Compare ThatCardsLevel 1 OrMore
+	RevealTargets
+	MoveCard Hand
+	PutTheRestIntoTheWaitingRoom
+	
+Define: WhenOtherAttackedSacrificeToGivePower(POWER, TRAITLIST)
+	Auto: OnOtherFrontalAttacked
+	{
+		IfOther HasTrait TRAITLIST
+		{
+			PayCost SendSelf WaitingRoom
+			{
+				TargetOther
+				GainPower POWER
+			}
+		}
+	}
+	Text Auto: [Put this card into your waiting room] When your other $TRAITLIST character is frontal attacked, you may pay the cost, your character in battle gets +POWER power until end of turn.
+
+Define: OnOtherAttackedSacrificeToGivePower(POWER, TRAITLIST)
+	Auto: OnOtherFrontalAttacked
+	{
+		IfOther HasTrait TRAITLIST
+		{
+			PayCost SendSelf WaitingRoom
+			{
+				TargetOther
+				GainPower POWER
+			}
+		}
+	}
+	Text Auto: [Put this card into your waiting room] When your other $TRAITLIST character is frontal attacked, you may pay the cost, your character in battle gets +POWER power until end of turn.
+
+
+Define: Saboutage
+	Message Choose a card in your opponent's waiting room to place on top of your opponent's deck.
+	AIChoice If Not IsClimax
+	SearchLocationForTargets OpponentWaitingRoom 1 1 Any
+	MoveCard OpponentDeck
+	
+Define: GivePowerOnClimaxPlay(POWER)
+	Auto: OnClimaxPlay
+	{
+		TargetLocation Stage
+		AIChoice GainPower POWER
+		ChooseCharacterFromTargets Choose a character to give +POWER power.
+		GainPower POWER
+	}
+	Text Auto: When a climax is placed in you climax area, choose one of your characters, it gets +POWER power until end of turn.
+	
+Define: OnClimaxPlayGivePower(POWER)
+	Auto: OnClimaxPlay
+	{
+		TargetLocation Stage
+		AIChoice GainPower POWER
+		ChooseCharacterFromTargets Choose a character to give +POWER power.
+		GainPower POWER
+	}
+	Text Auto: When a climax is placed in you climax area, choose one of your characters, it gets +POWER power until end of turn.
+
+Define: FreeRunner
+	Auto: StartOpponentAttackPhase
+	{
+		//If CanMove
+		//{
+			TargetLocation CenterStage
+			If Compare TargetCount 2 OrLess
+			{
+				TargetSelf
+				Question Move this card to an open position of your center stage?
+				If Yes
+				{
+					MoveToOpenPosition True False
+				}
+			}
+		//}
+	}
+	Text Auto: At the start of your opponent's attack phase, you may move this card to an open position of your center stage.
+
+Define: RunInFrontOfCharacter
+	Auto: StartOpponentAttackPhase
+	{
+		//If CanMove
+		//{
+			TargetLocation CenterStage
+			If Compare TargetCount 2 OrLess
+			{
+				TargetSelf
+				Question Move this card to an open position of your center stage with a character facing it?
+				If Yes
+				{
+					MoveToOpenPositionWithOpponent
+				}
+			}
+		//}
+	}
+	Text Auto: At the start of your opponent's attack phase, you may move this card to an open position of your center stage with a character facing it.
+
+Define: RunToCenter
+	Auto: StartOpponentAttackPhase
+	{
+		If CanMove
+		{
+			TargetLocation MiddleCenterStage
+			If Not HasTarget
+			{
+				Question Move this card to the middle position of your center stage?
+				If Yes
+				{
+					TargetSelf
+					MoveCard MiddleCenterStage
+				}
+			}
+		}
+	}
+	Text Auto: At the start of your opponent's attack phase, you may move this card to the open middle position of your center stage.
+
+Define: CannotSideAttack
+	Cont: GiveSelf
+	{
+		GainSpecialEffect CannotSideAttack
+	}
+	Text Cont: This card cannot side attack.
+	
+Define: GainPowerForEachOther(POWER,TRAITLIST)
+	Cont: GiveSelf
+	{
+		TargetLocation Stage
+		NarrowTargets Other && HasTrait TRAITLIST
+		SetXValue TargetCount
+		MultiplyXValue POWER
+		GainPower X
+	}
+	Text: Cont: This card gets +POWER power for each of your other $TRAITLIST characters.
+	
+Define: Act1Rest2SearchBrainstorm(TRAITLIST)
+	Act: 1 Rest 2 Any
+	{
+		Brainstorm 4
+		If Compare BrainstormedClimax 1 OrMore
+		{
+			SetXValue BrainstormedClimax
+			Repeat X
+			{
+				SearchDeck IsCharacter && HasTrait TRAITLIST
+			}
+			ShuffleLocation Deck
+		}
+	}
+	Text Act: BRAINSTORM [(1) Rest 2 of your characters] Flip over 4 cards from the top of your deck and put them into the waiting room, for each climax revealed, search your deck for up to 1 $TRAITLIST character and add it to your hand.
+
+Define: Act1RestSelfSearchBrainstorm(TRAITLIST)
+	Act: 1 RestSelf
+	{
+		Brainstorm 4
+		If Compare BrainstormedClimax 1 OrMore
+		{
+			SetXValue BrainstormedClimax
+			Repeat X
+			{
+				SearchDeck IsCharacter && HasTrait TRAITLIST
+			}
+			ShuffleLocation Deck
+		}
+	}
+	Text Act: BRAINSTORM [(1) Rest this card] Flip over 4 cards from the top of your deck and put them into the waiting room, for each climax revealed, search your deck for up to 1 $TRAITLIST character and add it to your hand.
+
+Define: Act1SearchBrainstorm(TRAITLIST)
+	Act: 1
+	{
+		Brainstorm 4
+		If Compare BrainstormedClimax 1 OrMore
+		{
+			SetXValue BrainstormedClimax
+			Repeat X
+			{
+				SearchDeck IsCharacter && HasTrait TRAITLIST
+				Discard 1 Any
+			}
+			ShuffleLocation Deck
+		}
+	}
+	Text Act: BRAINSTORM [(1)] Flip over 4 cards from the top of your deck. Search your deck for up to X $TRAITLIST characters and add them to your hand, then discard X cards. X is the number of climax revealed.
+
+Define: OnPlayMillGainPowerForEach(NUMBER,POWER,TRAITLIST)
+	Auto: OnPlay
+	{
+		Mill NUMBER
+		NarrowTargets HasTrait TRAITLIST
+		SetXValue TargetCount
+		MultiplyXValue POWER
+		TargetSelf
+		GainPower X
+	}
+	Text Auto: When this card is placed on the stage from your hand, put the top NUMBER cards of your deck into the waiting room, and this card gets +X power until end of turn. X is POWER times the number of $TRAITLIST characters sent.
+	
+Define: Act1Rest2SalvageBrainstorm(TRAITLIST)
+	Act: 1 Rest 2 Any
+	{
+		Brainstorm 4
+		If Compare BrainstormedClimax 1 OrMore
+		{
+			SetXValue BrainstormedClimax
+			AIChoice AddToHand
+			SearchLocationForTargets WaitingRoom 0 X IsCharacter && HasTrait TRAITLIST
+			RevealTargets
+			MoveCards Hand
+		}
+	}
+	Text Act: BRAINSTORM [(1) Rest 2 of your characters] Flip over 4 cards from the top of your deck and put them into the waiting room, for each climax revealed, choose up to 1 $TRAITLIST character in your waiting room and return it to your hand.
+	
+Define: Act1RestSelfSalvageBrainstorm(TRAITLIST)
+	Act: 1 RestSelf
+	{
+		Brainstorm 4
+		If Compare BrainstormedClimax 1 OrMore
+		{
+			SetXValue BrainstormedClimax
+			AIChoice AddToHand
+			SearchLocationForTargets WaitingRoom 0 X IsCharacter && HasTrait TRAITLIST
+			RevealTargets
+			MoveCards Hand
+		}
+	}
+	Text Act: BRAINSTORM [(1) Rest this card] Flip over 4 cards from the top of your deck and put them into the waiting room, for each climax revealed, choose up to 1 $TRAITLIST character in your waiting room and return it to your hand.
+	
+Define: Give4000PowerAtStartOfOpponentsTurn
+	Auto: StartOpponentDrawPhase
+	{
+		If InLocation CenterStage
+		{
+			TargetLocation Stage
+			AIChoice GainPower 4000
+			ChooseCharacterFromTargets Choose a character to give +4000 power.
+			GainPower 4000
+		}
+	}
+	Text Auto: At the beginning of your opponent's draw phase, if this card is on your center stage, choose 1 of your characters, it gets +4000 power until end of turn.
+	
+Define: OnSentDiscard1Check4(TRAITLIST)
+	Auto: OnSentFromStageToWaitingRoom
+	{
+		PayCost Discard 1 Any
+		{
+			Peek Deck 4
+			AIChoice AddToHand
+			ChooseCardsFromTargets 0 1 HasTrait TRAITLIST
+			RevealTargets
+			MoveCard Hand
+			PutTheRestIntoTheWaitingRoom
+		}
+	}
+	Text Auto: [Discard a card] When this card is put into your waiting room from the stage, you may pay the cost, look at up to 4 cards from the top of your deck, choose up to 1 $TRAITLIST character to add to your hand, and put the rest into the waiting room.
+	
+Define: Act1Rest2BurnBrainstorm
+	Act: 1 Rest 2 Any
+	{
+		Brainstorm 4
+		SetXValue BrainstormedClimax
+		Burn X
+	}
+	Text Act: BRAINSTORM [(1) Rest 2 of your characters] Flip over 4 cards from the top of your deck and put them into the waiting room. Deal X damage to your opponent, X is the number of climax sent.
+	
+Define: EarlyPlay4OrMore(TRAITLIST)
+	Tag EarlyPlay
+	Cont: InHand
+	{
+		If StageContains 4 HasTrait TRAITLIST
+		{
+			LoseLevel 1
+		}
+	}
+	Text Cont: If the number of $TRAITLIST characters you have is 4 or more, this card gets -1 level while in your hand.
+	
+Define: EarlyPlay2OrLessClimax
+	Tag EarlyPlay
+	Cont: InHand
+	{
+		If Compare ClimaxInWaitingRoom 2 OrLess
+		{
+			LoseLevel 1
+		}
+	}
+	Text Cont: If the number of climax in your waiting room is 2 or less, this card gets -1 level in your hand.
+	
+Define: Act1RestSelfReviveBrainstorm
+	Act: 1 RestSelf
+	{
+		Brainstorm 4
+		SetXValue BrainstormedClimax
+		If Compare X 1 OrMore
+		{
+			AIChoice PlaceOnStageStanding
+			SearchLocationForTargets WaitingRoom 0 X IsCharacter && Compare ThatCardsCost 0 OrLess
+			PlaceOnStage False True True False
+		}
+	}
+	Text Act: BRAINSTORM [(1) Rest this card] Flip over 4 cards from the top of your deck, and put them into your waiting room. For each climax revealed, choose up to one cost 0 character in your waiting room, and put them on separate positions of your stage.
+	
+Define: OnPlayMill2RestIfClimax
+	Auto: OnPlay
+	{
+		Mill 2
+		NarrowTargets IsClimax
+		If HasTarget
+		{
+			TargetSelf
+			Rest
+		}
+	}
+	Text Auto: When this card is placed on the stage from your hand, put the top 2 cards of your deck into your waiting room. If there is a climax among those cards, rest this card.
+	
+Define: CannotAttackHigherLevel
+	Cont: GiveSelf
+	{
+		SetXValue ThisCardsLevel
+		AddToXValue 1
+		TargetFacing
+		If HasTarget
+		{
+			If Compare TargetCardsLevel X OrMore
+			{
+				GainSpecialEffect CannotFrontalAttack
+			}
+		}
+	}
+	Text Cont: If the level of the character facing this is greater than this card's level then this card cannot frontal attack.
+	
+Define: Level3Assist
+	Cont: Assist
+	{
+		If Compare ThatCardsLevel 3 OrMore
+		{
+			GainPower 2000
+		}
+	}
+	Text Cont: ASSIST Your level 3 or higher characters in front of this get +2000 power.
+	
+Define: NoEncoreIfReversed
+	Auto: OnReversedInBattle
+	{
+		BlockEncore
+	}
+	Quick
+	Text Auto: When this card becomes reversed in battle, you cannot use "Auto: ENCORE" until end of turn.
+
+Define: GivePowerOnPlay(POWER, TRAITLIST)
+	Auto: OnPlay
+	{
+		TargetLocation Stage
+		NarrowTargets HasTrait TRAITLIST
+		AIChoice GainPower POWER
+		ChooseCharacterFromTargets Choose a character to give +POWER power.
+		GainPower POWER
+	}
+	Text Auto: When this card is placed on the stage from your hand, choose 1 of your $TRAITLIST characters, it gets +POWER power until end of turn.
+
+Define: OnPlayGivePower(POWER, TRAITLIST)
+	Auto: OnPlay
+	{
+		TargetLocation Stage
+		NarrowTargets HasTrait TRAITLIST
+		AIChoice GainPower POWER
+		ChooseCharacterFromTargets Choose a character to give +POWER power.
+		GainPower POWER
+	}
+	Text Auto: When this card is placed on the stage from your hand, choose 1 of your $TRAITLIST characters, it gets +POWER power until end of turn.
+		
+
+Define: GivePowerToOtherOnPlay(POWER, TRAITLIST)
+	Auto: OnPlay
+	{
+		TargetLocation Stage
+		NarrowTargets Other && HasTrait TRAITLIST
+		AIChoice GainPower POWER
+		ChooseCharacterFromTargets Choose a character to give +POWER power.
+		GainPower POWER
+	}
+	Text Auto: When this card is placed on the stage from your hand, choose 1 of your other $TRAITLIST characters, it gets +POWER power until end of turn.
+
+Define: OnPlayGiveOtherPower(POWER, TRAITLIST)
+	Auto: OnPlay
+	{
+		TargetLocation Stage
+		NarrowTargets Other && HasTrait TRAITLIST
+		AIChoice GainPower POWER
+		ChooseCharacterFromTargets Choose a character to give +POWER power.
+		GainPower POWER
+	}
+	Text Auto: When this card is placed on the stage from your hand, choose 1 of your other $TRAITLIST characters, it gets +POWER power until end of turn.
+	
+
+Define: OnAttackGainPowerForEachOther(POWER,TRAITLIST)
+	Auto: OnAttack
+	{
+		TargetLocation Stage
+		NarrowTargets Other && HasTrait TRAITLIST
+		SetXValue TargetCount
+		MultiplyXValue POWER
+		TargetSelf
+		GainPower X
+	}
+	Quick
+	Text Auto: When this card attacks, this gets +X power until end of turn. X is the number of other $TRAITLIST characters you have times POWER.
+	
+Define: OnAttackGivePowerForEachOther(POWER,TRAITLIST)
+	Auto: OnAttack
+	{
+		TargetLocation Stage
+		NarrowTargets Other && HasTrait TRAITLIST
+		SetXValue TargetCount
+		MultiplyXValue POWER
+		AIChoice GainPower X
+		ChooseCharacterFromTargets Choose a character to give +X power.
+		GainPower X
+	}
+	Text Auto: When this card attacks, choose 1 of your other $TRAITLIST characters, it gets +X power for the turn where X is POWER times the number of other $TRAITLIST characters you have.
+
+Define: CheckTopXOfOpponentDeckSendAny(NUMBER)
+	TargetTop OpponentDeck NUMBER
+	AIChoice If IsClimax
+	ChooseCardsFromTargets 0 NUMBER Any
+	MoveCard OpponentWaitingRoom
+	ShuffleLocation OpponentDeck
+
+Define: OnPlayTradeClimaxForCharacter(TRAITLIST)
+	Auto: OnPlay
+	{
+		PayCost Discard 1 IsClimax
+		{
+			SearchWaitingRoom IsCharacter && HasTrait TRAITLIST
+		}
+	}
+	Text Auto: [Discard a climax] When this card is placed on the stage from your hand, you may pay the cost, choose a $TRAITLIST character in your waiting room and return it to your hand.
+
+Define: SendEarlyPlayToWaitingRoom
+	TargetLocation OpponentStage
+	SetXValue OpponentsLevel
+	AddToXValue 1
+	NarrowTargets Compare ThatCardsLevel X OrHigher
+	AIChoice SendToWaitingRoom
+	ChooseCharacterFromTargets Choose a character to send to the waiting room.
+	MoveCard OpponentWaitingRoom
+	
+Define: BottomDeckEarlyPlay
+	TargetLocation OpponentStage
+	SetXValue OpponentsLevel
+	AddToXValue 1
+	NarrowTargets Compare ThatCardsLevel X OrHigher
+	AIChoice RemoveCard
+	ChooseCharacterFromTargets Choose a character to send to the bottom of your opponent's deck.
+	MoveCardToBottom OpponentDeck
+	
+Define: OnPlayMill2GainPowerForEachCharacter(POWER,TRAITLIST)
+	Auto: OnPlay
+	{
+		Mill 2
+		NarrowTargets IsCharacter && HasTrait TRAITLIST
+		SetXValue TargetCount
+		MultiplyXValue POWER
+		TargetSelf
+		GainPower X
+	}
+	Text Auto: When this card is placed on the stage from your hand, put the top 2 cards of your deck into your waiting room, and this card gets +X power until end of turn. X is POWER times the number of $TRAITLIST characters revealed.
+	
+Define: OnPlayChooseMarker(NAME)
+	Auto: OnPlay
+	{
+		SearchLocationForTargets WaitingRoom 0 1 NameEquals NAME
+		If HasTarget
+		{
+			Marker_FaceDown
+		}
+	}
+	Text Auto: When this card is placed on the stage from your hand, you may choose a card named "NAME" in your waiting room and put it face down underneath this card as a marker.
+
+Define: GainPowerOnPlay(POWER)
+	Auto: OnPlay
+	{
+		GainPower POWER
+	}
+	Quick
+	Text Auto: When this card is placed on the stage from your hand, this card gets +POWER power until end of turn.
+	
+Define: OnPlayGainPower(POWER)
+	Auto: OnPlay
+	{
+		GainPower POWER
+	}
+	Quick
+	Text Auto: When this card is placed on the stage from your hand, this card gets +POWER power until end of turn.
+
+	
+Define: OthersCannotSideAttack
+	Cont: GiveAll
+	{
+		If Other
+		{
+			GainEffect
+			{
+				Cont: GiveSelf
+				{
+					GainSpecialEffect CannotSideAttack
+				}
+				Text Cont: This card cannot side attack.
+			}
+		}
+	}
+	Text Cont: All of your other characters get the following ability. "Cont: This card cannot side attack."
+	
+Define: PlayCharacterFromHand(REQUIREMENT)
+	AIChoice PlaceOnStageStanding
+	SearchLocationForTargets Hand 0 1 IsCharacter && REQUIREMENT
+	PlaceOnStage False True True False
+	
+Define: OnAttackPay1ToDoubleTrigger
+	Auto: OnAttack
+	{
+		PayCost 1
+		{
+			GainSpecialEffect DoubleTrigger
+		}
+	}
+	Text Auto: [(1)] When this card attacks, you may pay the cost, perform the trigger check twice during this attack.
+	
+Define: OnAttackCheck2ChooseTrigger
+	Auto: OnAttack
+	{
+		Peek Deck 2
+		If HasTarget
+		{
+			Message Choose a card to put back on top. 
+			AIChoice If Not IsClimax
+			ChooseCardsFromTargets 1 1 Any
+			MoveCard Deck
+			PutTheRestIntoTheWaitingRoom
+		}
+	}
+	Text Auto: When this card attacks, look at up to 2 cards from the top of your deck, choose 1 to return to the top of your deck and put the rest into the waiting room.
+	
+Define: OnAttackMill1PutLevel0OnField 
+	Auto: OnAttack
+	{
+		If Not StageContains 2 Other
+		{
+			Question Put the top card of your deck into the waiting room?
+			If Yes
+			{
+				Mill 1
+				IfThatCard IsCharacter && Compare TargetCardsLevel 0 OrLess
+				{
+					PlaceOnStage False False True False
+				}
+			}
+		}
+	}
+	Text Auto: When this card attacks, if you have 1 or fewer other characters, you may put the top card of your deck into the waiting room, if it is a level 0 character put it on any position of your backstage.
+	
+Define: OnPlayDraw2Discard1
+	Auto: OnPlay
+	{
+		Question_Obvious Draw a card?
+		If Yes
+		{
+			DrawCard
+		}
+		Question_Obvious Draw a card?
+		If Yes
+		{
+			DrawCard
+		}
+		Discard 1 Any
+	}
+	Text Auto: When this card is placed on the stage from your hand, draw up to 2 cards then discard a card.
+	
+Define: OnPlayCheckX(TRAITLIST)
+	Auto: OnPlay
+	{
+		TargetLocation Stage
+		NarrowTargets HasTrait TRAITLIST
+		SetXToNumberOfCharacters
+		Peek Deck X
+		AIChoice AddToHand
+		ChooseCard Choose a card to add to your hand.
+		MoveCard Hand
+		PutTheRestIntoTheWaitingRoom
+	}
+	Text Auto: When this card is placed on the stage from your hand, look at up to X cards from the top of your deck. Choose up to 1 to add to your hand and put the rest into the waiting room. X is the number of $TRAITLIST characters you have.
+
+Define: OnPlayCheck3
+	Auto: OnPlay
+	{
+		Peek Deck 3
+		AIChoice AddToHand
+		ChooseCard Choose a card to add to your hand.
+		MoveCard Hand
+		PutTheRestIntoTheWaitingRoom
+	}
+	Text Auto: When this card is placed on the stage from your hand, look at up to 3 cards from the top of your deck. Choose up to 1 to add to your hand and put the rest into the waiting room.
+
+
+Define: RockPaperScissors
+	MultipleChoiceQuestion Rock Paper Scissors!|Rock|Paper|Scissors
+	SetXValue Answer
+	OpponentMultipleChoiceQuestion Rock Paper Scissors!|Rock|Paper|Scissors
+	
+Define: Act1RestSelfClockBrainstorm
+	Act: 1 RestSelf
+	{
+		Brainstorm 4
+		SetXValue BrainstormedClimax
+		If Compare X 1 OrMore
+		{
+			Repeat X
+			{
+				TargetLocation Clock
+				If HasTarget
+				{
+					AIChoice AddToHand
+					ChooseCard Choose a card in your clock to add to your hand.
+					MoveCard Hand
+					TargetTop Deck 1
+					MoveCard Clock
+				}
+			}
+		}
+	}
+	Text Act: BRAINSTORM [(1) Rest this card] Flip over 4 cards from the top of your deck and put them into the waiting room. For each climax sent, perform the following action, choose a card in your clock, and return it to your hand, if you do, put the top card of your deck into your clock."
+	
+Define: OnPlayGainPowerForEach(POWER,TRAITLIST)
+	Auto: OnPlay
+	{
+		SetXToNumberOfCharacters HasTrait TRAITLIST
+		MultiplyXValue POWER
+		TargetSelf
+		GainPower X
+	}
+	Quick
+	Text Auto: When this card is placed on the stage from your hand, this gets +X power until end of turn. X is POWER times the number of $TRAITLIST characters you have.
+	
+	
+Define: ClimaxExchange
+	Auto: OnPlay
+	{
+		PayCost 1 Discard 1 IsClimax
+		{
+			SearchWaitingRoom IsClimax
+		}
+	}
+	Text Auto: [(1) Discard a climax] When this card is placed on the stage from your hand, you may pay the cost, choose a climax in your waiting room and return it to your hand.
+	
+Define: GivePowerOnAttack(POWER)
+	Auto: OnAttack
+	{
+		TargetLocation Stage
+		AIChoice GainPower POWER
+		ChooseCharacterFromTargets Choose a character to give +POWER power.
+		GainPower POWER
+	}
+	Text Auto: When this card attacks, choose 1 of your characters, it gets +POWER power until end of turn.
+	
+Define: GiveTraitPowerOnAttack(POWER,TRAITLIST)
+	Auto: OnAttack
+	{
+		TargetLocation Stage
+		NarrowTargets HasTrait TRAITLIST
+		AIChoice GainPower POWER
+		ChooseCharacterFromTargets Choose a character to give +POWER power.
+		GainPower POWER
+	}
+	Text Auto: When this card attacks, choose 1 of your $TRAITLIST characters, it gets +POWER power until end of turn.
+
+Define: OnAttackGivePower(POWER,TRAITLIST)
+	Auto: OnAttack
+	{
+		TargetLocation Stage
+		NarrowTargets HasTrait TRAITLIST
+		AIChoice GainPower POWER
+		ChooseCharacterFromTargets Choose a character to give +POWER power.
+		GainPower POWER
+	}
+	Text Auto: When this card attacks, choose 1 of your $TRAITLIST characters, it gets +POWER power until end of turn.
+	
+
+Define: GiveOtherPowerOnAttack(POWER,TRAITLIST)
+	Auto: OnAttack
+	{
+		TargetLocation Stage
+		NarrowTargets Other && HasTrait TRAITLIST
+		AIChoice GainPower POWER
+		ChooseCharacterFromTargets Choose a character to give +POWER power.
+		GainPower POWER
+	}
+	Text Auto: When this card attacks, choose 1 of your other $TRAITLIST characters, it gets +POWER power until end of turn.
+
+Define: OnAttackGiveOtherPower(POWER,TRAITLIST)
+	Auto: OnAttack
+	{
+		TargetLocation Stage
+		NarrowTargets Other && HasTrait TRAITLIST
+		AIChoice GainPower POWER
+		ChooseCharacterFromTargets Choose a character to give +POWER power.
+		GainPower POWER
+	}
+	Text Auto: When this card attacks, choose 1 of your other $TRAITLIST characters, it gets +POWER power until end of turn.
+	
+
+Define: OnPlayCheckTopAddDiscard(TRAITLIST)
+	Auto: OnPlay
+	{
+		TargetTop Deck 1
+		Reveal
+		IfThatCard IsCharacter && HasTrait TRAITLIST
+		{
+			MoveCard Hand
+			Discard 1 Any
+		}
+	}
+	Text Auto: When this card is placed on the stage from your hand, reveal the top card of your deck, if it is a $TRAITLIST character, add it to your hand and discard 1 card.
+
+Define: OnPlayCheckTopTraitOrEventAddDiscard(TRAITLIST)
+	Auto: OnPlay
+	{
+		TargetTop Deck 1
+		Reveal
+		IfThatCard IsCharacter && HasTrait TRAITLIST
+		{
+			MoveCard Hand
+			Discard 1 Any
+		}
+		Else
+		{
+			IfThatCard IsEvent
+			{
+				MoveCard Hand
+				Discard 1 Any
+			}
+		}
+	}
+	Text Auto: When this card is placed on the stage from your hand, reveal the top card of your deck, if it is a $TRAITLIST character or event card, add it to your hand and discard 1 card.
+
+
+Define: EncoreStepIfNoneRestedPayToRest
+	Auto: StartEncorePhase
+	{
+		If CardPosition Reverse && Not StageContains 1 InLocation CenterStage && CardPosition Rest
+		{
+			PayCost 1
+			{
+				Rest
+			}
+		}
+	}
+	Text Auto: [(1)] At the beginning of the encore step, if you do not have any other rested characters on your center stage, you may pay the cost, rest this card.
+	
+Define: EarlyPlayInClock(CARDNAME)
+	Tag EarlyPlay
+	Cont: InHand
+	{
+		If LocationContains Clock 1 NameEquals CARDNAME
+		{
+			LoseLevel 1
+		}
+	}
+	Text Cont: If "CARDNAME" is in your clock, this card gets -1 level in your hand.
+
+Define: PayToExchange(TRAITLIST)
+	Auto: StartOpponentAttackPhase
+	{
+		PayCost 1
+		{
+			TargetLocation Stage
+			NarrowTargets Other && HasTrait TRAITLIST && CanMove
+			ChooseCharacterFromTargets
+			If HasTarget
+			{
+				AddSelfToTargets
+				Exchange
+				Stand
+			}
+		}
+	}
+	Text Auto: [(1)] At the beginning of your opponent's attack phase, you may pay the cost, choose one of your $TRAITLIST characters and this card and exchange them as standing.
+
+Define: DefensiveScryOnCenterStage
+	Auto: OnReceiveDamage
+	{
+		If OpponentsTurn && InLocation CenterStage
+		{
+			PeekTop Deck
+			Question Place this card in your waiting room? (Press no to return it to the top)
+			If Yes
+			{
+				MoveCard WaitingRoom
+			}
+			If No
+			{
+				EndPeek Deck
+			}
+		}
+	}
+	Text Auto: During your opponent's turn, when damage you receive is not canceled, if this card is on your center stage, look at the top card of your deck, and put it on the top of your deck or into the waiting room.
+
+Define: DefensiveScryAnywhere
+	Auto: OnReceiveDamage
+	{
+		If OpponentsTurn
+		{
+			PeekTop Deck
+			Question Place this card in your waiting room? (Press no to return it to the top)
+			If Yes
+			{
+				MoveCard WaitingRoom
+			}
+			If No
+			{
+				EndPeek Deck
+			}
+		}
+	}
+	Text Auto: During your opponent's turn, when damage you receive is not canceled, look at the top card of your deck, and put it on the top of your deck or into the waiting room.
+
+
+Define: StockHealer
+	Auto: OnPlay
+	{
+		PayCost Discard 1 Any
+		{
+			TargetTop Clock 1
+			MoveCard Stock
+		}
+	}
+	Text Auto: [Discard a card] When this card is placed on the stage from your hand, you may pay the cost, put the top card of your clock into your stock.
+	
+Define: GainBounceWhenFrontalAttacked
+	UntilEndOfOpponentsTurn
+	GainEffect
+	{
+		Auto: OnFrontalAttacked
+		{
+			Question Return the attack target to your hand?
+			If Yes
+			{
+				MoveCard Hand
+			}
+		}
+		Text Auto: When this card is frontal attacked, you may return this card to your hand.
+	}
+	
+Define: OnPlayMill2Plus2SoulIfClimax
+	Auto: OnPlay
+	{
+		Mill 2
+		NarrowTargets IsClimax
+		If HasTarget
+		{
+			TargetSelf
+			GainSoul 2
+		}
+	}
+	Text Auto: When this card is placed on the stage from your hand, put the top 2 cards of your deck into the waiting room. If a climax is sent, this card gets +2 soul until end of turn.
+	
+Define: OnPlayReorderTop2
+	Auto: OnPlay
+	{
+		TargetTop Deck 2
+		If Compare TargetCount 2 OrMore
+		{
+			Reorder
+		}
+		Else
+		{
+			View
+		}
+	}
+	Text Auto: When this card is placed on the stage from your hand, look at up to 2 cards from the top of your deck and return them in any order.
+	
+Define: GainPowerWhenOtherAttacks(POWER,TRAITLIST)
+	Auto: OnOtherCharacterAttacks
+	{
+		TargetOther
+		IfThatCard HasTrait TRAITLIST
+		{
+			TargetSelf
+			GainPower POWER
+		}
+	}
+	Quick
+	Text Auto: When your other $TRAITLIST character attacks, this card gets +POWER power until end of turn.
+
+Define: BackupBonus1000(TRAITLIST)
+	Auto: OnUseThisCardsBackup
+	{
+		If StageContains 1 HasTrait TRAITLIST
+		{
+			TargetMyCharacterInBattle
+			GainPower 1000
+		}
+	}
+	Text Auto: When you use this card's "<b>Backup</b>", if you have a $TRAITLIST character, your character in battle gets +1000 power until end of turn.
+	
+Define: ClockSaboutage
+	TargetLocation OpponentClock
+	If HasTarget
+	{
+		Question Send a card from the opponent's clock to the waiting room to clock the top card of your opponent's deck?
+		If Yes
+		{
+			AIChoice If Not IsClimax
+			ChooseCard Choose a card to send
+			If HasTarget
+			{
+				MoveCard OpponentWaitingRoom
+				TargetTop OpponentDeck 1
+				MoveCard OpponentClock
+			}
+		}
+	}
+	
+Define: OnPlayRevealBurnIfTrait(TRAITLIST)
+	Auto: OnPlay
+	{
+		TargetTop Deck 1
+		Reveal
+		IfThatCard HasTrait TRAITLIST
+		{
+			Burn 1
+		}
+	}
+	Text Auto: When this card is placed on the stage from your hand, reveal the top card of your deck, if it is a $TRAITLIST character, deal 1 damage to your opponent.
+
+Define: Act1SalvageBrainstorm(TRAITLIST)
+	Act: 1
+	{
+		Brainstorm 4
+		SetXValue BrainstormedClimax
+		Repeat X
+		{
+			SearchWaitingRoom IsCharacter && HasTrait TRAITLIST
+			Discard 1 Any
+		}
+	}
+	Text Act: BRAINSTORM [(1)] Flip over 4 cards from the top of your deck and put them into the waiting room. For each climax revealed, perform the following action. "Choose a $TRAITLIST character in your waiting room, return it to your hand, and discard 1 card."
+	
+Define: MemoryBackup
+Auto: OnUseThisCardsBackup
+{
+	TargetMyCharacterInBattle
+	GainEffect
+	{
+		Auto: OnReverseOpponent
+		{
+			TargetBattleOpponent
+			IfTarget OnStage
+			{
+				MoveCard OpponentMemory
+			}
+		}
+		Text Auto: When this card's battle opponent becomes reversed, put that character into your opponent's memory.
+	}
+}
+Quick
+Text Auto: When you use this card's "BACKUP", until end of turn, your character in battle gets "Auto: When this card's battle opponent becomes reversed, put that character into your opponent's memory."
+
+Define: OnPlayFlicker
+Auto: OnPlay
+{
+	TargetLocation OpponentStage
+	AIChoice Flicker
+	ChooseCharacterFromTargets_Optional Choose a character to send to memory, then it returns to the stage.
+	Flicker
+}
+Text Auto: When this card is placed on the stage from your hand, choose up to one of your opponent's characters, put it into your opponent's memory, then your opponent places that character on any position of his or her stage.
+
+Define: MusashiEffect
+	Auto: OnDamageCancel
+	{
+		If PlayedThisTurn
+		{
+			Mill 1
+			SetXValue TargetCardsLevel
+			AddToXValue 1
+			Burn X
+		}
+	}
+	TimesPerTurn 1
+	Text Auto: Once per turn, during the turn this card is placed on the stage from your hand, when damage dealt by this card is canceled, put the top card of your deck into the waiting room, and deal X damage to your opponent, X is that card's level plus 1.
+
+Define: GainPowerWhenAttackingLevel3(POWER)
+	Auto: OnAttack
+	{
+		TargetFacing
+		If HasTarget
+		{
+			If Compare TargetCardsLevel 3 OrMore
+			{
+				TargetSelf
+				GainPower POWER
+			}
+		}
+	}
+	Quick
+	Text Auto: When this card attacks, if the character facing this card is level 3 or higher, this card gets +POWER power until end of turn.
+
+Define: GainPowerWhenAttackingLevel2(POWER)
+	Auto: OnAttack
+	{
+		TargetFacing
+		If HasTarget
+		{
+			If Compare TargetCardsLevel 2 Exactly
+			{
+				TargetSelf
+				GainPower POWER
+			}
+		}
+	}
+	Quick
+	Text Auto: When this card attacks, if the character facing this card is level 2, this card gets +POWER power until end of turn.
+	
+Define: StockOnCancel
+	Auto: OnDamageCancel
+	{
+		If OnStage
+		{
+			Question Put this character into your stock?
+			If Yes
+			{
+				TargetSelf
+				MoveCard Stock
+			}
+		}
+	}
+	Text Auto: When damage dealt by this card is canceled, you may put this card into your stock.
+	
+Define: CheckX
+	Peek Deck X
+	ChooseCard Choose a card to add to your hand (Will not be revealed)
+	MoveCard Hand
+	PutTheRestIntoTheWaitingRoom
+	
+Define: CheckAndAdd(NUMBER)
+	Peek Deck NUMBER
+	AIChoice AddToHand
+	ChooseCard Choose a card to add to your hand (Will not be revealed)
+	MoveCard Hand
+	PutTheRestIntoTheWaitingRoom
+	
+Define: CheckAndAddReq(NUMBER,REQUIREMENT)
+	RevealUpTo Deck NUMBER
+	AIChoice AddToHand
+	Message Choose up to 1 card to add to your hand.
+	ChooseCardsFromTargets 0 1 REQUIREMENT
+	RevealTargets
+	MoveCard Hand
+	PutTheRestIntoTheWaitingRoom
+
+Define: CheckTopAddDiscard(TRAITLIST)
+	TargetTop Deck 1
+	Reveal
+	IfTarget IsCharacter && HasTrait TRAITLIST
+	{
+		MoveCard Hand
+		Discard 1 Any
+	}
+
+Define: CheckTopTraitOrEventAddDiscard(TRAITLIST)
+	TargetTop Deck 1
+	Reveal
+	IfTarget IsEvent || IsCharacter && HasTrait TRAITLIST
+	{
+		MoveCard Hand
+		Discard 1 Any
+	}
+	
+Define: ClockShift(LEVEL,COLOR)
+	Auto: Shift
+	{
+		If Compare MyLevel LEVEL OrMore
+		{
+			Shift
+		}
+	}
+	Text: Auto: SHIFT<b> Level LEVEL</b> At the beginning of your main phase, if you are level LEVEL or higher, you may choose a COLOR card in your hand and this card in your clock and exchange them.
+	
+Define: OnPlayStockSwap(COST)
+	Auto: OnPlay
+	{
+		PayCost COST
+		{
+			StockSwap
+		}
+	}
+	Text Auto: [(COST)] When this card is placed on the stage from your hand, you may pay the cost, put all of your opponent's stock into the waiting room, then put the same number of cards from the top of your opponent's deck into his or her stock.
+
+Define: DropSalvage
+	Auto: OnPlay
+	{
+		PayCost 1 Discard 1 Any
+		{
+			SearchWaitingRoom IsCharacter
+		}
+	}
+	Text Auto: [(1) Discard a card] When this card is placed on the stage from your hand, you may pay the cost, choose a character in your waiting room and return it to your hand.
+
+Define: CharacterFacingThisCannotMove
+	Cont: GiveFacing
+	{
+		GainSpecialEffect CannotMove
+	}
+	Text Cont: The character facing this card cannot move to another stage position.
+	
+Define: OpponentMayPay2ToPreventFrontalAttack
+	Auto: StartClimaxPhase
+	{
+		If Compare CardsInOpponentsStock 2 OrMore
+		{
+			If CardPosition Stand && InLocation CenterStage
+			{
+				OpponentQuestion You may put the top 2 cards of your stock into the waiting room to make this character unable to frontal attack.
+				If Yes
+				{
+					TargetTop OpponentStock 2
+					MoveCard OpponentWaitingRoom
+					TargetSelf
+					GainSpecialEffect CannotFrontalAttack
+					
+				}
+			}
+		}
+	}
+	Text Auto: At the beginning of your climax phase, your opponent may put 2 cards from the top of your opponent's stock into the waiting room, if they do, this card cannot frontal attack until end of turn.
+	
+Define: FreeEncore
+	Auto: OnSentFromStageToWaitingRoom
+		{
+			Question Return this character to its previous position rested?
+			If Yes
+			{
+				Revive
+			}
+		}
+		Text Auto: When this card is put into your waiting room from the stage, you may return this card to its previous position as rested.
+		
+Define: OnAttackGivePowerTimesSoul
+	Auto: OnAttack
+	{
+		TargetLocation Stage
+		NarrowTargets Other
+		AIChoice GainPower 1000 //Estimate
+		ChooseCharacterFromTargets Choose a character to give power to.
+		SetXValue TargetCardsSoul
+		MultiplyXValue 1000
+		GainPower X
+	}
+	Text Auto: When this card attacks, choose 1 of your other characters, it gets +X power until end of turn. X is 1000 times that character's soul.
+
+Define: GlobalPower(POWER,TRAITLIST)
+	Cont: GiveAll
+	{
+		If Other && HasTrait TRAITLIST
+		{
+			GainPower POWER
+		}
+	}
+	Text Cont: All of your other $TRAITLIST characters get +POWER power.
+	
+Define: Act1RestSelfCheck3Add1Brainstorm
+	Act: 1 RestSelf
+	{
+		Brainstorm 4
+		PerClimax
+		{
+			Peek Deck 3
+			AIChoice AddToHand
+			ChooseCard Choose a card to add to your hand (Will not be revealed)
+			MoveCard Hand
+			PutTheRestIntoTheWaitingRoom
+		}
+	}
+	Text Act: BRAINSTORM [(1) Rest this card] Flip over 4 cards from the top of your deck, and put them into the waiting room, for each climax revealed perform the following action. "Look at up to 3 cards from the top of your deck, choose up to 1 to add to your hand, and put the rest into the waiting room."
+	
+Define: Act1Rest2Check3Add1Brainstorm
+	Act: 1 Rest 2 Any
+	{
+		Brainstorm 4
+		PerClimax
+		{
+			Peek Deck 3
+			AIChoice AddToHand
+			ChooseCard Choose a card to add to your hand (Will not be revealed)
+			MoveCard Hand
+			PutTheRestIntoTheWaitingRoom
+		}
+	}
+	Text Act: BRAINSTORM [(1) Rest 2 of your characters] Flip over 4 cards from the top of your deck, and put them into the waiting room, for each climax revealed perform the following action. "Look at up to 3 cards from the top of your deck, choose up to 1 to add to your hand, and put the rest into the waiting room."
+
+Define: Act1RestSelfDraw2Discard1Brainstorm
+	Act: 1 RestSelf
+	{
+		Brainstorm 4
+		PerClimax
+		{
+			Question_Obvious Draw a card?
+			If Yes
+			{
+				DrawCard
+			}
+			Question_Obvious Draw a card?
+			If Yes
+			{
+				DrawCard
+			}
+			Discard 1 Any
+		}
+	}
+	Text Act: BRAINSTORM [(1) Rest this card] Flip over 4 cards from the top of your deck, and put them into the waiting room, for each climax revealed perform the following action. "Draw up to 2 cards, then discard a card."
+	
+Define: Act1Rest2Draw2Discard1Brainstorm
+	Act: 1 Rest 2 Any
+	{
+		Brainstorm 4
+		PerClimax
+		{
+			Question_Obvious Draw a card?
+			If Yes
+			{
+				DrawCard
+			}
+			Question_Obvious Draw a card?
+			If Yes
+			{
+				DrawCard
+			}
+			Discard 1 Any
+		}
+	}
+	Text Act: BRAINSTORM [(1) Rest 2 of your characters] Flip over 4 cards from the top of your deck, and put them into the waiting room, for each climax revealed perform the following action. "Draw up to 2 cards, then discard a card."
+	
+Define: MillRunner(TRAITLIST)
+	Auto: StartOpponentAttackPhase
+	{
+		Question Put the top card of your deck into the waiting room?
+		If Yes
+		{
+			Mill 1
+			IfTarget HasTrait TRAITLIST
+			{
+				TargetLocation CenterStage
+				If Compare TargetCount 2 OrLess
+				{
+					TargetSelf
+					Question Move this card to an open position of your center stage?
+					If Yes
+					{
+						MoveToOpenPosition True False
+					}
+				}
+			}
+		}
+	}
+	Text Auto: At the beginning of your opponent's attack phase, you may put the top card of your deck into the waiting room, if it is a $TRAITLIST character, you may move this card to an open position of your center stage.
+	
+Define: LevelAssistTrait(TRAITLIST)
+	Cont: Assist
+	{
+		If HasTrait TRAITLIST
+		{
+			SetXValue ThatCardsLevel
+			MultiplyXValue 500
+			GainPower X
+		}
+	}
+	Text Cont: ASSIST Your $TRAITLIST characters in front of this get +X power where X is 500 times the level of that character.
+	Tag Backstage
+	
+Define: ScryBackup(TRAITLIST)
+	Auto: OnUseThisCardsBackup
+	{
+		TargetTop Deck 1
+		Reveal
+		IfTarget IsCharacter && HasTrait TRAITLIST
+		{
+			MoveCard Hand
+			Discard 1 Any
+		}
+	}
+	Text Auto: When you use this card's <b>"Backup"</b> reveal the top card of your deck, if it is a $TRAITLIST character, add it to your hand and discard a card.
+
+Define: HexProof
+	Cont: GiveSelf
+	{
+		GainSpecialEffect CannotBeChosen
+	}
+	Text Cont: This card cannot be chosen by your opponent's effects.
+	
+Define: GiveCharacterPower(POWER, TRAITLIST)
+	TargetLocation Stage
+	NarrowTargets HasTrait TRAITLIST
+	AIChoice GainPower POWER
+	ChooseCharacterFromTargets Choose a character to give +POWER power.
+	GainPower POWER
+
+Define: GiveOtherCharacterPower(POWER, TRAITLIST)
+	TargetLocation Stage
+	NarrowTargets Other && HasTrait TRAITLIST
+	AIChoice GainPower POWER
+	ChooseCharacterFromTargets Choose a character to give +POWER power.
+	GainPower POWER
+	
+Define: Downgrade
+	If HasTarget
+	{
+		ForEachTarget
+		{
+			SaveTargets
+			SetXValue TargetCardsLevel
+			AddToXValue -1
+			Message Choose a character in waiting room to exchange.
+			OpponentSearchLocationForTargets WaitingRoom 1 1 IsCharacter && Compare ThatCardsLevel X OrLower
+			If HasTarget
+			{
+				AddSavedToCurrentTargets
+				Exchange
+			}
+		}
+	}
+	
+Define: OptionalBurn(AMOUNT)
+	If Compare AMOUNT 1 OrMore
+	{
+		Question_Obvious Deal AMOUNT damage to your opponent?
+		If Yes
+		{
+			Burn AMOUNT
+		}
+	}
+	
+Define: ExchangeCardInLevelWithWaitingRoom(LEVELREQ,WRREQ)
+	If Compare MyLevel 1 OrMore && Compare CardsInWaitingRoom 1 OrMore
+	{
+		Message Choose a card in your level to exchange.
+		SearchLocationForTargets Level 1 1 LEVELREQ
+		SaveTargets
+		Message Choose a card in your waiting room to exchange.
+		SearchLocationForTargets WaitingRoom 1 1 WRREQ
+		AddSavedToCurrentTargets
+		Exchange
+	}
+
+Define: OptionalHeal
+	If Compare CardsInClock 1 OrMore
+	{
+		Question_Obvious Put the top card of your clock into the waiting room?
+		If Yes
+		{
+			Heal
+		}
+	}
+	
+Define: SacrificeToSave(REQUIREMENT)
+	Auto: OnOtherSentFromStageToWaitingRoom
+	{
+		IfOther REQUIREMENT
+		{
+			If InLocation Backstage
+			{
+				PayCost SendSelf WaitingRoom
+				{
+					TargetOther
+					Revive
+				}
+			}
+		}
+	}
+	
+Define: CheckAndAddOne(NUMBER,REQUIREMENT)
+	RevealUpTo Deck NUMBER
+	ChooseCardsFromTargets 0 1 REQUIREMENT
+	RevealTargets
+	MoveCard Hand
+	PutTheRestIntoTheWaitingRoom
+	
+Define: CheckAndAddAll(NUMBER,REQUIREMENT)
+	RevealUpTo Deck NUMBER
+	NarrowTargets REQUIREMENT
+	MoveCard Hand
+	PutTheRestIntoTheWaitingRoom
+	
+Define: OnReverseBlindStock
+	Auto: OnReverseOpponent
+	{
+		Question_Obvious Put the top card of your deck into your stock?
+		If Yes
+		{
+			BlindStock
+		}
+	}
+	Text Auto: When this card's battle opponent becomes reversed, you may put the top card of your deck into your stock.
+	
+
+Define: CountColors
+	SetXValue 0
+	SaveTargets
+	NarrowTargets ColorIs Yellow
+	If HasTarget
+	{
+		AddToXValue 1
+	}
+	LoadTargets
+	NarrowTargets ColorIs Green
+	If HasTarget
+	{
+		AddToXValue 1
+	}
+	LoadTargets
+	NarrowTargets ColorIs Red
+	If HasTarget
+	{
+		AddToXValue 1
+	}
+	LoadTargets
+	NarrowTargets ColorIs Blue
+	If HasTarget
+	{
+		AddToXValue 1
+	}
+	LoadTargets
+	
+Define: EarlyPlayInLevel(CARDNAME)
+	Cont: InHand
+	{
+		If LocationContains Level 1 NameEquals CARDNAME
+		{
+			LoseLevel 1
+		}
+	}
+	Text Cont: EXPERIENCE If "CARDNAME" is in your level, this card gets -1 level in your hand.
+
+Define: EarlyPlayInMemory(CARDNAME)
+	Cont: InHand
+	{
+		If LocationContains Memory 1 NameEquals CARDNAME
+		{
+			LoseLevel 1
+		}
+	}
+	Text Cont: RECOLLECTION If "CARDNAME" is in your memory, this card gets -1 level in your hand.
+	
+Define: OnPlayDraw2Discard2BlindStock
+	Auto: OnPlay
+	{
+		Question_Obvious Draw a card?
+		If Yes
+		{
+			DrawCard
+		}
+		Question_Obvious Draw a card?
+		If Yes
+		{
+			DrawCard
+		}
+		Discard 2 Any
+		Question_Obvious Put the top card of your deck into your stock?
+		If Yes
+		{
+			BlindStock
+		}
+	}
+	Text Auto: When this card is placed on the stage from your hand, draw up to 2 cards, discard 2 cards, and put up to one card from the top of your deck into your stock.
+	
+Define: OnPlayCheck6Send3
+	Auto: OnPlay
+	{
+		Peek Deck 6
+		Message Choose 3 cards to put into your waiting room
+		ChooseCardsFromTargets 3 3 Any
+		MoveCard WaitingRoom
+		TargetLocation ScryArea
+		SetXValue TargetCount
+		MoveCard Deck
+		TargetTop Deck X
+		Message Select order to return cards, (first on top)
+		Reorder
+	}
+	Text Auto: When this card is placed on the stage from your hand, look at up to 6 cards from the top of your deck, choose 3 to put into the waiting room, and return the rest to the top of your deck in any order.
+
+Define: MaySendOpponentToMemoryOnReverse
+	Auto: OnReverseOpponent
+	{
+		Question Put the battle opponent into your opponent's memory?
+		If Yes
+		{
+			IfOther OnStage
+			{
+				TargetOther
+				MoveCard OpponentMemory
+			}
+		}
+	}
+	Text Auto: When this card's battle opponent becomes reversed, you may put that character into your opponent's memory.
+	
+Define: OnReverseMayMemoryOpponent
+	Auto: OnReverseOpponent
+	{
+		Question Put the battle opponent into your opponent's memory?
+		If Yes
+		{
+			IfOther OnStage
+			{
+				TargetOther
+				MoveCard OpponentMemory
+			}
+		}
+	}
+	Text Auto: When this card's battle opponent becomes reversed, you may put that character into your opponent's memory.
+	
+
+Define: OnPlayGainPowerAndNoBackups(POWER)
+	Auto: OnPlay
+	{
+		UntilEndOfOpponentsTurn
+		GainPower POWER
+		UntilEndOfOpponentsTurn
+		GainEffect
+		{
+			Cont: GiveSelf
+			{
+				GainSpecialEffect NoBackupInBattle
+			}
+			Text Cont: During this card's battle, all players cannot play "BACKUP" from their hands.
+		}
+	}
+	Quick
+	Text Auto: When this card is placed on the stage from your hand, this card gets +POWER power and the following ability until the end of your opponent's next turn. "Cont: During this card's battle, all players cannot play "BACKUP" from their hands."
+	
+Define: GiveAll1500OnCenterStage(TRAITLIST)
+	Cont: GiveAll
+	{
+		IfOwner InLocation CenterStage
+		{
+			If HasTrait TRAITLIST
+			{
+				GainPower 1500
+			}
+		}
+	}
+	Text Cont: If this card is on your center stage, all of your $TRAITLIST characters get +1500 power.
+	
+Define: ExchangeOpponentsCharactersOrMoveToOpenPosition
+	//FirstCharacter should already be targeted
+	//Overwrites saved targets and Answer
+	//Ends with all moved cards targeted
+	//You can't choose an option your can't do
+	PushX
+	If HasTarget
+	{
+		IfTarget CanMove
+		{
+			FirstTarget //safety check
+			SaveTargets
+			TargetLocation OpponentStage
+			If Compare TargetCount 5 OrMore
+			{
+				//You can only exchange
+				SetXValue 1
+			}
+			Else
+			{
+				MultipleChoiceQuestion Move to open position, or exchange with another character.|Move|Exchange
+				SetXValue Answer
+			}
+			If Compare X 0 Exactly
+			{
+				//Move to an open position
+				MoveToOpenPosition True True
+			}
+			Else
+			{
+				//Exchange with another card
+				TargetLocation OpponentStage
+				NarrowTargets CanMove && Not InSavedTargets
+				ChooseCharacterFromTargets Choose a character to exchange it with.
+				AddSavedToCurrentTargets
+				Exchange
+			}
+		}
+	}
+	PopX
+	
+Define: 2OptionBond1(NAME1,NAME2)
+	Auto: OnPlayedNormally
+	{
+		PayCost 1
+		{
+			Bond NAME1|NAME2
+		}
+	}
+	Text Auto: BOND/ <b>"NAME1" or "NAME2"</b> [(1)] (<i>When this card is played and placed on the stage, you may pay the cost, choose 1 "NAME1" or "NAME2" in your waiting room, and return it to your hand</i>)
+	
+Define: 2OptionBondDiscard(NAME1,NAME2)
+	Auto: OnPlayedNormally
+	{
+		PayCost Discard 1 Any
+		{
+			Bond NAME1|NAME2
+		}
+	}
+	Text Auto: BOND/ <b>"NAME1" or "NAME2"</b> [Discard 1 card] (<i>When this card is played and placed on the stage, you may pay the cost, choose 1 "NAME1" or "NAME2" in your waiting room, and return it to your hand</i>)
+	
+Define: 2OptionBondClock(NAME1,NAME2)
+	Auto: OnPlayedNormally
+	{
+		PayCost Clock
+		{
+			Bond NAME1|NAME2
+		}
+	}
+	Text Auto: BOND/ <b>"NAME1" or "NAME2"</b> [Put the top card of your deck into your clock] (<i>When this card is played and placed on the stage, you may pay the cost, choose 1 "NAME1" or "NAME2" in your waiting room, and return it to your hand</i>)
+	
+Define: ReturnToDeckInAnyOrder
+	PushX
+	SetXValue TargetCount
+	IfTarget MyCard
+	{
+		MoveCard Deck
+		If Compare X 2 OrMore
+		{
+			TargetTop Deck X
+			Message Choose order to return cards to the top of your deck. (First is on top)
+			Reorder
+		}
+	}
+	Else
+	{
+		MoveCard OpponentDeck
+		If Compare X 2 OrMore
+		{
+			TargetTop OpponentDeck X
+			Message Choose order to return cards to the top of the opponent's deck. (First is on top)
+			Reorder
+		}
+	}
+	PopX
+	
+Define: ChooseCardsToPutIntoWaitingRoomReturnTheRestInAnyOrder(MIN,MAX)
+	PushX
+	IfTarget MyCard
+	{
+		Message Choose cards to put into your waiting room.
+		ChooseCardsFromTargets MIN MAX Any
+		MoveCard WaitingRoom
+		TargetLocation ScryArea
+		SetXValue TargetCount
+		MoveCard Deck
+		If Compare X 2 OrMore
+		{
+			TargetTop Deck X
+			Message Choose order to return cards to the top of your deck. (First is on top)
+			Reorder
+		}
+	}
+	Else
+	{
+		Message Choose cards to put into your opponent's waiting room.
+		ChooseCardsFromTargets MIN MAX Any
+		MoveCard OpponentWaitingRoom
+		TargetLocation OpponentScryArea
+		SetXValue TargetCount
+		MoveCard OpponentDeck
+		If Compare X 2 OrMore
+		{
+			TargetTop OpponentDeck X
+			Message Choose order to return cards to the top of your deck. (First is on top)
+			Reorder
+		}
+	}
+	PopX
+	
+Define: GiveAllOpponentsEncore2
+	Cont: Global
+	{
+		If InLocation OpponentStage
+		{
+			GainEffect
+			{
+				Auto: Encore 2
+				{
+				}
+				Text Auto: ENCORE [(2)]
+			}
+		}
+	}
+	Text Cont: All of your opponent's characters get "Auto: ENCORE [(2)]".
+	
+Define: GiveAllOpponentsClockEncore
+	Cont: Global
+	{
+		If InLocation OpponentStage
+		{
+			GainEffect
+			{
+				Auto: Encore Clock
+				{
+				}
+				Text Auto: ENCORE [Put the top card of your deck into your clock].
+			}
+		}
+	}
+	Text Cont: All of your opponent's characters get "Auto: ENCORE [Put the top card of your deck into your clock]".
+	
+Define: CountSoulTriggers
+	PushTargets
+	SetXValue 0
+	ForEachTarget
+	{
+		IfTarget HasTrigger Soul
+		{
+			AddToXValue 1
+		}
+		IfTarget HasTrigger DoubleSoul
+		{
+			AddToXValue 1
+		}
+	}
+	PopTargets
+	
+Define: PutCardFromWaitingRoomIntoStock(REQUIREMENT)
+	AIChoice RemoveFromWaitingRoom
+	Message Choose a card to put into your stock
+	SearchLocationForTargets WaitingRoom 0 1 REQUIREMENT
+	RevealTargets
+	MoveCard Stock
+	
+Define: GreatPerformance
+	Cont: GiveSelf
+	{
+		GainSpecialEffect GreatPerformance
+	}
+	Text Cont: GREAT PERFORMANCE
+	
+Define: RestGivePower(POWER,TRAITLIST)
+	Act: RestSelf
+	{
+		TargetLocation Stage
+		NarrowTargets HasTrait TRAITLIST
+		AIChoice GainPower POWER
+		ChooseCharacterFromTargets Choose a character to give +POWER power.
+		GainPower POWER
+	}
+	Text Act: [Rest this card] Choose 1 of your $TRAITLIST characters, it gets +POWER power until end of turn.
+
+Define: GiveNamePower(POWER,NAME)
+	Cont: GiveAll
+	{
+		If Other && NameEquals NAME
+		{
+			GainPower POWER
+		}
+	}
+	Text Cont: All of your other "NAME" get +POWER power.
+	
+Define: GiveMiddlePower(POWER,TRAITLIST)
+	Cont: GiveAll
+	{
+		If Other && InLocation MiddleCenterStage && HasTrait TRAITLIST
+		{
+			GainPower POWER
+		}
+	}
+	Text Cont: Your other $TRAITLIST character in the middle position of your center stage gets +POWER power.
+
+Define: GainPowerWithEnoughCharacters(POWER,NUMBER,TRAITLIST)
+	Cont: GiveSelf
+	{
+		If StageContains NUMBER Other && HasTrait TRAITLIST
+		{
+			GainPower POWER
+		}
+	}
+	Text Cont: If the number of other $TRAITLIST characters you have is NUMBER or more, this card gets +POWER power.
+	
+Define: OnCancelBurn1
+	Auto: OnDamageCancel
+	{
+		Question_Obvious Deal 1 damage to your opponent?
+		If Yes
+		{
+			Burn 1
+		}
+	}
+	TimesPerTurn 1
+	Text Auto: Once per turn, when damage dealt by this card is canceled, you may deal 1 damage to your opponent.
+
+Define: Exchange2OfOpponentsCharacters
+	TargetLocation OpponentStage
+	NarrowTargets CanMove
+	If Compare TargetCount 2 OrMore
+	{
+		ChooseCharacterFromTargets Choose first character to swap
+		SaveTargets
+		TargetLocation OpponentStage
+		NarrowTargets Not InSavedTargets
+		NarrowTargets CanMove
+		ChooseCharacterFromTargets Choose second character to swap
+		AddSavedToCurrentTargets
+		Exchange
+		Stand
+	}
+	
+Define: CannotBeReversedByCost0
+	Cont: GiveSelf
+	{
+		TargetFacing
+		If HasTarget && Compare TargetCardsCost 0 OrLess
+		{
+			GainSpecialEffect CannotBeReversed
+		}
+	}
+	Text Cont: If the character facing this card is cost 0 or lower, this card cannot become reversed.
+	
+Define: Act1RestSelfDrawBrainstorm5
+	Act: 1 RestSelf
+	{
+		Brainstorm 5
+		PerClimax
+		{
+			Question_Obvious Draw a card?
+			If Yes
+			{
+				DrawCard
+			}
+		}
+	}
+	Text Act: BRAINSTORM [(1) Rest this card] Flip over five cards from the top of your deck and put them into the waiting room. For each climax revealed, draw up to one card.

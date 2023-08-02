@@ -1,0 +1,7 @@
+Series: Monogatari
+Folder: Monogatari/S15
+Prefix: BM/S15
+SetName: Bakemonogatari (S15)
+Folder: Monogatari/S24
+Prefix: NM/S24
+SetName: Nisemonogatari (S24)

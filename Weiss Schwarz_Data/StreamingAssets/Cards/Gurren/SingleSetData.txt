@@ -1,0 +1,5 @@
+Series: Gurren Lagann
+Folder: Gurren
+Prefix: GL/S52
+SetName: S52
+

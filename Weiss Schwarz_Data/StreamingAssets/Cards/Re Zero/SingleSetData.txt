@@ -1,0 +1,11 @@
+Series: Re:Zero
+Folder: Re Zero/S46
+Prefix: RZ/S46
+SetName: Re:Zero Volume 1
+Folder: Re Zero/S55
+Prefix: RZ/S55
+SetName: Re:Zero Volume 2
+Series: Re:Zero Memory Snow
+Folder: Re Zero/S68
+Prefix: RZ/S68
+SetName: Memory Snow

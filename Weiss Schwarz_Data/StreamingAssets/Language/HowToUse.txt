@@ -1,0 +1,4 @@
+To make traits work with xunity.autotranslator fill out TraitTranslation.txt with the translations with each line like this
+This is needed because the translator ignores text inside <> (also it will keep the translation of the trait consistant).
+English trait name = Translated name
+Magic=마법

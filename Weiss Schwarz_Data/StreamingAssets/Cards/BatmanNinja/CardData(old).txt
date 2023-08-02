@@ -1,0 +1,1868 @@
+//This is not a good example to learn how to write cards because this is so old.
+//You can get the other deck files from the information channel in Discord.
+
+Character: BNJ/SX01-T01
+Image BNJ_SX01_T01
+Name Red Robin: Reliable Ally
+Color R
+Level 0
+Cost 0
+Power 500
+Trait1 Sengoku
+Trait2 Weapon
+*500Assist
+Auto: OnPlay
+{
+	TargetTop Deck 1
+	Reveal
+	IfThatCard HasTrait Weapon
+	{
+		MoveCard Hand
+		CheckForEmptyDeck
+		Discard 1 Any
+	}
+}
+Text Auto: When this card is placed on the stage from your hand, reveal the top card of your deck, if it is a <Weapon> character, add it to your hand and discard 1 card.
+EndCard
+
+Character: BNJ/SX01-T02
+Image BNJ_SX01_T02
+Name Robin: Reliable Ally
+Color R
+Level 0
+Cost 0
+Power 1500
+Trait1 Sengoku
+Trait2 Weapon
+*GivePowerOnClimaxPlay(1000)
+*ActDrawBrainstorm
+EndCard
+
+Character: BNJ/SX01-T03
+Image BNJ_SX01_T03
+Name Red Robin: Sinking Ship
+Color R
+Level 0
+Cost 0
+Power 3500
+Trait1 Sengoku
+Trait2 Weapon
+*NoEncoreIfReversed
+EndCard
+
+Character: BNJ/SX01-T04
+Image BNJ_SX01_T04
+Name Red Hood: Dual-Wield
+Color R
+Level 1
+Cost 0
+Power 5000
+Trait1 Sengoku
+Trait2 Weapon
+Auto: OnPlay
+{
+	If StageContains 1 Other && HasTrait Weapon
+	{
+		GainPower 2000
+	}
+}
+Quick
+Text Auto: When this card is placed on the stage from your hand, if you have another <Weapon> character, this gets +2000 power until end of turn.
+EndCard
+
+Character: BNJ/SX01-T05
+Image BNJ_SX01_T05
+Name Red Hood: Information Extraction
+Color R
+Level 2
+Cost 1
+Trigger Soul
+Power 2500
+Trait1 Sengoku
+Trait2 Weapon
+Backup 3000
+EndCard
+
+Character: BNJ/SX01-T06
+Image BNJ_SX01_T06
+Name Robin: Battle on the Big Boat
+Color R
+Level 2
+Cost 1
+Trigger Soul
+Power 4500
+Trait1 Sengoku
+Trait2 Weapon
+*LevelAssist
+Auto: OnPlay
+{
+	TargetTop Deck 1
+	Reveal
+	IfThatCard Compare ThatCardsLevel 1 OrLess
+	{
+		MoveCard Stock
+	}
+}
+Text Auto: When this card is placed on the stage from your hand, reveal the top card of your deck, if it is level 1 or lower, put it into your stock.
+EndCard
+
+Climax: BNJ/SX01-T07
+Image BNJ_SX01_T07
+Name All-Out Attack
+Color R
+*2SoulClimax
+EndCard
+
+Character: BNJ/SX01-T08
+Image BNJ_SX01_T08
+Name Present Day Batman
+Color B
+Level 0
+Cost 0
+Power 500
+Trait1 Weapon
+Cont: GiveAll
+{
+	If MyTurn && NameEquals Present Day Catwoman
+	{
+		GainPower 2000
+	}
+}
+Text Cont: During your turn, your other "Present Day Catwoman" get +2000 power.
+*Bond1(Present Day Catwoman)
+EndCard
+
+Character: BNJ/SX01-T09
+Image BNJ_SX01_T09
+Name Catwoman: Catlike Reflexes
+Color B
+Level 0
+Cost 0
+Power 1500
+Trait1 Sengoku
+Trait2 Weapon
+*PowerOnMyTurn(1000)
+*FreeRunner
+EndCard
+
+Character: BNJ/SX01-T10
+Image BNJ_SX01_T10
+Name Nightwing: Status Report
+Color B
+Level 0
+Cost 0
+Power 2000
+Trait1 Sengoku
+Trait2 Weapon
+*GivePowerOnPlay(1500,Weapon)
+EndCard
+
+Character: BNJ/SX01-T11
+Image BNJ_SX01_T11
+Name Batman: Ancient Armor
+Color B
+Level 1
+Cost 0
+Power 4500
+Trait1 Sengoku
+Trait2 Weapon
+Combo Unleash the Bat!
+Cont: GiveSelf
+{
+	SetXToNumberOfCharacters InLocation Backstage && HasTrait Weapon
+	MultiplyXValue 500
+	GainPower X
+}
+Text Cont: This card gets +500 power for each other <Weapon> character on your backstage.
+Auto: OnReverseOpponent
+{
+	If Climax Unleash the Bat! && StageContains 2 Other && HasTrait Weapon
+	{
+		*OptionalDraw
+		*OptionalDraw
+		Discard 1 Any
+	}
+}
+Text Auto: CxCombo When this card's battle opponent becomes reversed, if "Unleash the Bat!" is in your climax area, and you have 2 or more other <Weapon> characters, draw up to 2 cards, and discard 1 card.
+EndCard
+
+Character: BNJ/SX01-T12
+Image BNJ_SX01_T12
+Name Present Day Catwoman
+Color B
+Level 1
+Cost 0
+Power 5500
+Trait1 Weapon
+EndCard
+
+Character: BNJ/SX01-T13
+Image BNJ_SX01_T13
+Name Catwoman: Just Wanna Go Home
+Color B
+Level 1
+Cost 1
+Power 6000
+Trait1 Sengoku
+Trait2 Weapon
+Auto: OnAttack
+{
+	If StageContains 2 Other && HasTrait Weapon
+	{
+		GainPower 2000
+	}
+}
+Text Auto: When this card attacks, if you have 2 or more other <Weapon> characters, this card gets +2000 power until end of turn.
+*HandEncore
+EndCard
+
+Character: BNJ/SX01-T14
+Image BNJ_SX01_T14
+Name Nightwing: Clash of the Avians
+Color B
+Level 2
+Cost 1
+Trigger Soul
+Power 7500
+Trait1 Sengoku
+Trait2 Weapon
+*GainPowerForEachOther(500,Weapon)
+EndCard
+
+Character: BNJ/SX01-T15
+Image BNJ_SX01_T15
+Name Batman: Time-Traveller
+Color B
+Level 2
+Cost 1
+Trigger Soul
+Power 8000
+Trait1 Sengoku
+Trait2 Weapon
+*CannotSideAttack
+*OnAttackGainPowerForEachOther(1000,Weapon)
+EndCard
+
+Character: BNJ/SX01-T16
+Image BNJ_SX01_T16
+Name Catwoman: Feline Demeanor
+Color B
+Level 3
+Cost 2
+Trigger Soul
+Power 9500
+Soul 2
+Trait1 Sengoku
+Trait2 Weapon
+*Healer
+Auto: OnAttack
+{
+	TargetLocation Stage
+	NarrowTargets HasTrait Weapon
+	SetXValue TargetCount
+	MultiplyXValue 500
+	AIChoice GainPower X
+	ChooseCharacterFromTargets Choose a character to give +X power.
+	GainPower X
+}
+Text Auto: When this card attacks, choose 1 of your <Weapon> characters, it gets +X power until end of turn. X is 500 times the number of <Weapon> characters you have.
+EndCard
+
+Character: BNJ/SX01-T17
+Image BNJ_SX01_T17
+Name Batman: The Prophesied Ninja
+Color B
+Level 3
+Cost 2
+Trigger Soul
+Power 10000
+Soul 2
+Trait1 Sengoku
+Trait2 Weapon
+Cont: GiveSelf
+{
+	If MyTurn && Not StageContains 1 Not HasTrait Weapon
+	{
+		GainPower 2000
+	}
+}
+Text Cont: During your turn, if all your characters are <Weapon>, this card gets +2000 power.
+Auto: OnReverseOpponent
+{
+	If PlayedThisTurn
+	{
+		PayCost 3 Discard 1 Any
+		{
+			Stand
+		}
+	}
+}
+TimesPerTurn 1
+Text Auto: [(3) Discard a card] Once during the turn this card was placed on the stage from your hand, when this card's battle opponent becomes reversed, you may pay the cost, stand this card.
+EndCard
+
+Event: BNJ/SX01-T18
+Image BNJ_SX01_T18
+Name Clandestine Connections
+Color B
+Level 1
+Cost 0
+Effect:
+{
+	*Check4Add1(Weapon)
+}
+Text Look at up to 4 card from the top of your deck, choose up to 1 <Weapon> characater to add to your hand and put the rest into the waiting room.
+EndCard
+
+Climax: BNJ/SX01-T19
+Image BNJ_SX01_T19
+Name Unleash the Bat!
+*BookClimax
+Combo Batman: Ancient Armor
+EndCard
+
+Climax: BNJ/SX01-T20
+Image BNJ_SX01_T20
+Name Dance in the Dark
+*GateClimax
+EndCard
+
+Character: BNJ/SX01-T013
+Name Penguin: Weaponized Wagasa
+Image BNJ_SX01_013
+Color G
+Level 0
+Cost 0
+Power 1000
+Trait1 Sengoku
+Trait2 Villain
+Cont: GiveAll
+{
+	If Other && HasTrait Villain
+	{
+		GainPower 500
+	}
+}
+Text Cont: All of your other <Villain> characters get +500 power.
+Act: 1
+{
+	TargetLocation OpponentCenterStage
+	AIChoice LosePower 1000
+	ChooseCharacterFromTargets Choose a character to give -1000 power.
+	LosePower 1000
+}
+Text Act: [(1)] Choose a character on your opponent's center stage, it gets -1000 power until end of turn.
+EndCard
+
+Character: BNJ/SX01-017
+Name Joker: Stealing the Limelight
+Image BNJ_SX01_017
+Color G
+Level 2
+Cost 1
+Trigger Soul
+Power 2500
+Trait1 Sengoku
+Trait2 Villain
+Auto: OnUseThisCardsBackup
+{
+	PayCost 2
+	{
+		Burn 1
+	}
+}
+Text Auto: [(2)] When you use this card's BACKUP you may pay the cost, deal 1 damage to your opponent.
+Backup 2500
+EndCard
+
+Character: BNJ/SX01-020
+Name Bane
+Image BNJ_SX01_020
+Color G
+Level 0
+Cost 0
+Power 2000
+Trait1 Sengoku
+Trait2 Villain
+Auto: OnPlay
+{
+	GainPower 1500
+}
+Quick
+Text Auto: When this card is placed on the stage from your hand, it gets +1500 power until end of turn.
+Act: 1
+{
+	GainPower 2500
+	ScheduleEffect EndOfTurn
+	{
+		Effect:
+		{
+			TargetSelf
+			If OnStage
+			{
+				MoveCard Memory
+			}
+		}
+	}
+}
+Text Act: [(1)] This card gets +2500 power until end of turn. At the end of turn, put this card into your memory.
+EndCard
+
+Character: BNJ/SX01-038
+Image BNJ_SX01_038
+Name Red Hood
+Color R
+Level 3
+Cost 2
+Trigger Soul
+Power 9500
+Soul 2
+Trait1 Sengoku
+Trait2 Weapon
+Cont: GiveSelf
+{
+	If MyTurn
+	{
+		SetXToNumberOfCharacters Other && HasTrait Weapon
+		MultiplyXValue 500
+		GainPower X
+	}
+}
+Text Cont: During your turn, this card gets +500 power for each of your other <Weapon> characters.
+Auto: OnPlay
+{
+	*OptionalDraw
+	TargetSelf
+	GainPower 2000
+}
+Text Auto: When this card is placed on the stage from your hand, draw up to 1 card, and this card gets +2000 power until end of turn.
+Auto: OnReverseOpponent
+{
+	PayCost 2 Discard 2 Any
+	{
+		Burn 5
+	}
+}
+Text Auto: [(2) Discard 2 cards] When this card's battle opponent becomes reversed, you may pay the cost, deal 5 damage to your opponent.
+EndCard
+
+Character: BNJ/SX01-038S
+Clone BNJ/SX01-038
+Image BNJ_SX01_038S
+EndCard
+
+Character: BNJ/SX01-040
+Name Alfred
+Image BNJ_SX01_040
+Color R
+Level 0
+Cost 0
+Power 1000
+Trait1 Sengoku
+Trait2 Weapon
+*500Assist
+Auto: OnClimaxPlay
+{
+	TargetLocation Stage
+	AIChoice GainPower 1000
+	ChooseCharacterFromTargets Choose a character to give +1000 power.
+	GainPower 1000
+}
+Text Auto: When a climax is placed in your climax area, choose 1 of your characters, it gets +1000 power until end of turn.
+EndCard
+
+Character: BNJ/SX01-041
+Name Robin
+Image BNJ_SX01_041
+Color R
+Level 1
+Cost 0
+Power 4000
+Trait1 Sengoku
+Trait2 Weapon
+Auto: OnOtherCharacterAttacks
+{
+	TargetOther
+	IfThatCard HasTrait Weapon
+	{
+		TargetSelf
+		GainPower 1500
+	}
+}
+Quick
+Text Auto: When your other <Weapon> character attacks, this card gets +1500 power.
+*HandEncore
+EndCard
+
+Character: BNJ/SX01-043
+Name Red Hood: Tea Ceremony
+Image BNJ_SX01_043
+Color R
+Level 2
+Cost 1
+Trigger Soul
+Power 7500
+Trait1 Sengoku
+Trait2 Weapon
+Combo Gunslinger
+Auto: OnPlay
+{
+	SetXToNumberOfCharacters HasTrait Weapon
+	MultiplyXValue 500
+	GainPower X
+}
+Quick
+Text Auto: When this card is placed on the stage from your hand, this card gets +X power until end of turn. X is the number of <Weapon> characters you have times 500.
+Auto: OnAttack
+{
+	If Climax Gunslinger
+	{
+		*OptionalBlindStock
+		TargetTop Deck 1
+		Reveal
+		IfThatCard Compare ThatCardsLevel 1 OrMore
+		{
+			MoveCard Hand
+		}
+	}
+}
+Text Auto: CxCombo When this card attacks, if "Gunslinger" is in your climax area, put up to 1 card from the top of your deck into your stock. Reveal the top card of your deck. If it is level 1 or higher, add it to your hand.
+EndCard
+
+Character: BNJ/SX01-045
+Name Red Hood: Rooted Rancor
+Image BNJ_SX01_045
+Color R
+Level 0
+Cost 0
+Power 2000
+Trait1 Sengoku
+Trait2 Weapon
+Cont: GiveSelf
+{
+	If Not StageContains 1 Other
+	{
+		GainPower 2000
+	}
+}
+Text Cont: If you do not have another character, this card gets +2000 power.
+Auto: OnPlay
+{
+	Peek OpponentDeck 2
+	EndPeek
+}
+Text Auto: When this card is placed on the stage from your hand, look at up to 2 cards from the top of your opponent's deck and return them in the original order.
+EndCard
+
+Character: BNJ/SX01-046
+Name Giant Monkey
+Image BNJ_SX01_046
+Color R
+Level 1
+Cost 0
+Power 6000
+Trait1 Sengoku
+Trait2 Weapon
+Combo Bat Swarm
+Auto: OnPlay
+{
+	If Not LocationContains WaitingRoom 1 NameEquals Monkey Horde
+	{
+		Rest
+	}
+}
+Quick
+Text Auto: When this card is placed on the stage from your hand, if you do not have "Monkey Horde" in your waiting room, rest this card.
+Auto: OnSpecificClimaxPlay Bat Swarm
+{
+	If LocationContains Hand 1 NameEquals Batman: Blast From the Past
+	{
+		PayCost SendSelf WaitingRoom
+		{
+			TargetLocation Hand
+			NarrowTargets NameEquals Batman: Blast From the Past
+			FirstTarget
+			If HasTarget
+			{
+				Change
+			}
+		}
+	}
+}
+Text Auto: CxCombo [Put this card into your waiting room] When "Bat Swarm" is placed on your climax area, you may pay the cost, choose 1 "Batman: Blast From the Past" in your hand, and put it in the stage position this was on.
+EndCard
+
+Character: BNJ/SX01-048
+Name Alfred: Dutiful Butler
+Image BNJ_SX01_048
+Color R
+Level 0
+Cost 0
+Power 1500
+Trait1 Sengoku
+Trait2 Weapon
+*BondDiscard(Batman Ninja)
+Act: RestSelf
+{
+	TargetLocation Stage
+	NarrowTargets NameEquals Batman Ninja
+	AIChoice GainPower 2000
+	GainPower 2000
+	GainSpecialEffect CannotBeChosen
+}
+Text Act: [Rest this card] Choose 1 of your "Batman Ninja" until end of turn it gets +2000 power and cannot be chosen by your opponent's effects.
+EndCard
+
+
+Character: BNJ/SX01-049
+Name Monkey Horde
+Image BNJ_SX01_049
+Color R
+Level 0
+Cost 0
+Power 1500
+Trait1 Sengoku
+Trait2 Weapon
+Army
+*RedLevel0Bomb
+EndCard
+
+Character: BNJ/SX01-050
+Name Robin: Reluctant Adieu
+Image BNJ_SX01_050
+Color R
+Level 0
+Cost 0
+Power 2000
+Trait1 Sengoku
+Trait2 Weapon
+Auto: OnAttack
+{
+	TargetLocation Stage
+	NarrowTargets HasTrait Weapon
+	AIChoice GainPower 1000
+	ChooseCharacterFromTargets Choose a character to give +1000 power and +1 level
+	GainPower 1000
+	GainLevel 1
+}
+Text Auto: When this card attacks, choose 1 of your <Weapon> characters, it gets +1 level and +1000 power until end of turn.
+EndCard
+
+Character: BNJ/SX01-051
+Name Red Robin
+Image BNJ_SX01_051
+Color R
+Level 0
+Cost 0
+Power 2500
+Trait1 Sengoku
+Trait2 Weapon
+Auto: OnSentFromStageToWaitingRoom
+{
+	PayCost 2
+	{
+		SearchWaitingRoom HasTrait Weapon
+	}
+}
+Text Auto: [(2)] When this card is put into your waiting room from the stage, you may pay the cost. Choose a <Weapon> character in your waiting room and return it to your hand.
+EndCard
+
+Character: BNJ/SX01-055
+Name Red Robin: Tea Ceremony
+Image BNJ_SX01_055
+Color R
+Level 2
+Cost 1
+Trigger Soul
+Power 9000
+Trait1 Sengoku
+Trait2 Weapon
+Cont: InHand
+{
+	If StageContains 4 HasTrait Weapon
+	{
+		LoseLevel 1
+	}
+}
+Text Cont: If you have 4 or more <Weapon> characters, this card gets -1 level in your hand.
+Cont: GiveSelf
+{
+	LoseLevel 2
+}
+Text Cont: This card gets -2 level while on the stage.
+EndCard
+
+Event: BNJ/SX01-057
+Name Monkey Flute
+Image BNJ_SX01_057
+Color R
+Level 1
+Cost 0
+Effect:
+{
+	ForcePayCost Rest 1 HasTrait Weapon
+	{
+		SearchLocationForTargets Deck 0 2 NameEquals Monkey Horde
+		PlaceOnStage False True True False
+		ShuffleLocation Deck
+	}
+}
+Text Choose 1 of your standing <Weapon> characters and rest it. If you do, search your deck for up to 2 "Monkey Horde" and put them on separate positions of your stage.
+EndCard
+
+Climax: BNJ/SX01-060
+Name Bat Swarm
+Image BNJ_SX01_060
+Combo Giant Monkey
+*DoorClimax
+EndCard
+
+Climax: BNJ/SX01-060R
+Clone BNJ/SX01-060
+Image BNJ_SX01_060R
+EndCard
+
+Climax: BNJ/SX01-062
+Name Gunslinger
+Image BNJ_SX01_062
+*RedStockSoul
+Combo Red Hood: Tea Ceremony
+EndCard
+
+Character: BNJ/SX01-063
+Name Catwoman: Reliable Ally
+Image BNJ_SX01_063
+Color B
+Level 0
+Cost 0
+Power 1000
+Trait1 Sengoku
+Trait2 Weapon
+Auto: StartClimaxPhase
+{
+	TargetLocation Stage
+	AIChoice GainPower 500
+	ChooseCharacterFromTargets Choose a character to give +500 power.
+	GainPower 500
+}
+Text Auto: At the beginning of your climax phase, choose 1 of your characters, it gets +500 power until end of turn.
+*Act1RestSelfSalvageBrainstorm(Any)
+EndCard
+
+Character: BNJ/SX01-063S
+Clone BNJ/SX01-063
+Image BNJ_SX01_063S
+EndCard
+
+Character: BNJ/SX01-064
+Name Sengoku Batman
+Image BNJ_SX01_064
+Color B
+Level 0
+Cost 0
+Power 2000
+Trait1 Sengoku
+Trait2 Weapon
+Auto: OnPlay
+{
+	Mill 2
+	NarrowTargets IsClimax
+	If HasTarget
+	{
+		TargetLocation Stage
+		AIChoice GainPower 1500
+		ChooseCharacterFromTargets Choose a character to give +1500 power.
+		GainPower 1500
+	}
+}
+Text Auto: When this card is placed on the stage from your hand, put the top 2 cards of your deck into the waiting room. If a climax is sent, choose 1 of your characters, it gets +1500 power until end of turn.
+Auto: OnPlay
+{
+	PayCost 1 Clock
+	{
+		SearchWaitingRoom HasTrait Weapon
+	}
+}
+Text Auto: [(1) Put the top card of your deck into your clock] When this card is placed on the stage from your hand, you may pay the cost. Choose a <Weapon> character in your waiting room and return it to your hand.
+EndCard
+
+Character: BNJ/SX01-064S
+Clone BNJ/SX01-064
+Image BNJ_SX01_064S
+EndCard
+
+Character: BNJ/SX01-065
+Name Catwoman
+Image BNJ_SX01_065
+Color B
+Level 1
+Cost 0
+Power 4500
+Trait1 Sengoku
+Trait2 Weapon
+Combo Your Opponent's Right Here!
+*GainPowerOnPlay(1500)
+Auto: OnReverseOpponent
+{
+	If Climax Your Opponent's Right Here!
+	{
+		SearchDeck HasTrait Weapon
+	}
+}
+Text Auto: CxCombo When this card's battle opponent becomes reversed, if "Your Opponent's Right Here!" is in your climax area, search your deck for up to 1 <Weapon> character and add it to your hand.
+EndCard
+
+Character: BNJ/SX01-066
+Name Batman Ninja
+Image BNJ_SX01_066
+Color B
+Level 3
+Cost 2
+Trigger Soul 
+Power 9000
+Soul 2
+Trait1 Sengoku
+Trait2 Weapon
+Combo The Dark Knight
+*GainPowerForEachOther(500,Weapon)
+*OnPlayCheck3
+Auto: OnEndOfAttack
+{
+	If Climax The Dark Knight && Not StageContains 1 Not HasTrait Weapon 
+	{
+		PayCost 3 Discard 1 HasTrait Weapon
+		{
+			Stand
+			GainPower 2000
+		}
+	}
+}
+TimesPerTurn 1
+Text Auto: CxCombo [(3) Discard a <Weapon> character] Once per turn, at the end of this card's attack, if "The Dark Knight" is in your climax area, and all of your characters area <Weapon>, you may pay the cost, stand this card and this card gets +2000 power until end of turn.
+EndCard
+
+Character: BNJ/SX01-067
+Name Batman: Missionary Disguise
+Image BNJ_SX01_067
+Color B
+Level 0
+Cost 0
+Power 1000
+Trait1 Sengoku
+Trait2 Weapon
+*500Assist
+Act: 2 RestSelf
+{
+	SearchDeck HasTrait Weapon
+}
+Text Act: [(2) Rest this card] Search your deck for up to 1 <Weapon> character and add it to your hand.
+EndCard
+
+Character: BNJ/SX01-068
+Name Catwoman: Sly Deal
+Image BNJ_SX01_068
+Color B
+Level 0
+Cost 0
+Power 1500
+Trait1 Sengoku
+Trait2 Weapon
+Cont: GiveSelf
+{
+	GainTrait Villain
+}
+Text Cont: If this is on your stage, this card gets <Villain>
+Auto: OnPlay
+{
+	TargetTop Deck 2
+	Reorder
+}
+Text Auto: When this card is placed on the stage from your hand, look at up to 2 cards from the top of your deck, and put them on top of your deck in any order.
+Auto: OnClimaxPlay
+{
+	PayCost SendSelf Hand
+	{
+		DrawCard
+		Discard 1 Any
+	}
+}
+Text Auto: [Return this card to your hand] When a climax is placed in your climax area, you may pay the cost. Draw 1 card and discard 1 card.
+EndCard
+
+Character: BNJ/SX01-069
+Name Batman: Information Extraction
+Image BNJ_SX01_069
+Color B
+Level 0
+Cost 0
+Power 2500
+Trait1 Sengoku
+Trait2 Weapon
+Cont: GiveSelf
+{
+	If Compare CardsInStock 2 OrLess
+	{
+		GainPower 1500
+	}
+}
+Text Cont: If your stock has 2 or less cards, this card gets +1500 power.
+EndCard
+
+Character: BNJ/SX01-070
+Name Eian: Bat Clan Leader
+Image BNJ_SX01_070
+Color B
+Level 1
+Cost 0
+Power 5000
+Trait1 Sengoku
+Trait2 Weapon
+Auto: OnAttack
+{
+	TargetLocation Stage
+	NarrowTargets Other && HasTrait Weapon
+	SetXToNumberOfCharacters
+	MultiplyXValue 500
+	AIChoice GainPower X
+	ChooseCharacterFromTargets Choose a character to get +X power.
+	GainPower X
+}
+Text Auto: When this card attacks, choose 1 of your other <Weapon> characters. It gets +X power until end of turn, where X is 500 times the number of other <Weapon> characters you have.
+EndCard
+
+Character: BNJ/SX01-071
+Name Catwoman: Catfight
+Image BNJ_SX01_071
+Color B
+Level 2
+Cost 1
+Trigger Soul
+Power 2500
+Trait1 Sengoku
+Trait2 Weapon
+Auto: OnUseThisCardsBackup
+{
+	PayCost Discard 2 Any
+	{
+		TargetLocation OpponentStage
+		SetXValue OpponentsLevel
+		AddToXValue 1
+		NarrowTargets Compare ThatCardsLevel X OrMore
+		ChooseCharacterFromTargets Choose an opponent's character whose level is higher than your opponent's level to put into the waiting room.
+		MoveCard WaitingRoom
+	}
+}
+Text Auto: [Discard 2 cards] When you use this card's BACKUP, you may pay the cost. Choose 1 of your opponent's characters whose level is higher than your opponent's level and put it into the waiting room.
+Backup 2500
+EndCard
+
+Character: BNJ/SX01-071S
+Clone BNJ/SX01-071
+Image BNJ_SX01_071S
+EndCard
+
+Character: BNJ/SX01-072
+Name Batman: Blast From the Past
+Image BNJ_SX01_072
+Color B
+Level 2
+Cost 1
+Trigger Soul
+Power 8500
+Trait1 Sengoku
+Trait2 Weapon
+Combo Bat Swarm
+Auto: OnPlay
+{
+	If Not LocationContains WaitingRoom 1 NameEquals Monkey Horde
+	{
+		Rest
+	}
+}
+Quick
+Text Auto: When this card is placed on the stage from your hand, if you do not have "Monkey Horde" in your waiting room, rest this card.
+Auto: OnAttack
+{
+	If Climax Bat Swarm && StageContains 2 Other && HasTrait Weapon
+	{
+		TargetLocation Stage
+		GainPower 500
+		GainSoul 1
+	}
+}
+Text Auto: CxCombo When this card attacks, if "Bat Swarm" is in your climax area, and your have 2 or more other <Weapon> characters, all of your characters get +500 power and +1 soul until end of turn.
+Auto: Encore Discard 1 HasTrait Weapon
+{
+}
+Text Auto: ENCORE [Discard a <Weapon> character]
+EndCard
+
+Character: BNJ/SX01-072S
+Clone BNJ/SX01-072
+Image BNJ_SX01_072S
+EndCard
+
+Character: BNJ/SX01-073
+Name Catwoman: Unimpressed
+Image BNJ_SX01_073
+Color B
+Level 3
+Cost 2
+Trigger Soul
+Power 9000
+Soul 2
+Trait1 Sengoku
+Trait2 Weapon
+*EarlyPlay4OrMore(Weapon)
+Cont: GiveSelf
+{
+	If Not StageContains 1 Not HasTrait Weapon
+	{
+		GainPower 1000
+	}
+}
+Text Cont: If all of your characters are <Weapon>, this card gets +1000 power.
+*Healer
+EndCard
+
+Character: BNJ/SX01-074
+Name Batman: Batmobile
+Image BNJ_SX01_074
+Color B
+Level 3
+Cost 3
+Trigger Soul
+Power 11500
+Soul 2
+Trait1 Sengoku
+Trait2 Weapon
+Combo Anachronistic Gadgetry
+Auto: OnPlay
+{
+	//The AI will only pick certain cards, so this will be coded into the card effect
+	If IsAI
+	{
+		TargetLocation WaitingRoom
+		NarrowTargets NameEquals Batman: Batwing
+		If HasTarget
+		{
+			FirstTarget
+			Marker_FaceUp
+		}
+		TargetLocation WaitingRoom
+		NarrowTargets NameEquals Batman: Batcycle
+		If HasTarget
+		{
+			FirstTarget
+			Marker_FaceUp
+		}
+		TargetLocation WaitingRoom
+		NarrowTargets NameEquals Armored Batman
+		If HasTarget
+		{
+			FirstTarget
+			Marker_FaceUp
+		}
+		TargetLocation WaitingRoom
+		NarrowTargets NameEquals Batman: Information Extraction
+		If HasTarget
+		{
+			FirstTarget
+			Marker_FaceUp
+		}
+	}
+	Else
+	{
+		Message Choose up to 4 cards to put under this card as markers.  You should pick "Batman: Batwing" "Batman: Batcycle" "Armored Batman" and "Batman: Information Extraction"
+		SearchLocationForTargets WaitingRoom 0 4 Any
+		Marker_FaceUp
+	}
+}
+Text Auto: When this card is placed on the stage from your hand, choose up to 4 cards in your waiting room and put them face-up underneath this card as marker. (The Sunder chain is "Batman: Batwing" -> "Batman: Batcycle" -> "Armored Batman" -> "Batman: Information Extraction")
+Auto: OnSpecificClimaxPlay Anachronistic Gadgetry
+{
+	If Not StageContains 1 Other
+	{
+		GainEffect
+		{
+			Auto: OnEndOfAttack
+			{
+				If HasSpecificMarker Batman: Batwing
+				{
+					PayCost 2 Discard 4 Any
+					{
+						Sunder Batman: Batwing
+						//You can place it on any position of yoru stage
+						Question Move to another position?
+						If Yes
+						{
+							MoveToOpenPosition True True
+						}
+					}
+				}
+			}
+			Text Auto: SUNDER "Batman: Batwing" [(2) Discard 4 cards]
+		}
+	}
+}
+Text: When "Anachronistic Gadgetry" is placed in your climax area, if you have no other characters, this gets the following ability until end of turn. "Auto: Sunder/"Super Galaxy GURREN LAGANN" [(2) Discard 4 cards] At the end of this card's attack, you may pay the cost, choose a marker under this named "Super Galaxy GURREN LAGANN", put it on any position of your stage, and put this card and all markers underneath it face up under that card as markers.
+EndCard
+
+Character: BNJ/SX01-075
+Name Batman: Ancient Grappling Hook
+Image BNJ_SX01_075
+Color B
+Level 0
+Cost 0
+Power 500
+Trait1 Sengoku
+Trait2 Weapon
+Auto: OnPlay
+{
+	PayCost 2
+	{
+		TargetLocation OpponentStage
+		AIChoice Move
+		ChooseCharacterFromTargets Choose a character to move
+		MoveToOpenPosition
+	}
+}
+Text Auto: [(2)] When this card is placed on the stage from your hand, you may pay the cost, choose 1 of your opponent's characters, move it to an open position of your opponent's stage.
+Act: RestSelf
+{
+	TargetLocation OpponentCenterStage
+	AIChoice LosePower 1000
+	ChooseCharacterFromTargets Choose a character to give -1000 power.
+	LosePower 1000
+}
+Text Act: [Rest this card] Choose a character on your opponent's center stage, it gets -1000 power until end of turn.
+EndCard
+
+Character: BNJ/SX01-076
+Name Nightwing: Tea Ceremony
+Image BNJ_SX01_076
+Color B
+Level 0
+Cost 0
+Power 500
+Trait1 Sengoku
+Trait2 Weapon
+Auto: OnLevelUp
+{
+	PayCost 2
+	{
+		SearchDeck HasTrait Weapon
+	}
+}
+Text Auto: [(2)] When you level up, you may pay the cost, search your deck for up to 1 <Weapon> character and add it to your hand.
+Act: RestSelf
+{
+	TargetLocation Stage
+	AIChoice GainPower 1000
+	ChooseCharacterFromTargets Choose a character to give +1000 power.
+	GainPower 1000
+}
+Text Act: [Rest this card] Choose 1 of your characters, it gets +1000 power until end of turn.
+EndCard
+
+Character: BNJ/SX01-078a
+Name Bat Clan of Hida
+Image BNJ_SX01_078A
+Color B
+Level 0
+Cost 0
+Power 2000
+Trait1 Sengoku
+Trait2 Weapon
+Army
+Auto: OnOtherFrontalAttacked
+{
+	TargetOther
+	IfThatCard NameContains Batman
+	{
+		PayCost 1 SendSelf WaitingRoom
+		{
+			MoveCard Hand
+		}
+	}
+}
+Quick
+Text Auto: [(1) Put this card into your waiting room] When your other character with "Batman" in its name is frontal attacked, you may pay the cost, return that character to your hand.
+EndCard
+
+Character: BNJ/SX01-078b
+Clone BNJ/SX01-078a
+Image BNJ_SX01_078B
+EndCard
+
+Character: BNJ/SX01-078c
+Clone BNJ/SX01-078a
+Image BNJ_SX01_078C
+EndCard
+
+Character: BNJ/SX01-078d
+Clone BNJ/SX01-078a
+Image BNJ_SX01_078D
+EndCard
+
+Character: BNJ/SX01-079
+Name Catwoman: Back to the Present
+Image BNJ_SX01_079
+Color B
+Level 1
+Cost 0
+Power 4500
+Trait1 Weapon
+*OnPlayGainPowerForEach(500,Weapon)
+Act: Discard 1 IsClimax
+{
+	GainPower 1000
+	GainEffect
+	{
+		Auto: OnReverseOpponent
+		{
+			*OptionalDraw
+		}
+		Text Auto: When this card's battle opponent becomes reversed, you may draw 1 card.
+	}
+}
+Text Act: [Discard a climax] This card gets +1000 power and the following ability until end of turn. "Auto: When this card's battle opponent becomes reversed, you may draw 1 card."
+EndCard
+
+Character: BNJ/SX01-080
+Name Batman: The Final Showdown
+Image BNJ_SX01_080
+Color B
+Level 1
+Cost 1
+Power 5500
+Trait1 Sengoku
+Trait2 Weapon
+*GainPowerForEachOther(500,Weapon)
+*HandEncore
+EndCard
+
+Character: BNJ/SX01-081
+Name Catwoman: Beguiling Maiden
+Image BNJ_SX01_081
+Color B
+Level 2
+Cost 1
+Trigger Soul
+Power 5000
+Trait1 Sengoku
+Trait2 Weapon
+*Level3Assist
+Auto: OnPlay
+{
+	DrawCard
+	Discard 1 Any
+}
+Text Auto: When this card is placed on the stage from your hand, draw 1 card, choose a card in your hand and put it into your waiting room.
+EndCard
+
+Character: BNJ/SX01-082
+Name Batman: Batcycle
+Image BNJ_SX01_082
+Color B
+Level 2
+Cost 1
+Trigger Soul
+Power 6000
+Trait1 Sengoku
+Trait2 Weapon
+*BlueEarlyPlayBomb
+Auto: PlacedBy Sunder
+{
+	GainEffect
+	{
+		Auto: OnEndOfAttack
+		{
+			If HasSpecificMarker Armored Batman
+			{
+				PayCost 1
+				{
+					Sunder Armored Batman
+					Question Move to another position?
+					If Yes
+					{
+						MoveToOpenPosition
+					}
+				}
+			}
+		}
+		Text Auto: SUNDER "Armored Batman" [(1)]
+	}
+}
+Text: Auto: When this card is placed on the stage from the marker area of "Batman: Batwing", this gets the following ability until end of turn. "Auto: SUNDER/"Armored Batman" [(1)]"
+EndCard
+
+Character: BNJ/SX01-083
+Name Gorilla Grodd: Battle on the Big Boat
+Image BNJ_SX01_083
+Color B
+Level 2
+Cost 2
+Trigger Soul
+Power 6500
+Soul 2
+Trait1 Sengoku
+Trait2 Weapon
+Cont: GiveSelf
+{
+	SetXToNumberOfCharacters HasTrait Weapon && Other && InLocation Backstage
+	MultiplyXValue 1500
+	GainPower X
+}
+Text Cont: This card gets +1500 power for each of your other <Weapon> characters on your backstage.
+Auto: OnReverseOpponent
+{
+	TargetOther
+	IfThatCard Compare ThatCardsLevel 2 OrMore
+	{
+		PayCost 1
+		{
+			Heal
+		}
+	}
+}
+Text Auto: [(1)] When this card's level 2 or higher battle opponent becomes reversed, you may pay the cost, put the top card of your clock into your waiting room.
+EndCard
+
+Character: BNJ/SX01-084
+Name Batman: Batwing
+Image BNJ_SX01_084
+Color B
+Level 3
+Cost 2
+Trigger Soul
+Power 9000
+Soul 2
+Trait1 Sengoku
+Trait2 Weapon
+*Healer
+Auto: PlacedBy Sunder
+{
+	GainEffect
+	{
+		Auto: OnEndOfAttack
+		{
+			If HasSpecificMarker Batman: Batcycle
+			{
+				PayCost 1
+				{
+					Sunder Batman: Batcycle
+					Question Move to another position?
+					If Yes
+					{
+						MoveToOpenPosition
+					}
+				}
+			}
+		}
+		Text Auto: SUNDER "Batman: Batcycle" [(1)]
+	}
+}
+Text: Auto: When this card is placed on the stage from the marker area of "Batman: Batmobile", this gets the following ability until end of turn. "Auto: SUNDER/"Batman: Batcycle" [(1)]"
+Act: Send 3 WaitingRoom Any
+{
+	SearchWaitingRoom NameEquals Anachronistic Gadgetry
+}
+Text Act: CxCombo [Put 3 characters from your stage into your waiting room] Choose 1 "Anachronistic Gadgetry" in your waiting room, and return it to your hand.
+EndCard
+
+Character: BNJ/SX01-085
+Name Batman: Sinking Ship
+Image BNJ_SX01_085
+Color B
+Level 0
+Cost 0
+Power 1500
+Trait1 Sengoku
+Trait2 Weapon
+Auto: OnAttack
+{
+	TargetLocation Stage
+	NarrowTargets Other && HasTrait Weapon
+	AIChoice GainPower 1000
+	ChooseCharacterFromTargets Choose a character to give +1000 power.
+	GainPower 1000
+}
+Text Auto: When this card attacks, choose 1 of your other <Weapon> characters, it gets +1000 power until end of turn.
+*BondDiscard(Catwoman)
+EndCard
+
+Character: BNJ/SX01-086
+Name Catwoman: Battle on the Big Boat
+Image BNJ_SX01_086
+Color B
+Level 0
+Cost 0
+Power 2000
+Trait1 Sengoku
+Trait2 Weapon
+Combo Elusive Kitty
+*ScryToBottomOnPlay
+Auto: OnAttack
+{
+	If Climax Elusive Kitty && StageContains 1 Other && HasTrait Weapon
+	{
+		*Scry
+		TargetSelf
+		UntilEndOfOpponentsTurn 
+		GainEffect
+		{
+			Auto: OnFrontalAttacked
+			{
+				Question Return "Catwoman: Battle on the Big Boat" to your hand?
+				If Yes
+				{
+					MoveCard Hand
+				}
+			}
+			Text Text Auto: When this card is frontal attacked, you may return this card to your hand.
+		}
+	}
+}
+Text Auto: CxCombo When this card attacks, if "Elusive Kitty" is in your climax area, and you have another <Weapon> character, look at the top card of your deck, put it on top of your deck or into your waiting room, and this card gets the following ability until the end of your opponent's turn. "Text Auto: When this card is frontal attacked, you may return this card to your hand."
+EndCard
+
+Character: BNJ/SX01-087
+Name Gorilla Grodd: Decoy
+Image BNJ_SX01_087
+Color B
+Level 0
+Cost 0
+Power 2000
+Trait1 Sengoku
+Trait2 Weapon
+Auto: OnFrontalAttacked
+{
+	PayCost 1 SendSelf Hand
+	{
+		TargetLocation Hand
+		NarrowTargets NameEquals Batman: Infiltration
+		AIChoice Random
+		ChooseCard Choose a Batman: Infiltration to place on stage.
+		If HasTarget
+		{
+			Change
+		}
+	}
+}
+Text Auto: [(1) Return this card to your hand] When this card is frontal attacked, you may pay the cost, if you do, choose up to 1 "Batman: Infiltration" in your hand, and put it on the stage position this card was on as the defending character.
+EndCard
+
+Character: BNJ/SX01-088
+Name Eian: Battle on the Big Boat
+Image BNJ_SX01_088
+Color B
+Level 0
+Cost 0
+Power 4000
+Trait1 Sengoku
+Trait2 Weapon
+Cont: GiveSelf
+{
+	GainSpecialEffect CannotMove
+}
+Text Cont: This card cannot move to another stage position.
+Auto: OnOpponentClimaxPlay
+{
+	MoveCard WaitingRoom
+}
+Text Auto: When a climax is placed in your opponent's climax area, put this card into your waiting room.
+EndCard
+
+Character: BNJ/SX01-089
+Name Nightwing: Coordinated Assault
+Image BNJ_SX01_089
+Color B
+Level 1
+Cost 0
+Power 3000
+Trait1 Sengoku
+Trait2 Weapon
+*BlueCost0Bomb
+EndCard
+
+Character: BNJ/SX01-090
+Name Armored Batman
+Image BNJ_SX01_090
+Color B
+Level 1
+Cost 0
+Power 4000
+Trait1 Sengoku
+Trait2 Weapon
+Cont: GiveSelf
+{
+	If MyTurn && StageContains 1 Other && HasTrait Weapon
+	{
+		GainPower 3000
+	}
+}
+Text Cont: During your turn, if you have another <Weapon> character, this card gets +3000 power.
+Auto: PlacedBy Sunder
+{
+	GainEffect
+	{
+		Auto: OnEndOfAttack
+		{
+			If HasSpecificMarker Batman: Information Extraction
+			{
+				PayCost 1
+				{
+					Sunder Batman: Information Extraction
+					Question Move to another position?
+					If Yes
+					{
+						MoveToOpenPosition
+					}
+				}
+			}
+		}
+		Text Auto: SUNDER "Batman: Information Extraction" [(1)]
+	}
+}
+Text: Auto: When this card is placed on the stage from the marker area of "Batman: Batcycle", this gets the following ability until end of turn. "Auto: SUNDER/"Batman: Information Extraction" [(1)]"
+EndCard
+
+Character: BNJ/SX01-091
+Name Batman: Charitable Dealings
+Image BNJ_SX01_091
+Color B
+Level 1
+Cost 0
+Power 4000
+Trait1 Sengoku
+Trait2 Weapon
+Cont: GiveAll
+{
+	If HasTrait Weapon
+	{
+		GainPower 500
+	}
+}
+Text Cont: All your other <Weapon> characters get +500 power.
+Act: RestSelf
+{
+	TargetLocation Stage
+	NarrowTargets HasTrait Weapon
+	AIChoice GainPower 1000
+	ChooseCharacterFromTargets Choose a character to give +1000 power.
+	GainPower 1000
+}
+Text Act: [Rest this card] Choose 1 of your <Weapon> characters. It gets +1000 power until end of turn.
+EndCard
+
+Character: BNJ/SX01-092
+Name Batman: Infiltration
+Image BNJ_SX01_092
+Color B
+Level 1
+Cost 0
+Power 6500
+Trait1 Sengoku
+Trait2 Weapon
+Cont: GiveSelf
+{
+	If Not StageContains 2 InLocation Backstage
+	{
+		GainSpecialEffect CannotAttack
+	}
+}
+Text Cont: If there are 1 or less characters on your backstage, this card cannot attack.
+Cont: GiveAll
+{
+	If Other
+	{
+		GainSpecialEffect CannotSideAttack
+	}
+}
+Text Cont: Your other characters cannot side attack.
+EndCard
+
+Character: BNJ/SX01-093
+Name Catwoman: Surprise!
+Image BNJ_SX01_093
+Color B
+Level 1
+Cost 1
+Power 5500
+Trait1 Sengoku
+Trait2 Weapon
+Cont: GiveSelf
+{
+	TargetFacing
+	If Compare TargetCardsLevel 0 OrLess
+	{
+		GainSpecialEffect CannotBeReversed
+	}
+}
+Text Cont: If the character facing this card is cost 0 or lower, this card cannot become reversed.
+EndCard
+
+Character: BNJ/SX01-094
+Name Nightwing
+Image BNJ_SX01_094
+Color B
+Level 2
+Cost 1
+Trigger Soul
+Power 10000
+Soul 2
+Trait1 Sengoku
+Trait2 Weapon
+Cont: GiveSelf
+{
+	If Compare MarkersUnderThis 0 OrLess
+	{
+		LosePower 7500
+	}
+}
+Text Cont: If there is no marker underneath this card, this card gets -7500 power.
+Auto: OnPlay
+{
+	SearchLocationForTargets WaitingRoom 0 1 NameEquals Nightwing
+	Marker_FaceUp
+}
+Text Auto: When this card is placed on the stage from your hand, you may choose 1 "Nightwing" in your waiting room and put it face-up underneath this card as a marker.
+EndCard
+
+Event: BNJ/SX01-095
+Name Donning the Mask
+Image BNJ_SX01_095
+Color B
+Level 1
+Cost 2
+Requirement StageContains 1 NameContains Batman
+Effect:
+{
+	SearchLocationForTargets Deck 0 2 HasTrait Weapon
+	MoveCard Hand
+	ShuffleLocation Deck
+}
+Text If you do not have a character with "Batman" in its name, this card cannot be played from your hand. Search your deck for up to 2 <Weapon> characters and add them to your hand.
+EndCard
+
+Event: BNJ/SX01-096
+Name Quake Engine
+Image BNJ_SX01_096
+Color B
+Level 3
+Cost 4
+Effect:
+{
+	If Compare OpponentsLevel 3 OrMore
+	{
+		TargetLocation Clock
+		MoveCard WaitingRoom
+		TargetLocation OpponentClock
+		MoveCard OpponentWaitingRoom
+		TargetSelf
+		MoveCard Memory
+	}
+}
+Text If all players are level 3 or higher, all players put all cards from their clock into their waiting room. Put this card into your memory.
+EndCard
+
+Climax: BNJ/SX01-097
+Name The Dark Knight
+Image BNJ_SX01_097
+*GateClimax
+Combo Batman Ninja
+EndCard
+
+Climax: BNJ/SX01-098
+Name Your Opponent's Right Here!
+Image BNJ_SX01_098
+*BookClimax
+Combo Catwoman
+EndCard
+
+Climax: BNJ/SX01-099
+Name Anachronistic Gadgetry
+Image BNJ_SX01_099
+*GateClimax
+Combo Batman: Batmobile
+EndCard
+
+Climax: BNJ/SX01-100
+Name Elusive Kitty
+Image BNJ_SX01_100
+*BlueStockSoul
+Combo Catwoman: Battle on the Big Boat
+EndCard
+
+Character: BNJ/SX01-101
+Name "Villain" Red Hood
+Image BNJ_SX01_101
+Color R
+Level 0
+Cost 0
+Power 2500
+Trait1 Sengoku
+Trait2 Weapon
+Auto: OnPlay
+{
+	If StageContains 1 Other && HasTrait Weapon
+	{
+		GainPower 2000
+	}
+}
+Quick
+Text Auto: When this card is placed on the stage from your hand, if you have another <Weapon> character, this gets +2000 power until end of turn.
+EndCard
+
+Character: BNJ/SX01-102
+Name "Villain" Robin
+Image BNJ_SX01_102
+Color R
+Level 1
+Cost 0
+Power 3500
+Trait1 Sengoku
+Trait2 Weapon
+Cont: GiveSelf
+{
+	If MyTurn
+	{
+		GainPower 2000
+	}
+}
+Text Cont: During your turn, this card gets +2000 power.
+*GivePowerOnPlay(1000, Any)
+EndCard
+
+Character: BNJ/SX01-103
+Name "Villain" Red Robin
+Image BNJ_SX01_103
+Color R
+Level 1
+Cost 0
+Power 5000
+Trait1 Sengoku
+Trait2 Weapon
+Auto: OnClimaxPlay
+{
+	SetXToNumberOfCharacters HasTrait Weapon
+	MultiplyXValue 500
+	GainPower X
+}
+Quick
+Text Auto: When a climax is placed in your climax area, this card gets +X power until end of turn. X is 500 times the number of <Weapon> characters you have.
+EndCard
+
+Character: BNJ/SX01-104
+Name "Villain" Catwoman
+Image BNJ_SX01_104
+Color B
+Level 0
+Cost 0
+Power 2000
+Trait1 Sengoku
+Trait2 Weapon
+Cont: GiveSelf
+{
+	If Compare MarkersUnderThis 1 OrMore
+	{
+		GainLevel 1
+		GainPower 1500
+	}
+}
+Text Cont: If there is a marker underneath this card, this gets +1 level and +1500 power.
+Auto: OnPlay
+{
+	TargetTop Deck 1
+	Reveal
+	IfThatCard HasTrait Weapon
+	{
+		Marker_FaceUp
+	}
+}
+Text Auto: When this card is placed on the stage from your hand, reveal the top card of your deck. If that card is a <Weapon> character, you may put it face up underneath this card as a marker.
+EndCard
+
+Character: BNJ/SX01-105
+Name "Villain" Gorilla Grodd
+Image BNJ_SX01_105
+Color B
+Level 1
+Cost 0
+Power 4500
+Trait1 Sengoku
+Trait2 Weapon
+Auto: OnAttack
+{
+	TargetLocation OpponentStage
+	SetXValue TargetCount
+	MultiplyXValue 500
+	TargetSelf
+	GainPower X
+}
+Quick
+Text Auto: When this card attacks, this card gets +X power until end of turn. X is 500 times the number of characters your opponent has.
+EndCard
+
+Character: BNJ/SX01-106
+Name "Villain" Nightwing
+Image BNJ_SX01_106
+Color B
+Level 1
+Cost 1
+Trigger Soul
+Power 1000
+Trait1 Sengoku
+Trait2 Weapon
+Auto: OnUseThisCardsBackup
+{
+	Mill 3
+}
+Text Auto: When you use this card's BACKUP, put the top 3 cards of your deck into the waiting room.
+Backup 2000
+EndCard
+
+Character: BNJ/SX01-107
+Name "Villain" Batman
+Image BNJ_SX01_107
+Color B
+Level 2
+Cost 1
+Trigger Soul
+Power 6000
+Trait1 Sengoku
+Trait2 Weapon
+Cont: GiveAll
+{
+	If Other && HasTrait Weapon
+	{
+		GainPower 1000
+	}
+}
+Text Cont: All of your other <Weapon> characters get +1000 power.
+*ClimaxExchange
+EndCard
+
+Character: BNJ/SX01-P01
+Name Batman: Back in Time
+Image BNJ_SX01_P01
+Color B
+Level 0
+Cost 0
+Power 1500
+Trait1 Sengoku
+Trait2 Weapon
+Auto: OnPlay
+{
+	Mill 2
+	NarrowTargets IsClimax
+	If HasTarget
+	{
+		TargetSelf
+		GainPower 3000
+	}
+}
+Text Auto: When this card is placed on the stage from your hand, put the top 2 cards of your deck into the waiting room. If a climax is sent, this card gets +3000 power until end of turn.
+*GivePowerOnAttack(1000)
+EndCard

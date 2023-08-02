@@ -1,0 +1,1203 @@
+//Version 5 AI? (4 was never finished)
+//Making it more like Version 2, but without ever using theoretical stage arangements
+//For any cards with commas or parentheses in the name the comma must have a \ before it when used in functions, but not as the label of its section. \,
+//Card names must not include \
+
+
+Strategy
+{
+	ClockColors(1,Yellow)
+	ClockColors(2,Yellow,Red)
+	ClockColors(3,Yellow,Red)
+}
+
+
+//Tell it which acts can search cards
+SearchActs
+{
+	BrainstormPay1(0,Morgana as MONA: The Elusive Phantom Thief)
+	BrainstormRest2(0,Protagonist: The Will of Rebellion)
+}
+
+SearchOnPlayAuto
+{
+	Dropsearch(0,Swimsuit Protagonist)
+	DiscardBond(0,Ryuji: It's a Deal,Calling Card)
+}
+
+IdealBackstage
+{
+	If(Level == 0 || Level == 1){
+		Backstage(1,Morgana as MONA: The Elusive Phantom Thief)
+		Backstage(1,Protagonist: The Will of Rebellion)
+		Alt(1,Ryuji: A Big Smile)
+	}
+	If(Level == 2){
+		Backstage(1,Protagonist: Prisoner of Fate)
+		Backstage(1,Protaginist: The Will of Rebellion)
+		Alt(1, Morgana as MONA: The Elusive Phantom Thief)
+	}
+	If(Level == 3){
+		Backstage(1,Protagonist: Prisoner of Fate)
+		Backstage(1,Protaginist: The Will of Rebellion)
+		Alt(1, Morgana as MONA: The Elusive Phantom Thief)
+		Alt(1,Protagonist: Prisoner of Fate)
+	}
+}
+
+Variables
+{
+	WantMill = 0
+}
+
+
+
+//First turn going first
+GoingFirst
+{
+	SpecialIf(StageCount == 0) //SpecialIf is checked after each line (at the same depth), if the statement becomes false it will skip to the end of the block
+	{
+		Play(Morgana as MONA: The Phantom Guide)
+		Play(Ann: Phantom Thief of Hearts)
+		Play(Protagonist as JOKER: Destiny Awaits)
+		If(LocationContains(WaitingRoom,1,NameEquals(Calling Card)))
+		{
+			Play(Ryuji: It's a Deal)
+		}
+		Play(Sadayo Kawakami)
+		//This deck does not have any reason to play more than one character on center stage on first turn of the game
+		PlayAny(Highest, CenterStage)//Play the character with the highest center stage value
+	}
+	//Play backstage characters
+	SpecialIf(BackstageCount == 0)
+	{
+		PlayBackstage(Ryuji as SKULL: A Big Smile)
+		PlayBackstage(Morgana as MONA: The Elusive Phantom Thief)
+	}
+}
+
+//For a normal turn,
+
+MainPhase
+{
+	//Decide saved stock and other goals
+	//Start each main phase by choosing a strategy
+	//When saving resources need to specify what it is saved for
+	//Resources can be stock or hand, hand may include a requirement
+	
+	DoSearchActs()
+	
+	If(Level == 0)
+	{
+		//Strategy is to increase stock and hand size
+		//Always attack 3 times
+		//Search unless it will put you too low
+		
+		//Reserve 1 existing copy of this on the backstage and only attack with it if not enough attackers
+		KeepBackstage(1, Protagonist: The Will of Rebellion)
+		KeepBackstage(1, Morgana as MONA: The Elusive Phantom Thief)
+		KeepBackstage(1, Ryuji as SKULL: A Big Smile)
+		
+		If(Stock > 0){
+			If(PotentialAttackers > 4){//Potential characters is the number of playable charactes plus number of standing characters. (Take stock cost and color into account for playable)
+				If(CardsInHand < 8){ 
+					//Before brainstorming play the card that scrys
+					PlaySingle(Protagonist: The Will of Rebellion)//Only play if you don't already have a copy
+					If(HaveWithoutOverplay(1, Protagonist: The Will of Rebellion)){
+						Play(Protagonist as JOKER: Destiny Awaits)
+						{
+							Auto(0) //Append to the end of the auto section of the card in this case
+							{
+								DecisionTag(KeepClimaxOnTop)
+							}
+						}
+					}
+					Act(0,Protagonist: The Will of Rebellion)
+				}
+			}
+			
+			If(CardsInHand > 1){
+				If(Stock > 2 || PotentialAttackers < 3){
+					PlaySingle(Morgana as MONA: The Elusive Phantom Thief)
+					Act(0, Morgana as MONA: The Elusive Phantom Thief)
+				}
+			}
+		}
+		
+		//Play the dropsearch if you need 1 more playable
+		If(Stock > 0 && CardsInHand > 1 && IdealAttackers < 3){//Ideal Attackers counts cards in hand and on stage that are standing, but ignores ones that are meant to be on the backstage.
+			TempReserveStock(1)//Pretend you have 1 less stock for purposes of what you are searching
+			If(DeckContainsPlayable(HasTrait Thief))
+			{
+				Play(Swimsuit Protagonist)
+				{
+					Auto(0)
+					{
+						Use = 1
+					}
+				}
+			}
+			ResetTempReserve()
+		}
+		
+		//This may be all it needs, then just try to reverse opponent's characters using more generic strategy
+		//Use the reverse priority value
+		
+	}
+	
+	
+	
+	
+	If(Level == 1){
+		//At level 1 try to early play that level 2 combo
+		//Need 4 <Thief> characters
+		//There is no way to search the climax in this deck, so determine strategy based on if you have the climax
+		
+		
+		KeepBackstage(1, Protagonist: The Will of Rebellion)
+		KeepBackstage(1, Morgana as MONA: The Elusive Phantom Thief)
+		KeepBackstage(1, Ryuji as SKULL: A Big Smile)
+		
+		PlayEvent(Calling Card)
+		PlayEvent(Calling Card)
+		PlayEvent(Calling Card)
+		If(LocationContains(WaitingRoom,1,NameEquals(Calling Card)))
+		{
+			If(HandContains(NameEquals(Ryuji: It's a Deal)))
+			{
+				If(LowValueInHand(200) && CardsInHand > 1)
+				{
+					If(StageCount <= 4)
+					{
+						Play(Ryuji: It's a Deal)
+						PlayEvent(Calling Card)
+					}
+				}
+			}
+		}
+		If(LocationContains(WaitingRoom,1,NameEquals(Calling Card)))
+		{
+			If(HandContains(NameEquals(Ryuji: It's a Deal)))
+			{
+				If(LowValueInHand(200) && CardsInHand > 1)
+				{
+					If(StageCount <= 4)
+					{
+						Play(Ryuji: It's a Deal)
+						PlayEvent(Calling Card)
+					}
+				}
+			}
+		}
+		
+		//Brainstormers
+		If(Stock > 0){
+			If(PotentialAttackers > 4)
+			{//Potential characters is the number of playable charactes plus number of standing characters. (Take stock cost and color into account for playable)
+				If(CardsInHand < 8)
+				{
+					//Before brainstorming play the card that scrys
+					PlaySingle(Protagonist: The Will of Rebellion)//Only play if you don't already have a copy
+					If(HaveWithoutOverplay(1, Protagonist: The Will of Rebellion))
+					{
+						Play(Protagonist as JOKER: Destiny Awaits)
+						{
+							Auto(0) //Append to the end of the auto section of the card in this case
+							{
+								DecisionTag(KeepClimaxOnTop)
+							}
+						}
+					}
+					Act(0,Protagonist: The Will of Rebellion)
+				}
+			}
+			
+			If(CardsInHand > 2 && PotentialAttackers < 3))
+			{
+				If(Stock > 3 || PotentialAttackers < 3)
+				{
+					PlaySingle(Morgana as MONA: The Elusive Phantom Thief)
+					Act(0, Morgana as MONA: The Elusive Phantom Thief)
+				}
+			}
+		}
+		
+		WantMill = 0
+		
+		
+		If(HandContains(1, NameEquals(Protagonist as JOKER: Thief Clad in Black)) || LocationContains(Stage,1,NameEquals(Protagonist as JOKER: Thief Clad in Black)&&DeckCardIf(Not HasMarker)))
+		{
+			If(Not LocationContains(WaitingRoom, 1, NameEquals(Protagonist as JOKER: Lurking in the Dark)))
+			{
+				WantMill = 1
+			}
+		}
+		
+		If(HandContains(1,NameEquals(Protagonist as JOKER: Lurking in the Dark)) || LocationContains(Stage,1,NameEquals(Protagonist as JOKER: Lurking in the Dark)&&DeckCardIf(Not HasMarker))){
+			If(Not LocationContains(WaitingRoom, 1, NameEquals(Protagonist as JOKER: Thief Clad in Black)))
+			{
+				WantMill = 1
+			}
+		}
+		
+		If(WantMill == 1){
+			If(LocationContains(WaitingRoom, 1, NameEquals(Calling Card)))
+			{
+				Play(Ryuji: It's a Deal)
+			}
+		}
+		
+		If(WantMill == 1 && Stock > 0){
+			PlaySingle(Morgana as MONA: The Elusive Phantom Thief)
+			Act(0, Morgana as MONA: The Elusive Phantom Thief)
+		}
+		
+		
+		
+		If(HandContains(1,NameEquals(The Show's Over)))
+		{
+			//Strategy is to try and early play
+			//Don't do the strategy if you opponent doesn't have a character the combo can reverse
+			Overplay(Sadayo Kawakami)
+			If(Not AttackersContains(1, NameEquals(Protagonist as JOKER: All-out Attack)) && Stock > 1)
+			{
+				//Did not already do this
+				//Play the dropsearch to find the combo character
+				If(LocationContains(Deck, 1, NameEquals(Protagonist as JOKER: All-out Attack)) && Stock > 2 && CardsInHand > 2)
+				{
+					SearchTarget(Protagonist as JOKER: All-out Attack)
+					PlaySingle(Swimsuit Protagonist)
+				}
+			}
+		}
+		
+		If(HandContains(1,NameEquals(The Show's Over)))
+		{
+			If(StageContains(1, NameEquals(Protagonist as JOKER: All-out Attack) && CardPosition(Stand)))
+			{
+				PlanClimax(The Show's Over)
+			}
+		}
+	}
+	
+	If(Level == 2)
+	{
+		//Protagonist: Prisoner of Fate
+		//Protagonist as Joker: All-out Attack
+		//Morgana as MONA & Zorro
+		
+		PlayEvent(Calling Card)
+		PlayEvent(Calling Card)
+		PlayEvent(Calling Card)
+		
+		If(HandContains(NameEquals(The Show's Over)))
+		{
+			If(Not Have(2,Protagonist as Joker: All-out Attack))
+			{
+				SearchTarget(Protagonist as Joker: All-out Attack)
+			}
+		}
+		
+		//Play mona and zorro if it can be early played and you have cards in clock
+		//If you have mona and zorro, but too many cx in waiting room, then mill if you can refresh yourself
+		If(HandContains(NameEquals(Morgana as MONA & Zorro)) && Stock >= 2)
+		{
+			SpecialIf(CardsInDeck <= 4){
+				//Mill out the last 4
+				Play(Calling Card)
+				If(Stock >= 3){
+					Act(0,Protagonist: The Will of Rebellion)
+					Act(0,Morgana as MONA: The Elusive Phantom Thief)
+				}
+				If(CardsInDeck <= 2){
+					Play(Ann as PANTHER: The Talented\(?\) Phantom Actress)
+				}
+				If(LocationContains(WaitingRoom,1,NameEquals(Calling Card))){
+					Play(Ryuji: It's a Deal)
+					PlayEvent(Calling Card)
+				}
+				If(Stock >= 3){
+					PlaySingle(Protagonist: The Will of Rebellion)
+					Act(0,Protagonist: The Will of Rebellion)
+				}
+				If(Stock >= 3){
+					PlaySingle(Morgana as MONA: The Elusive Phantom Thief)
+					Act(0,Morgana as MONA: The Elusive Phantom Thief)
+				}
+			}
+			If(Clock > 0){
+				Play(Morgana as MONA & Zorro)
+			}
+			If(Clock > 0){
+				Play(Morgana as MONA & Zorro)
+			}
+		}
+		
+		
+		
+		
+		PlayBackstage(Protagonist: Prisoner of Fate)
+		KeepBackstage(Protagonist: Prisoner of Fate)
+		
+		Overplay(Ryuji: It's a Deal)
+		
+	}
+	
+	If(Level == 3){
+	
+		IfSpecial(Clock >= 6){
+			PlaySingle(Sadayo Kawakami)
+			If(HandContains(1,NameEquals(Protagonist as JOKER & Arsene))){
+				Act(0, Sadayo Kawakami)
+			}
+			Play(Protagonist as JOKER & Arsene)
+			Play(Morgana as MONA & Zorro)
+		}
+	
+		PlayEvent(Calling Card)
+		If(LowValueInHand(400) && LocationContains(WaitingRoom,1,NameEquals(Calling Card)))
+		{
+			Play(Ryuji: It's a Deal)
+		}
+		PlayEvent(Calling Card)
+		If(LowValueInHand(400) && LocationContains(WaitingRoom,1,NameEquals(Calling Card)))
+		{
+			Play(Ryuji: It's a Deal)
+		}
+		PlayEvent(Calling Card)
+		If(LowValueInHand(400) && LocationContains(WaitingRoom,1,NameEquals(Calling Card)))
+		{
+			Play(Ryuji: It's a Deal)
+		}
+		PlayEvent(Calling Card)
+		
+		//Still need to reserve the 1 thief character in hand for the fever effect
+		
+		If(Stock >= 4){
+			PlaySingle(Ryuji as Skull: All-out Attack);
+		}
+		
+		If(Not StageContains(2,NameEquals(Protagonist as Joker & Arsene))){
+			If(Have(1,NameEquals(Sadayo Kawakami))){
+				If(HandContains(1,NameEquals(Protagonist as JOKER & Arsene))){
+					PlaySingle(Sadayo Kawakami)
+					Act(0, Sadayo Kawakami)
+				}
+			}
+			Else
+			{
+				Play(Protagonist as Joker & Arsene)
+			}
+		}
+		If(Not StageContains(2,NameEquals(Protagonist as Joker & Arsene))){
+			If(Have(1,NameEquals(Sadayo Kawakami))){
+				If(HandContains(1,NameEquals(Protagonist as JOKER & Arsene))){
+					PlaySingle(Sadayo Kawakami)
+					Act(0, Sadayo Kawakami)
+				}
+			}
+			Else
+			{
+				Play(Protagonist as Joker & Arsene)
+			}
+		}
+		If(CardsInHand >= 2 && Stock >= 3){
+			If(Not Have(2,Protagonist as Joker & Arsene)){
+				//Search for level 3 joker
+				If(LocationContains(Deck,1,NameEquals(Protagonist as JOKER & Arsene))){
+					SearchTarget(Protagonist as JOKER & Arsene)
+					Play(Swimsuit Protagonist)
+				}
+			}
+		}
+		If(Not Have(2, NameEquals(Protagonist as Joker & Arsene))){
+			If(Stock >= 3 && CardsInHand >= 2){
+				If(StageContains(NameEquals(Morgana as MONA: The Elusive Phantom Thief)) || CardsInHand >= 3){
+					PlaySingle(Morgana as MONA: The Elusive Phantom Thief)
+					Act(0,Morgana as MONA: The Elusive Phantom Thief);
+					
+				}
+			}
+		}
+		
+		
+		If(LowValueInHand(400) && LocationContains(WaitingRoom,1,NameEquals(Calling Card)))
+		{
+			Play(Ryuji: It's a Deal)
+		}
+		PlayEvent(Calling Card)
+		
+		
+		DoSearchActs()
+		
+		If(Not StageContains(3,NameEquals(Protagonist as JOKER & Arsene) || NameEquals(Ryuji as SKULL: All-out Attack))){
+			If(Have(1,NameEquals(Sadayo Kawakami))){
+				If(HandContains(1,NameEquals(Protagonist as JOKER & Arsene))){
+					PlaySingle(Sadayo Kawakami)
+					Act(0, Sadayo Kawakami)
+				}
+			}
+			Else
+			{
+				Play(Protagonist as Joker & Arsene)
+			}
+		}
+	}
+	
+	//All Levels
+	//If you have Joker all out attack and have the climax for it make sure you have 5 characters
+	
+	
+}
+
+
+
+
+//Only list cards that can give power to OTHER characters
+PowerSources
+{
+	Morgana as MONA: Phantom Thief of Hearts
+	{
+		ActGivePower(0,2000, Rest 2 HasTrait Thief)
+	}
+	Morgana as MONA: The Elusive Phantom Thief
+	{
+		Assist(500)
+	}
+	Protagonist: Prisoner of Fate
+	{
+		If(NameEquals(Protagonist as JOKER & Arsene))
+		{
+			ContGivePower(500)
+		}
+		LevelAssist(1000)
+	}
+	Ryuji as SKULL: A Big Smile
+	{
+		ToMiddle()
+		{
+			If(Other){
+				ContGivePower(1000)
+			}
+		}
+	}
+	Protagonist: The Will of Rebellion
+	{
+		OnUseActGivePower(500)
+	}
+	Protagonist as JOKER & Arsene
+	{
+		ContSelfTimesOther(500,HasTrait(Thief))
+	}
+	Protagonist: Leblanc's Troublesome Guest
+	{
+		OnPlayGiveSelfPower(2000)
+	}
+	Protagonist as JOKER: Thief Clad in Black
+	{
+		ContSelf(3000)
+	}
+	Protagonist as JOKER: Lurking in the Dark
+	{
+		ContSelf(3000)
+	}
+	Morgana as MONA & Zorro
+	{
+		ContSelf(2000)
+	}
+	Protagonist (P5)
+	{
+		//Gives +X power on attack
+		OnAttackGivePower(1500)
+	}
+	Ruuji as SKULL: All-out Attack
+	{
+		//Not sure how to write the climax combo, the 1000 power isn't very important anyway
+	}
+}
+
+
+
+//Get values for cards and when to use auto effects
+//Also get power given to itself
+CardValues
+{
+	Protagonist as JOKER & Arsene
+	{
+		//If this is on the stage then the AI will want to guarantee fever.
+		//Recognise that this is a healer
+		//Gets 500 power for each other thief character
+		//Need to save a card in the hand to use the effect at encore step
+		Tag(Healer)
+		CenterStage = 1000
+		Backstage = 110
+		Hand = 50 //The value of a card in your hand, for characters this decreases automatically if your stock is not sufficient
+		PlayPriority = 800 //Play cards with a higher play priority first
+		ReversePriority = 600 //Value of this card reversing the opponent, default is 500
+		AttackPriority = 400 //Attack order priority, default is 500
+		RestPriotity = 0
+		If(Level == 2)
+		{
+			Hand = 300
+			Duplicate:Hand = -100 //Each extra copy in hand and stage is worth 1 less than the one before it
+		}
+		If(Level == 3)
+		{
+			Hand = 1000
+			Duplicate:Hand = -150
+		}
+		If(OnStage)
+		{
+			Strategy(Fever)
+			StrategyCost = Discard(1, HasTrait Thief)
+			StrategyPriority = 1000
+		}
+		If(StageContains(1, NameEquals(Protagonist: Prisoner of Fate)))
+		{
+			ReversePriority += 100
+			AttackPriority = 200
+		}
+		Auto(1)
+		{
+			Use = 1
+		}
+	}
+	
+	Ryuji as SKULL: All-out Attack
+	{
+		//Lower importance than Joker & Arsene unless the cx combo is needed for fever
+		//On its second effect choose a character that will attack with the most soul or one that needs 1000 power.
+		//Bounce characters you can't get over, otherwise bounce highest cost backrow or none.
+		Tag(Check3)
+		CenterStage = 900
+		Backstage = 100
+		Hand = 0
+		PlayPriority = 850
+		Duplicate:PlayPriority = -100
+		If(Level == 2)
+		{
+			Hand = 250
+			Duplicate = -100
+		}
+		If(Level == 3)
+		{
+			Hand = 900
+			Duplicate = -200
+		}
+		ClimaxCombo(Freakin' Boring)
+		{
+			ComboCost = Discard(1, Any)
+			ComboPriority = 875 //Would rather do the combo than play a second copy, but would rather play Joker & Arsene than do the combo
+			Situation(NeedBounce)
+			Situation(NeedPower(1000))
+		}
+		
+	}
+	
+	Protagonist: The Will of Rebellion
+	{
+		//Only one copy needed on backstage
+		//Can replace with the L2 backrow at level 3
+		//Before using the brainstorm, prefer to have a character to give the power to.
+		//Don't brainstorm if resting will cause you to have too few attackers unless the chance of hitting is high
+		CenterStage = 90
+		Backstage = 510
+		Duplicate:Backstage = -420
+		RestPriority = 600
+		If(Level == 0)
+		{
+			Hand = 700
+			Duplicate:Hand = -300
+		}
+		If(Level == 1)
+		{
+			Hand = 700
+			Duplicate:Hand = -600
+		}
+		If(Level == 2)
+		{
+			Hand = 500
+			Duplicate:Hand = -400
+		}
+		If(Level == 3)
+		{
+			Hand = 200
+			Duplicate:Hand = -100
+		}
+		Act(0)
+		{
+			DontUse = 0
+			//Dont use if already have 2 rested characters
+			If(LocationContains(Stage,2,DeckCardIf(CardPosition Rest))){
+				DontUse = 1
+			}
+			If(Level == 3){
+				If(Stock < 3){
+					DontUse = 1
+				}
+				MaxTimesPerTurn = 1
+			}
+		}
+	}
+	
+	Protagonist as JOKER: All-out Attack
+	{
+		//If this is in your hand at level 1 try to early play it.
+		//Increase priority if you have the climax.
+		//Know that climax combo is on reverse.
+		//When searching for a level 1 or lower character add the teacher if level 3 and you don't already have one.
+		Backstage = 90
+		CenterStage = 600
+		Hand = 200
+		RestPriority = 10
+		Tag(EarlyPlay)
+		If(Level == 1)
+		{
+			Hand = 600
+			Duplicate:Hand = -100
+		}
+		If(Level == 2)
+		{
+			Hand = 600
+			Duplicate:Hand = -100
+			If(HandContains(1,NameEquals(The Show's Over)))
+			{
+				Hand = 800
+				Duplicate:Hand = -100 //This needs to be repeated here since setting Hand resets the duplicates
+			}
+		}
+		
+		ClimaxCombo(The Show's Over)
+		{	
+			//Code gets run just before the main phase ends?
+			If(Not HandContains(1,NameEquals(Sadayo Kawakami))){
+				If(Level == 2 || Clock > 4){
+					SearchTarget(Sadayo Kawakami)
+				}
+			}
+			Situation(OnReverse)
+		}
+	}
+	
+	Protagonist: Leblanc's Torublesome Guest
+	{
+		Hand = 300
+		CenterStage = 400
+		Backstage = 160
+		RestPriority = 501
+		If(Level == 3 && StrategyComplete){
+			Hand = 1000
+			BackStage = 1000
+		}
+		GainPowerOnPlay(2000)//Assume success
+		Auto(1)
+		{
+			Use = 0
+			If(Level == 3 || Compression > 0.2){
+				If(LocationContains(WaitingRoom, 2, DeckCardIf(IsCharacter && Compare ThatCardsLevel 2 OrMore)))
+				{
+					Use = 1
+					TargetCondition(Compare ThatCardsLevel 2 OrMore)
+				}
+			}
+			If(Level == 0){
+				Use = 1
+			}
+		}
+	}
+	
+	Ryuji: It's a Deal
+	{
+		Hand = 300
+		If(LocationContains(WaitingRoom, 1, NameEquals(Calling Card))){
+			Hand = 450
+		}
+		CenterStage = 200
+		Backstage = 100
+		//Use effect only if Calling Card is in your waiting room and you have a card in hand with less value than calling card
+		Auto(0)
+		{
+			Use = 0
+			If(LocationContains(WaitingRoom, 1, NameEquals(Calling Card)))
+			{
+				If(Unplayable > 0)
+				{
+					If(TradeForDeckTop(4,IsCharacter)) //You have a card in your hand with a lower value than the average best value of taking 4 cards from the deck 
+					{
+						Use = 1
+					}
+				}
+			}
+			
+		}
+	}
+	
+	Protagonist: Prisoner of Fate
+	{
+		//Increased value at level 3
+		//Recognise 1000x level assist on my turn
+		//Given auto effect's scry decision: If this is the last attack, always mill a level 0, otherwise base it on the trigger.
+		//Increases reverse value of Joker & Arsene and makes it want to attack last
+		Hand = 50
+		Backstage = 650
+		Duplicate:Backstage = -100
+		CenterStage = 50
+		RestPriority = 800
+		If(Level == 1)
+		{
+			Hand = 75
+		}
+		If(Level == 2)
+		{
+			Hand = 650
+			Duplicate:Hand = -500
+		}
+		If(Level == 3)
+		{
+			Hand = 700
+			Duplicate:Hand = -250
+		}
+		ContGivenAuto(0,0)
+		{
+			//For yes no questions 0 is no, 1 is yes, for other questions it is the answer number starting at 1
+			//Scry effect
+			Answer = 0
+			If(Not HasAnotherAttacker())
+			{
+				IfThatCard(Compare TargetCardsLevel 0 OrLess)
+				{
+					Answer = 1 //Send to the waiting room
+				}
+			}
+			If(HasAnotherAttacker())
+			{
+				IfThatCard(HasTrigger Soul && WantSoulTrigger)
+				{
+					Answer = 1
+				}
+				IfThatCard(HasTrigger Wind && WantBounce)
+				{
+					Answer = 1
+				}
+			}
+		}
+	}
+	
+	Swimsuit Protagonist
+	{
+		PlayPriority = 650
+		Hand = 500
+		CenterStage = 250
+		Backstage = 50
+		
+		RestPriority = 550
+		//It's a level 0 dropsearch
+		//Will pay the cost if there is a card in the deck that has a much higher value than a card in your hand given that it will cost 1 stock
+		//Will also pay the cost to ditch excess climax when deck is small
+		Auto(0)
+		{
+			Use = 0
+			If(FreeStock > 0 || PotentialAttackers < 3){
+				Use = 1
+			}
+			If(Level < 3 && LowValueInHand(200)){
+				Use = 1
+			}
+		}
+	}
+	
+	Protagonist as JOKER: Thief Clad in Black
+	{
+		//Second auto effect depends on the color of the character you want to attack.
+		//If in your hand then you want Lurking in the Dark in your waiting room.
+		//If lurking in the dark is in your waiting room, treat this as 7000 in your hand.
+		//If you need to use change, know that it will remove any added effects.
+		//The color thing may be better off hard coded
+		
+		
+		Hand = 140
+		CenterStage = 400
+		Backstage = 100
+		
+		If(Level == 1)
+		{
+			Hand = 550
+			CenterStage = 550
+		}
+		If(Level == 2)
+		{
+			Hand = 350
+		}
+		If(Level == 3)
+		{
+			Hand = 250
+		}
+		Duplicate:Hand = -100
+		
+		Backstage = 90
+		
+		Auto(1)
+		{
+			Unique(JokerChange(Protagonist as JOKER: Lurking in the Dark,Yellow,Blue))
+		}
+		
+		ContPowerToSelf()
+		{
+			Amount = 3000
+		}
+		
+	}
+	
+	Protagonist as JOKER: Lurking in the Dark
+	{
+		Hand = 140
+		CenterStage = 400
+		
+		If(Level == 1)
+		{
+			Hand = 550
+			CenterStage = 550
+		}
+		If(Level == 2)
+		{
+			Hand = 350
+		}
+		If(Level == 3)
+		{
+			Hand = 250
+		}
+		Duplicate:Hand = -100
+		
+		Backstage = 90
+		
+		Auto(1)
+		{
+			Unique(JokerChange(Protagonist as JOKER: Thief Clad in Black,Red,Green))
+		}
+		
+		ContPowerToSelf()
+		{
+			Amount = 3000
+		}
+		
+		
+		
+	}
+	
+	Calling Card
+	{
+		//I guess this should just be played immediately
+		//Always checks 4 because AI dumb
+		//Use AI_Bounce decision for bouncing
+		Hand = 150
+		PlayPriority = 1000
+		Event()
+		{
+			Use = 1
+		}
+	}
+	
+	Wild Talk
+	{
+		//Use choice 1 if there is a character in your deck that you need really badly
+		//At low opponent compression, use choice 3 if you have 3 attackers.
+		//Use choice 2 if you need stock for playing a level 3 character
+		//Default to choice 1
+		//Play after plan is complete
+		If(OpponentCompression < 0.1 && CardsInLocation(OpponentDeck) > 6)
+		{
+			PlayPriority = 50
+		}
+		Event()
+		{
+			If(WantStock(1) && Stock >= 1)
+			{
+				Use = 1
+				Answer = 2
+			}
+			If(WantSearch)
+			{
+				If FreeStock(3)
+				{
+					Use = 1
+					Answer = 1
+				}
+			}
+			If(OpponentCompression < 0.1 && CardsInLocation(OpponentDeck) > 6)
+			{
+				PlayPriority = 50
+				If(AttackerCount == 3)
+				{
+					Use = 1
+					Answer = 3
+				}
+			}
+		}
+	}
+	
+	
+	The Show's Over
+	{
+		//Climax combo for the level 2 character
+		//Keep 1 copy at level 1 or 2, otherwise don't care about it unless you can do the combo this turn.
+		Hand = 400
+		Duplicate:Hand = -300
+		If(CardsInLocation(Hand) < 5)
+		{
+			If(Level == 1)
+			{
+				Hand = 600
+				Duplicate:Hand = -500
+			}
+			If(Level == 2)
+			{
+				Hand = 600
+				Duplicate:Hand = -500
+			}
+		}
+		If(AttackersContains(NameEquals(Protagonist as Joker: All-out Attack))){
+			PlayCx = 1
+		}
+		ClimaxPower = 1000
+		ClimaxTargetCount = 3
+	}
+	
+	Freakin' Boring
+	{
+		//Climax combo for level 3
+		//Low importance as a combo
+		//Play if you have target in waiting room and want more stock or if you need the soul.
+		//Save only at 2:4 or higher
+		Hand = 100
+		If(Level < 3)
+		{
+			If(LocationContains(WaitingRoom, 1, DeckCardIf(ColorIs Yellow)))
+			{
+				If(AttackerCount == 3)
+				{
+					If(OpponentCompression < 0.12)
+					{
+						PlayCx = 1
+					}
+					If(CopiesInHand > 1)
+					{
+						PlayCx = 1
+					}
+				}
+			}
+		}
+		If(Level == 3)
+		{
+			Hand = 500
+			Duplicate:Hand = -490
+			If(AttackersContains(NameEquals(Ryuji as SKULL: All-out Attack)))
+			{
+				PlayCx = 1
+			}
+		}
+	}
+		
+	Sadayo Kawakami
+	{
+		//Off trait
+		//Only has value at level 2+
+		//Save 1 copy for level 3
+		//Having Joker & Arsene increases its value and vice versa
+		//If you are level 3 and have Joker & Arsene in hand play this, then use as rest target, then use act effect.
+		//Higher than normal rest target at level 3
+		Tag(Offtrait)
+		Hand = 100
+		CenterStage = 250
+		Backstage = 100
+		If(Level == 0)
+		{
+			Hand = 200
+		}
+		If(Level == 2)
+		{
+			Hand = 900
+			Duplicate:Hand = -800
+		}
+		If(Level == 3)
+		{
+			If(HandContains(1, NameEquals(Protagonist as JOKER & Arsene)))
+			{
+				If(Not StageContains(NameEquals(Sadayo Kawakami))){
+					//PlayForEffect //This means you are playing it without the intention of attacking with it or leaving it on the backstage
+					PlayPriority = 1000
+				}
+			}
+			RestPriority = 900
+			Hand = 900
+			Duplicate:Hand = -800
+		}
+	}
+		
+	Morgana as MONA & Zorro
+	{
+		//Early play only if you can heal with it.
+		//Lowest priority level 3
+		//Treated as 11000 power.
+		PowerOnAttack(2000)
+		Tag(Healer)
+		Tag(EarlyPlay)
+		CenterStage = 550
+		Backstage = 300
+		If(Level == 0)
+		{
+			Hand = 50
+		}
+		If(Level == 1)
+		{
+			Hand = 75
+		}
+		If(Level == 2)
+		{
+			Hand = 200
+			If(ClimaxInWaitingRoom <= 2)
+			{
+				Hand = 600
+			}
+		}
+		If(Level == 3)
+		{
+			Hand = 600
+		}
+	}
+	
+	Morgana as MONA: It's a Deal
+	{
+		//2000 cost 0 level 1 backup, that's about it.
+		Hand = 250
+		CenterStage = 90
+		Backstage = 10
+		BackupPower = 2000
+		If(Level == 0)
+		{
+			Hand = 200
+		}
+	}
+	
+	Morgana as MONA: Phantom Thief of Hearts
+	{
+		//Act rests 2 characters and gives any character 2000 power
+		//This is the deck's only large auto/act power boost
+		Hand = 250
+		CenterStage = 140
+		Backstage = 160
+		If(Level == 2)
+		{
+			Hand = 150
+		}
+		If(Level == 3)
+		{
+			Hand = 110
+		}
+	}
+	
+	Protagonist as JOKER: Destiny Awaits
+	{
+		//Scry to improve brainstorm chance
+		//Play before brainstorming
+		//You want this reversed.
+		Tag(WantReversed)
+		Hand = 200
+		If(Level == 0)
+		{
+			Hand = 550
+		}
+		If(Level == 3)
+		{
+			Hand = 100
+		}
+		CenterStage = 400
+		Backstage = 100
+		Auto(1)
+		{
+			Use = 1
+			If(Not MyTurn)
+			{
+				If(Level == 1)
+				{
+					If(Stock < 2)
+					{
+						Use = 0
+					}
+				}
+				If(Level == 2)
+				{
+					If(Stock < 3)
+					{
+						Use = 0
+					}
+				}
+			}
+			If(Level == 3)
+			{
+				If(MyTurn)
+				{
+					Use = 0
+				}
+				If(Clock > 4)
+				{
+					Use = 0
+				}
+				If(Stock < 5)
+				{
+					Use = 0
+				}
+			}
+		}
+	}
+	
+	Protagonist (P5)
+	{
+		AttackPriority = 1000
+		If(Level == 0){
+			Hand = 190
+		}
+		If(Level == 1){
+			Hand = 400
+			Duplicate:Hand = -200
+		}
+		If(Level == 2){
+			Hand = 350
+			Duplicate:Hand = -200
+		}
+		If(Level == 3){
+			Hand = 150
+		}
+		CenterStage = 500
+		Backstage = 100
+		
+	}
+	
+	
+	
+	Morgana as MONA: The Ellusive Phantom Thief
+	{
+		//500 assist
+		//Good rest target
+		//Use act if a <Thief> character in your waiting room has a stock worth more value than a card in your hand.
+		//Lower priority than the other brainstorm
+		//Search is better if you have more cards in hand.
+		Backstage = 550
+		RestPriority = 800
+		CenterStage = 100
+		Duplicate:Backstage = -300
+		Hand = 450
+		If(CardsInHand >= 5 || Level == 0)
+		{
+			Hand = 600
+			Duplicate:Hand = -500
+		}
+		Act(0)
+		{
+			If(Level == 3 && LocationContains(Hand,1,NameEquals(Ryuji as SKULL: All-out Attack))){
+				DontUse = 1
+			}
+		}
+	}
+	
+	
+}

@@ -1,0 +1,5 @@
+
+Series: Idolm@ster Cinderella Girls
+Folder: Idolmaster/W41
+Prefix: IMC/W41
+SetName: Cinderella Girls (W41)
