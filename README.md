@@ -4,9 +4,9 @@ This is a timeboxed modification of the existing [Weiss Schwarz Simulator](https
 
 ## Installation
 
-Download the most recent release for your target system vfrom the Releases section to the right, unzip, and enjoy.
+Download the most recent release for your target system from the Releases section to the right, unzip, and enjoy. You __DO NOT__ need to have the simulator already installed; this portable release has everything you need included.
 
-If you are Git-savvy, you can just clone this repository and pull it frequently rather than download a new release every time.
+If you are Git-savvy, you can just clone this repository and pull it frequently rather than download a new release every time. This will keep the mod as well as the card database up-to-date.
 
 ## Additional Features & Changes
 
@@ -25,6 +25,10 @@ Weiss Schwarz_Data\StreamingAssets\BGM
 ### Background Color
 
 The simulator is now blue-coded instead of green. This is to easily differentiate this modification from the official release so that tournament organizers can more easily run events using the modification.
+
+### Separate Decks & Settings
+
+The modification keeps a seperate list of your saved decks and settings, so there won't be any crossover between this mod and the main simulator if you happen to use both.
 
 ## Pull Requests
 
