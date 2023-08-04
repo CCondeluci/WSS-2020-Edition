@@ -2,6 +2,12 @@
 
 This is a timeboxed modification of the existing [Weiss Schwarz Simulator](https://blakethoennes.itch.io/weiss-schwarz) project exclusively aimed at supporting "Lost" format, an older format of the Weiss Schwarz card game that encapsulates the __English__ metagame _as it stood_ on January 31st, 2021. It has a trimmed-down card database to ensure only cards legal in the format are available for use, as well as a few additional features. 
 
+## Installation
+
+Download the most recent release for your target system vfrom the Releases section to the right, unzip, and enjoy.
+
+If you are Git-savvy, you can just clone this repository and pull it frequently rather than download a new release every time.
+
 ## Additional Features & Changes
 
 ### Sound Effects
