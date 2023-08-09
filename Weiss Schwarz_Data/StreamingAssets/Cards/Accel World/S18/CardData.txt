@@ -1459,7 +1459,10 @@ Cont: GiveAll
 			Auto: OnReversed
 			{
 				TargetSelf
-				MoveCard Clock
+				If OnStage
+				{
+					MoveCard Clock
+				}
 			}
 			Text Auto: When this card becomes reversed in battle, put this card into your clock.
 		}

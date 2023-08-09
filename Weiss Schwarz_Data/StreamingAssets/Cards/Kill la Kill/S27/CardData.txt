@@ -1296,7 +1296,7 @@ Auto: OnPlay
 {
     TargetLocation Stage
 	NarrowTargets Other
-	NarrowToHighestLevel
+	NarrowTargets Compare ThatCardsLevel MyLevel OrMore
 	ChooseCharacterFromTargets Choose a character to put into your waiting room
 	MoveCard WaitingRoom
 }

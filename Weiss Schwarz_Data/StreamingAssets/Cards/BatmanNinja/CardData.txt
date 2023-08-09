@@ -559,11 +559,14 @@ Auto: OnTriggerCheck
 	{
 		PayCost Discard 1 Any
 		{
-			AIChoice AddToHand
-			ChooseCard Choose a card in your clock to add to your hand.
-			MoveCard Hand
-			TargetTop Deck 1
-			MoveCard Clock
+			TargetLocation Clock
+			If HasTarget
+			{
+				ChooseCardsFromTargets 1 1 Any
+				MoveCard Hand
+				TargetTop Deck 1
+				MoveCard Clock
+			}
 		}
 	}
 }

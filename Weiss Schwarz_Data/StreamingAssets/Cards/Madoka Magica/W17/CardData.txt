@@ -529,21 +529,25 @@ Cont: GiveSelf
 }
 Text Cont: If the number of cards in your stock is five or more, this card gets +1000 power.
 Auto: OnReversed
-{
-	PayCost SendSelf Memory Discard 1 HasTrait Magic
+{	
+	TargetSelf
+	If OnStage
 	{
-		MoveCard Memory
-		ScheduleEffect StartDrawPhase
+		PayCost SendSelf Memory Discard 1 HasTrait Magic
 		{
-			Effect:
+			MoveCard Memory
+			ScheduleEffect StartDrawPhase
 			{
-				TargetLocation Memory
-				NarrowTargets NameEquals Magical Girl of Time, Homura
-				FirstTarget
-				If HasTarget
+				Effect:
 				{
-					Message Magical Girl of Time, Homura returns from memory.
-					PlaceOnStage false true true false
+					TargetLocation Memory
+					NarrowTargets NameEquals Magical Girl of Time, Homura
+					FirstTarget
+					If HasTarget
+					{
+						Message Magical Girl of Time, Homura returns from memory.
+						PlaceOnStage false true true false
+					}
 				}
 			}
 		}
@@ -1511,7 +1515,10 @@ Text Cont: This card gets +500 power for each of your other <Magic> characters.
 Auto: OnReversed
 {
 	TargetSelf
-	MoveCard Memory
+	If OnStage
+	{
+		MoveCard Memory
+	}
 }
 Text Auto: When this card becomes reversed in battle, put this card into your memory.
 EndCard

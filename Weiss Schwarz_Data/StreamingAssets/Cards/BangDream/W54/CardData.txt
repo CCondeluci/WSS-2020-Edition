@@ -1915,7 +1915,10 @@ Auto: OnReversed
 	If Not StageContains 2 Other && HasTrait Music 
 	{
 		TargetSelf
-		MoveCard Clock
+		If OnStage
+		{
+			MoveCard Clock
+		}
 	}
 }
 Text Auto: When this card becomes reversed in battle, if the number of other <Music> characters you have is one or less, put this card into your clock.
@@ -1975,7 +1978,10 @@ Auto: OnPlay
 			Auto: EndOfMyTurn
 			{
 				TargetSelf
-				MoveCard Memory
+				If OnStage
+				{
+					MoveCard Memory
+				}
 			}
 			Text Auto: Put this card into your memory at the end of your turn.
 		}
@@ -3441,205 +3447,3 @@ Cont: GiveSelf
 }
 Text Cont: If this card is on the right position of your center stage, this card gets +3000 power.
 EndCard
-
-Character: BD/W54-P05
-Image BD_W54_P05
-Name "Roselia Stage" Lisa & Yukina & Sayo
-Color B
-Level 0
-Cost 0
-Power 2000
-Trait1 Music
-Trait2 Roselia
-Auto: OnPlay
-{
-	*ScryToBottom
-}
-Text Auto: When this card is placed on the stage from your hand, look at the top card of your deck, and put it on the top or at the bottom of your deck.
-*GainPowerWhenOtherAttacks(1000,Music)
-EndCard
-
-Character: BD/W54-P08
-Image BD_W54_P08
-Name "Healing Sound" Rimi Ushigome
-Color R
-Level 0
-Cost 0
-Power 1000
-Trait1 Music
-Trait2 Poppin’Party
-Cont: GiveSelf
-{
-	If Compare MyLevel 3 OrMore
-	{
-		GainEffect
-		{
-			Act: SendSelf WaitingRoom
-			{
-				SearchLocationForTargets Hand 0 1 NameEquals Rimi Ushigome
-				Change
-			}
-			Text Act: [Put this in the Waiting Room] Choose a "Rimi Ushigome" in your hand and put it in the Slot this was in.
-		}
-	}
-}
-Text Cont: If you are Level 3 or higher, this gains the following ability. "Act: [Put this in the Waiting Room] Choose a "Rimi Ushigome" in your hand and put it in the Slot this was in."
-Auto: OnPlay
-{
-	PayCost Discard 1 IsClimax
-	{
-		SearchWaitingRoom HasTrait Music
-	}
-}
-Text Auto: [Put a climax from your hand into your waiting room] When this card is placed on the stage from your hand, you may pay the cost. If you do, choose a <Music> character in your waiting room, and return it to your hand.
-EndCard
-
-Character: BD/W54-P09
-Image BD_W54_P09
-Name "Smell of the Bakery" Saya Yamabuki
-Color R
-Level 1
-Cost 0
-Power 5000
-Trait1 Music
-Trait2 Poppin’Party
-Auto: OnAttack
-{
-	If StageContains 2 HasTrait Music && Other
-	{
-		TargetSelf
-		GainPower 2000
-	}
-}
-Text Auto: When this attacks, if you have 2 or more other <Music> Characters, this gains +2000 Power for the turn.
-EndCard
-
-Character: BD/W54-P12
-Image BD_W54_P12
-Name "Double Rainbow" Kasumi Toyama
-Color R
-Level 0
-Cost 0
-Power 2000
-Trait1 Music
-Trait2 Poppin’Party
-Auto: OnReverseOpponent
-{
-	If PlayedThisTurn
-	{
-		PayCost 1 Rest 1 CardPosition Stand
-		{
-			SearchWaitingRoom IsCharacter
-		}
-	}
-}
-Text Auto: [(1) Rest 1 of your Standing Characters] During the turn this is placed from hand to the Stage, when the Battle Opponent of this becomes Reversed, you may pay cost. If so, choose a Character in your Waiting Room and return it to your hand.
-EndCard
-
-Character: BD/W54-P13
-Image BD_W54_P13
-Name "Double Rainbow" Rimi Ushigome
-Color R
-Level 0
-Cost 0
-Power 2000
-Trait1 Music
-Trait2 Poppin’Party
-Auto: OnReverseOpponent
-{
-	If PlayedThisTurn
-	{
-		PayCost 1 Rest 1 CardPosition Stand
-		{
-			SearchWaitingRoom IsCharacter
-		}
-	}
-}
-Text Auto: [(1) Rest 1 of your Standing Characters] During the turn this is placed from hand to the Stage, when the Battle Opponent of this becomes Reversed, you may pay cost. If so, choose a Character in your Waiting Room and return it to your hand.
-EndCard
-
-Character: BD/W54-P14
-Image BD_W54_P14
-Name "Double Rainbow" Saya Yamabuki
-Color R
-Level 0
-Cost 0
-Power 2000
-Trait1 Music
-Trait2 Poppin’Party
-Auto: OnReverseOpponent
-{
-	If PlayedThisTurn
-	{
-		PayCost 1 Rest 1 CardPosition Stand
-		{
-			SearchWaitingRoom IsCharacter
-		}
-	}
-}
-Text Auto: [(1) Rest 1 of your Standing Characters] During the turn this is placed from hand to the Stage, when the Battle Opponent of this becomes Reversed, you may pay cost. If so, choose a Character in your Waiting Room and return it to your hand.
-EndCard
-
-Character: BD/W54-P15
-Image BD_W54_P15
-Name "Double Rainbow" Tae Hanazono
-Color B
-Level 0
-Cost 0
-Power 2000
-Trait1 Music
-Trait2 Poppin’Party
-Auto: OnReverseOpponent
-{
-	If PlayedThisTurn
-	{
-		PayCost 1 Rest 1 CardPosition Stand
-		{
-			SearchWaitingRoom IsCharacter
-		}
-	}
-}
-Text Auto: [(1) Rest 1 of your Standing Characters] During the turn this is placed from hand to the Stage, when the Battle Opponent of this becomes Reversed, you may pay cost. If so, choose a Character in your Waiting Room and return it to your hand.
-EndCard
-
-Character: BD/W54-P16
-Image BD_W54_P16
-Name "Double Rainbow" Arisa Ichigaya
-Color B
-Level 0
-Cost 0
-Power 2000
-Trait1 Music
-Trait2 Poppin’Party
-Auto: OnReverseOpponent
-{
-	If PlayedThisTurn
-	{
-		PayCost 1 Rest 1 CardPosition Stand
-		{
-			SearchWaitingRoom IsCharacter
-		}
-	}
-}
-Text Auto: [(1) Rest 1 of your Standing Characters] During the turn this is placed from hand to the Stage, when the Battle Opponent of this becomes Reversed, you may pay cost. If so, choose a Character in your Waiting Room and return it to your hand.
-EndCard
-
-Character: BD/W54-P17
-Image BD_W54_P17
-Name "Attack Santa" Kasumi Toyama
-Color R
-Level 0
-Cost 0
-Power 2500
-Trait1 Music
-Trait2 Poppin’Party
-Auto: OnSentFromStageToWaitingRoom
-{
-	PayCost 2
-	{
-		SearchWaitingRoom HasTrait Music
-	}
-}
-Text Auto: [(2)] When this is placed from Stage to the Waiting Room, you may pay cost. If so, choose a <Music> Character in your Waiting Room and return it to your hand.
-EndCard
-

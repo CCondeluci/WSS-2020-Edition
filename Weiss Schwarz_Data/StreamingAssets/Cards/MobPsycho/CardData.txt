@@ -1166,7 +1166,11 @@ Auto: OnReversed
 {
 	If StageContainsOrLess 1 Other && HasTrait Esper|Claw && OnStage
 	{
-		MoveCard Clock
+		TargetSelf
+		If OnStage
+		{
+			MoveCard Clock
+		}
 	}
 }
 Text Auto: When this card becomes reversed in battle, if you have 1 or less other «Esper» or «Claw» characters, put this card into your clock.
@@ -2441,8 +2445,44 @@ Text Auto: When this card attacks, put the top 2 cards of your deck into your wa
 *YellowCost0Bomb
 EndCard
 
-
-
+Character: MOB/SX02-P99
+Name MOB: Summer Fun
+Color B
+Level 0
+Cost 0
+Power 500
+Trait1 Esper
+Cont: GiveSelfInMemory
+{
+	GiveOtherCardsTrait (LOL) Any
+	GiveOtherCardsTrait Claw Any
+	GiveOtherCardsTrait Club_Activities Any
+	GiveOtherCardsTrait Delinquent Any
+	GiveOtherCardsTrait Esper Any
+	GiveOtherCardsTrait Family Any
+	GiveOtherCardsTrait First_Love Any
+	GiveOtherCardsTrait Hair Any
+	GiveOtherCardsTrait Master Any
+	GiveOtherCardsTrait Muscles Any
+	GiveOtherCardsTrait Religion Any
+	GiveOtherCardsTrait Spirit Any
+	GiveOtherCardsTrait Student_Council Any
+}
+Text Cont: MEMORY If this card is in your memory, all of your characters gain all Mob Psycho 100 traits, in all zones.
+Auto: OnReversed
+{
+	If OnStage
+	{
+		PayCost 1 SendSelf Memory Discard 1 Any
+		{
+			*Check4Add1(Esper)
+		}
+	}
+}
+Text Auto: [(1) Discard a card, put this card into your memory] When this card becomes reversed in battle, you may pay the cost. If you do, look at up to four cards from the top of your deck, choose up to one 《Esper》 character from among them, reveal it to your opponent, put it into your hand, and put the rest into your waiting room.
+*BlueLevel0Bomb
+Text <color=red>* This is a custom card, for all of MOB's strongest soldiers out there. It's not legal for 2020 format play, but have fun with it in casuals! *</color>
+EndCard
 
 
 Character: MOB/SX02-T01
@@ -2767,7 +2807,6 @@ Name Club Recruitment
 Color B
 *BlueStockSoul
 EndCard
-
 
 Character: MOB/SX02-095b
 Clone MOB/SX02-095a

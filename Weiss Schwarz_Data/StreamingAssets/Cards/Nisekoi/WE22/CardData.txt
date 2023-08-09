@@ -688,27 +688,6 @@ Trait2 Magic
 Backup 1500
 EndCard
 
-Character: NK/WE22-P02
-Name Magical Girl of Love, Peace, and Sweets, Magical Pâtissière Kosaki-chan
-Color B
-Level 3
-Cost 2
-Trigger Soul
-Power 10000
-Soul 2
-Trait1 Sweets
-Trait2 Magic
-Cont: GiveSelf
-{
-	If StageContains 3 Other && HasTrait Sweets
-	{
-		GainPower 1000
-	}
-}
-Text Cont: If you have 3 or more other <Sweets> characters, this card gets +1000 power.
-*OnPlayCheck6Send3
-EndCard
-
 Character: NK/WE22-E03F
 Clone NK/WE22-E03
 Image NK_WE22_E03F

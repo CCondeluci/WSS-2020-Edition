@@ -80,7 +80,11 @@ Auto: OnReversed
 {
 	If StageContainsOrLess 1 Other && HasTrait Magic|Weapon
 	{
-		MoveCard Clock
+		TargetSelf
+		If OnStage
+		{
+			MoveCard Clock
+		}
 	}
 }
 Text Auto: When this card becomes reversed, if you have 1 or less other <Magic> or <Weapon> character, put this card into your clock.
@@ -2226,62 +2230,6 @@ Auto: OnPlay
 Text Auto: When this card is placed on the stage from your hand, choose a character on your opponent's center stage, it gets +1000 power until the end of your opponent's turn.
 EndCard
 
-
-Character: RZ/S55-P01
-Name "Bailaora" Emilia
-Color B
-Level 1
-Cost 1
-Power 5500
-Trait1 Magic
-Trait2 Celestial Spirit
-Cont: GiveSelf
-{
-	TargetFacing
-	If Compare TargetCardsCost 0 OrLess
-	{
-		GainSpecialEffect CannotBeReversed
-	}
-}
-Text Cont: If the character facing this card is cost 0 or lower, this card cannot become reversed.
-EndCard
-
-Character: RZ/S55-P02
-Name "Arabian Night" Rem
-Color B
-Level 1
-Cost 0
-Power 1500
-Trait1 Magic
-Trait2 Maid
-Backup 1500
-EndCard
-
-Character: RZ/S55-P03
-Name "Dirndl" Ram
-Color R
-Level 2
-Cost 1
-Trigger Soul
-Power 7500
-Trait1 Magic
-Trait2 Maid
-Auto: OnAttack
-{
-	TargetFacing
-	If HasTarget && Compare TargetCardsLevel 3 OrMore
-	{
-		TargetSelf
-		GainPower 4000
-		GainSoul 1
-	}
-}
-Quick
-Text Auto: When this card attacks, if the character facing this card is level 3 or higher, this card gets +4000 power and +1 soul until end of turn.
-EndCard 
-
-
-
 Character: RZ/S55-PE04
 Name Spring's Best Shot, Emilia & Rem
 Color B
@@ -2322,47 +2270,6 @@ Text Auto: [(1) Put a <Magic> or <Weapon> character from your hand into your wai
 Backup 2500
 EndCard
 
-Character: RZ/S55-P06
-Name A Walk in Yukata, Rem
-Color B
-Level 2
-Cost 1
-Trigger Soul
-Power 2500
-Trait1 Magic
-Trait2 Maid
-Auto: OnUseThisCardsBackup
-{
-	TargetBattleOpponent
-	If Compare TargetCardsLevel 3 OrMore
-	{
-		TargetMyCharacterInBattle
-		GainPower 1000
-	}
-}
-Text Auto: When you use this card's "<b>Backup</b>" if the level of your opponent's character in battle is 3 or higher, your character in battle gets +1000 power until end of turn.
-Backup 2500
-EndCard
-
-Character: RZ/S55-P07
-Name Dumplings Over Moon, Emilia
-Color B
-Level 1
-Cost 0
-Power 5000
-Trait1 Magic
-Trait2 Celestial Spirit
-Auto: OnPlay
-{
-	If StageContains 1 Other && HasTrait Magic|Weapon
-	{
-		GainPower 2000
-	}
-}
-Quick
-Text Auto: When this card is placed on the stage from your hand, if you have another <Magic> or <Weapon> character, this card gets +2000 power until end of turn.
-EndCard
-
 Character: RZ/S55-PE08
 Name Morning Chores, Rem
 Color B
@@ -2373,36 +2280,4 @@ Trait1 Magic
 Trait2 Maid
 *ContForEachOtherTrait(500,Magic|Weapon)
 *HandEncore
-EndCard
-
-Character: RZ/S55-P09
-Name Lovey-Dovey? Emilia & Puck
-Color B
-Level 3
-Cost 2
-Trigger Soul
-Power 10000
-Soul 2
-Trait1 Magic
-Trait2 Celestial Spirit
-Cont: GiveSelf
-{
-	If StageContainsOrLess 0 Not HasTrait Magic|Weapon
-	{
-		GainPower 1000
-	}
-}
-Text Cont: If all of your characters are <Magic> or <Weapon>, this card gets +1000 power.
-Auto: OnReverseOpponent
-{
-	If PlayedThisTurn
-	{
-		PayCost 3 Discard 1 Any
-		{
-			Stand
-		}
-	}
-}
-TimesPerTurn 1
-Text Auto: [(3) Discard a card] Once during the turn this card is placed on the stage from your hand, when this card's battle opponent becomes reversed, you may pay the cost, stand this card.
 EndCard

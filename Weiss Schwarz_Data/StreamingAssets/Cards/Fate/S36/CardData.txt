@@ -348,7 +348,11 @@ Auto: StartClimaxPhase
 			{
 				Effect:
 				{
-					MoveCard Memory
+					TargetSelf
+					If OnStage
+					{
+						MoveCard Memory
+					}
 				}
 				Text Move this card to your memory
 			}
@@ -1152,7 +1156,11 @@ Auto: OnPlay
 	Reveal
 	IfTarget Not HasTrait Master|Servant
 	{
-		MoveCard Clock
+		TargetSelf
+		If OnStage
+		{
+			MoveCard Clock
+		}
 	}
 }
 Text Auto: When this card is placed on the stage from your hand, reveal the top card of your deck. If that card is not a 《Master》 or 《Servant》 character, put it into your clock. 
@@ -1765,7 +1773,11 @@ Auto: OnPlay
 	Reveal
 	IfTarget Not HasTrait Master|Servant
 	{
-		MoveCard Clock
+		TargetSelf
+		If OnStage
+		{
+			MoveCard Clock
+		}
 	}
 }
 Text Auto: When this card is placed on the stage from your hand, reveal the top card of your deck. If that card is not a 《Master》 or 《Servant》 character, put it into your clock. 
@@ -2116,24 +2128,3 @@ Cont: GiveAll
 }
 Text Cont: All of your other characters with "Illya" or "Berserker" in its card name get +500 power.
 EndCard
-
-Character: FS/S36-PE03
-Name "Patrol in the Middle of the Night" Rin & Archer
-Color R
-Level 2
-Cost 1
-Trigger Soul
-Power 8000
-Trait1 Master
-Trait2 Servant
-Auto: OnPlay
-{
-	If Compare CardsInDeck 5 OrLess
-	{
-		Refresh
-		DrawCard
-	}
-}
-Text Auto: When this card is placed on stage from your hand, if there are 5 or less cards in your deck, return all cards in your waiting room to your deck and shuffle your deck, then draw a card.
-EndCard
-

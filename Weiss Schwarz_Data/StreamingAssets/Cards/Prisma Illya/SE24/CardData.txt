@@ -1004,45 +1004,9 @@ Name Class Card, Rider
 *BookClimax
 EndCard
 
-Character: PI/SE24-P01
-Name Bathing Together, Illya & Miyu
-Color B
-Level 0
-Cost 0
-Power 1000
-Trait1 Master
-Trait2 Magic
-*GlobalPower(500,Magic)
-EndCard
-
 Climax: PI/SE24-P02
 Name Yearning for Summer Vacation
 *DoorClimax
-EndCard
-
-Character: PI/SE24-P03
-Name Bathing Together, Illya & Kuro
-Color R
-Level 1
-Cost 0
-Power 5000
-Trait1 Magic
-Trait2 Weapon
-Act: 1
-{
-	TargetSelf
-	GainPower 1000
-	GainEffect
-	{
-		Auto: OnOpponentReverse
-		{
-			TargetLocation Facing
-			MoveCard Deck
-		}
-		Text Auto: When this card's battle opponent becomes reversed, you may put that character on top of your opponent's deck.
-	}
-}
-Text Auto: [(1)] During this turn, this card gains +1000 power and the following ability. "Auto: When this card's battle opponent becomes reversed, you may put that character on top of your opponent's deck.
 EndCard
 
 Character: PI/SE24-P04

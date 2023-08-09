@@ -969,39 +969,6 @@ Auto: OnOtherReversed
 Text Auto: When another of your 《Key》 characters becomes reversed in battle, choose one of your characters, and that character gets +1000 power until end of turn.
 EndCard
 
-Character: NK/W30-052
-Name Maiden's Heart, Marika
-Color R
-Level 3
-Cost 2
-Trigger Soul
-Power 10000
-Soul 2
-Trait1 Police
-Trait2 Key
-Auto: OnAttack
-{
-	If LocationContains Memory 2 NameEquals Promised Pendant
-	{
-		*OptionalBurn(1)
-	}
-}
-Text Auto: MEMORY When this card attacks, if there are 2 or more "Promised Pendant" in your memory, you may deal 1 damage to your opponent.
-Auto: OnReverseOpponent
-{
-	If StageContains 2 Other && HasTrait Key
-	{
-		PayCost 2 Discard 3 Any
-		{
-			Stand
-		}
-	}
-}
-TimesPerTurn 1
-Text Auto: [(2) Discard 3 cards] Once per turn, when this card's battle opponent becomes reversed, if you have 2 or more other <Key> characters, you may pay the cost, stand this card.
-Text <color=red>This card is currently limited to 3.\nThis card may not be used in the same deck as The One, Marika.</color>
-EndCard
-
 Character: NK/W30-E053
 Name Surprising Side, Chitoge
 Color R
@@ -1645,17 +1612,21 @@ Auto: StartEncoreStep
 		Question Put "Their Progress, Kosaki" into your memory?
 		If Yes
 		{
-			MoveCard Memory
-			ScheduleEffect StartDrawPhase
+			TargetSelf
+			If OnStage
 			{
-				Effect:
+				MoveCard Memory
+				ScheduleEffect StartDrawPhase
 				{
-					TargetLocation Memory
-					NarrowTargets NameEquals Their Progress, Kosaki
-					FirstTarget
-					Message Their Progress, Kosaki returns from memory.
-					PlaceOnStage False True True False
-					GainPower 3500
+					Effect:
+					{
+						TargetLocation Memory
+						NarrowTargets NameEquals Their Progress, Kosaki
+						FirstTarget
+						Message Their Progress, Kosaki returns from memory.
+						PlaceOnStage False True True False
+						GainPower 3500
+					}
 				}
 			}
 		}
@@ -2002,42 +1973,8 @@ Trait2 Sports
 Backup 1500
 EndCard
 
-Character: NK/W30-P01
-Name Summer Colors, Chitoge
-Color Y
-Level 0
-Cost 0
-Power 500
-Trait1 Heiress
-Trait2 Key
-*500Assist
-Auto: OnClimaxPlay
-{
-	*GiveCharacterPower(1000,Any)
-}
-Text Auto: When a climax is placed in your climax area, choose 1 of your characters, it gets +1000 power until end of turn.
-EndCard
-
-Character: NK/W30-P02
-Name Lovey-Dovey Couple!? Chitoge
-Color Y
-Level 1
-Cost 0
-Power 5000
-Trait1 Heiress
-Trait2 Key
-Cont: GiveSelf
-{
-	If Compare CardsInHand 4 OrLess
-	{
-		GainPower 1000
-	}
-}
-Text Cont: If there are 4 or less cards in your hand, this card gets +1000 power.
-EndCard
-
 Character: NK/W30-P03
-Name Along with Raku!? Kosaki
+Name Together with Raku? Kosaki
 Color B
 Level 1
 Cost 0
@@ -2087,170 +2024,6 @@ Trait1 Key
 Trait2 Music
 Backup 1500
 EndCard
-
-Character: NK/W30-P06
-Name Shrine Maiden in Love
-Color Y
-Level 0
-Cost 0
-Power 2500
-Trait1 Key
-Trait2 Weapon
-EndCard
-
-Character: NK/W30-P07
-Name Watching Autumn Leaves, Chitoge
-Color Y
-Level 1
-Cost 0
-Power 5000
-Trait1 Key
-Trait2 Heiress
-*OnPlayGainPower(1500)
-EndCard
-
-Character: NK/W30-P08
-Name Sakura Colored Season, Kosaki
-Color B
-Level 0
-Cost 0
-Power 1000
-Trait1 Sweets
-Trait2 Key
-Cont: GiveAll
-{
-	If Other && OpponentsTurn
-	{
-		GainPower 500
-	}
-}
-Text Cont: During your opponent's turn, your other characters get +500 power.
-*OnPlayScryToBottom
-EndCard
-
-Character: NK/W30-P09
-Name Summer Beach, Seishirou
-Color G
-Level 1
-Cost 0
-Power 1500
-Trait1 Weapon
-*GlobalPower(500,Any)
-Act: 1
-{
-	TargetLocation OpponentCenterStage
-	AIChoice LosePower 1000
-	ChooseCharacterFromTargets Choose a character to give -1000 power.
-	LosePower 1000
-}
-Text Act: [(1)] Choose a character on your opponent's center stage, it gets -1000 power until end of turn.
-EndCard
-
-Character: NK/W30-P10
-Name Brilliance on the Holy Night, Marika
-Color R
-Level 0
-Cost 0
-Power 2500
-Trait1 Police
-Trait2 Key
-Auto: OnSentFromStageToWaitingRoom
-{
-	PayCost 2
-	{
-		SearchWaitingRoom HasTrait Key
-	}
-}
-Text Auto: [(2)] When this card is put into your waiting room from the stage, you may pay the cost, choose a <Key> character in your waiting room, and return it to your hand.
-EndCard
-
-Character: NK/W30-P11
-Name Summer Color, Kosaki
-Color B
-Level 2
-Cost 1
-Trigger Soul
-Power 7500
-Trait1 Sweets
-Trait2 Key
-Cont: GiveSelf
-{
-	If LocationContains Memory 1 NameEquals Promised Pendant
-	{
-		GainPower 1500
-	}
-}
-Text Cont: MEMORY If "Promised Pendant" is in your memory, this card gets +1500 power.
-EndCard
-
-Character: NK/W30-P12
-Name A Sweet Moment, Marika
-Color R
-Level 0
-Cost 0
-Power 2500
-Trait1 Police
-Trait2 Key
-Auto: OnAttack
-{
-	TargetLocation Stage
-	NarrowTargets Other && HasTrait Key
-	ChooseCharactersFromTargets 0 2 Choose up to 2 characters to give +500 power.
-	GainPower 500
-}
-Text Auto: When this card attacks, choose up to 2 of your <Key> characters, they get +500 power until end of turn.
-EndCard
-
-Character: NK/W30-P13
-Name Two with the Same Wavelength, Chitoge & Kosaki
-Color B
-Level 0
-Cost 0
-Power 500
-Trait1 Key
-*500Assist
-Auto: OnClimaxPlay
-{
-	*GiveCharacterPower(1000,Any)
-}
-Text Auto: When a climax is placed in your climax area, choose 1 of your characters, it gets +1000 power until end of turn.
-EndCard
-
-Character: NK/W30-P14
-Name Bathing Together, Chitoge & Kosaki & Marika
-Color Y
-Level 0
-Cost 0
-Power 500
-Trait1 Key
-Cont: GiveAll
-{
-	If Other && InLocation MiddleCenterStage && MyTurn
-	{
-		GainPower 1000
-	}
-}
-Text Cont: During your turn, your other character in the middle position of your center stage gets +1000 power.
-Auto: OnPlay
-{
-	PayCost 1
-	{
-		SearchWaitingRoom NameEquals Promised Pendant
-	}
-}
-Text Auto: [(1)] When this card is placed on the stage from your hand, you may pay the cost, choose 1 "Promised Pendant" in your waiting room, and return it to your hand.
-EndCard
-
-
-
-
-
-
-
-
-
-
-
 
 Character: NK/W30-TE06
 Name Love Triangle? Chitoge

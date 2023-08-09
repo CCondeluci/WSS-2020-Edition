@@ -10,30 +10,14 @@ Auto: OnReversed
 	PayCost 1
 	{
 		TargetSelf
-		MoveCard Memory
+		If OnStage
+		{
+			MoveCard Memory
+		}
 	}
 }
 Text Auto: [(1)] When this card becomes reversed in battle, you may pay the cost. If you do, put this card into your memory.
 *BondClock(Childhood Erza)
-EndCard
-
-Character: FT/SE10-02
-Name Erza, Alongside Beloved Friends
-Color Y
-Level 0
-Cost 0
-Power 2500
-Trait1 Magic
-Trait2 Weapon
-Cont: GiveSelf
-{
-	TargetLocation Backstage
-	NarrowTargets HasTrait Magic
-	SetXValue TargetCount
-	MultiplyXValue 500
-	GainPower X
-}
-Text Cont: This card gets +500 power for each other 《Magic》 character in your back stage.
 EndCard
 
 Character: FT/SE10-03
@@ -52,23 +36,6 @@ Cont: GiveSelf
 	}
 }
 Text Cont: MEMORY If the number of 《Magic》 characters in your memory is two or more, this card gets +1500 power.
-EndCard
-
-Character: FT/SE10-04
-Name Laxus Dreyar
-Color Y
-Level 1
-Cost 0
-Power 5000
-Trait1 Magic
-Trait2 Dragon
-Auto: OnUseAct
-{
-	TargetSelf
-	GainPower 1000
-}
-TimesPerTurn 1
-Text Auto: This ability activates up to once per turn. When you use an act ability, this card gains +1000 power until end of turn.
 EndCard
 
 Character: FT/SE10-05
@@ -152,7 +119,10 @@ Auto: OnReversed
 	PayCost 1
 	{
 		TargetSelf
-		MoveCard Memory
+		If OnStage
+		{
+			MoveCard Memory
+		}
 	}
 }
 Text Auto: [(1)] When this card becomes reversed in battle, you may pay the cost. If you do, put this card into your memory.
@@ -191,16 +161,6 @@ Act: 2
 	BlockOpponentEncore
 }
 Text Act: [(2)] Until end of turn, this card gets +2000 power, and your opponent cannot use "Auto: ENCORE".
-EndCard
-
-Character: FT/SE10-11
-Name Erza, Occasional Cloth Change
-Color Y
-Level 1
-Cost 1
-Power 7000
-Trait1 Magic
-Trait2 Weapon
 EndCard
 
 Character: FT/SE10-12
@@ -343,7 +303,10 @@ Auto: OnReversed
 	IfTarget HasTrait Key
 	{
 		TargetSelf
-		MoveCard Memory
+		If OnStage
+		{
+			MoveCard Memory
+		}
 	}
 }
 Text Auto: When this card becomes reversed in battle, reveal the top card of your deck. If the revealed card is a 《Key》 character, you may put this card into your memory. 
@@ -395,64 +358,6 @@ Clone FT/SE10-20A
 Image FT_SE10_20F
 EndCard
 
-Character: FT/SE10-21
-Name Mirajane, Kind Smiles
-Color G
-Level 2
-Cost 2
-Trigger Soul
-Power 8500
-Trait1 Magic
-Trait2 Waitress
-Cont: GiveSelf
-{
-	If HasMarker
-	{
-		GainPower 2000
-	}
-}
-Text Cont: If this card has a marker, this card gains +2000 power.
-Auto: OnOtherReversed
-{
-	IfOther HasTrait Magic
-	{
-		If Not HasMarker
-		{
-			PayCost 1
-			{
-				TargetTop Deck 1
-				Marker_FaceDown
-			}
-		}
-	}
-}
-Text Auto: [(1)] When another one of your <Magic> characters become reversed in battle, if there's no marker under this card you may pay the cost. If you do, put the top card of your deck under this card as a marker.
-EndCard
-
-Event: FT/SE10-22
-Name Prayers of the Six Demons (Oracion Seis)
-Color G
-Level 1
-Cost 1
-Counter
-Effect:
-{
-	Question Send a character to your waiting room to put a card into your hand from deck?
-	If Yes
-	{
-		TargetLocation Stage
-		ChooseCharacterFromTargets Choose a character to send to your waiting room.
-		SaveTargets
-		MoveCard WaitingRoom
-		SearchDeck SameTraitAsSavedTarget
-		TargetSelf
-		MoveCard Memory
-	}
-}
-Text [Counter] Choose 1 of your characters and send it to your waiting room. If you do, search your deck for up to 1 character who shares at least 1 trait with the character sent to the waiting room this way, reveal it and add it to your hand.
-Text Send this card to memory
-EndCard
-
 Event: FT/SE10-23
 Name LOVE & LUCKY
 Color G
@@ -478,31 +383,6 @@ EndCard
 Climax: FT/SE10-24
 Name You did nothin' wrong!
 *BarClimax
-EndCard
-
-Character: FT/SE10-25
-Name Happy, Nekomander
-Color R
-Level 0
-Cost 0
-Power 1500
-Trait1 Magic
-Trait2 Animal
-Cont: GiveAll
-{
-	If HasTrait Dragon
-	{
-		GainEffect
-		{
-			Auto: Encore 2
-			{
-			}
-			Text Auto: ENCORE [(2)]
-		}
-	}
-}
-Text Cont: All of your other <Dragon> characters gain "Auto: Encore 2"
-*RestGivePower(1000,Dragon)
 EndCard
 
 Character: FT/SE10-26
@@ -614,28 +494,6 @@ EndCard
 Character: FT/SE10-29f
 Clone FT/SE10-29a
 Image FT_SE10_29F
-EndCard
-
-Character: FT/SE10-30
-Name Gajeel, Unexpected Alliance
-Color R
-Level 0
-Cost 0
-Power 2500
-Trait1 Magic
-Trait2 Dragon
-Auto: OnOtherFrontalAttacked
-{
-	IfOther HasTrait Dragon
-	{
-		PayCost 1 SendSelf WaitingRoom
-		{
-			TargetOther
-			GainPower 2000
-		}
-	}
-}
-Text Auto: [(1) Put this card into your waiting room] When your other <Dragon> character is frontal attacked, you may pay the cost, your character in battle gets +2000 power until end of turn.
 EndCard
 
 Character: FT/SE10-31
@@ -861,7 +719,11 @@ Act: 1
 	{
 		Auto: EndOfMyTurn
 		{
-			MoveCard Memory
+			TargetSelf
+			If OnStage
+			{
+				MoveCard Memory
+			}
 		}
 	}
 }

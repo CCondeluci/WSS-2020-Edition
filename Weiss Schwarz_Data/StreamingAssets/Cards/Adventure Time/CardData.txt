@@ -1494,7 +1494,10 @@ Auto: OnReversedInBattle
 		If Yes
 		{
 			TargetSelf
-			MoveCard Memory
+			If OnStage
+			{
+				MoveCard Memory
+			}
 		}
 	}
 }
@@ -1740,7 +1743,11 @@ Auto: OnReversedInBattle
 {
 	PayCost 1
 	{
-		MoveCard Memory
+		TargetSelf
+		If OnStage
+		{
+			MoveCard Memory
+		}
 	}
 }
 Text Auto: [(1)] When this card becomes reverse in battle, you may pay the cost. If you do, put this card into your memory.
@@ -1767,7 +1774,11 @@ Auto: OnReversedInBattle
 {
 	PayCost 1
 	{
-		MoveCard Memory
+		TargetSelf
+		If OnStage
+		{
+			MoveCard Memory
+		}
 	}
 }
 Text Auto: [(1)] When this card becomes reverse in battle, you may pay the cost. If you do, put this card into your memory.

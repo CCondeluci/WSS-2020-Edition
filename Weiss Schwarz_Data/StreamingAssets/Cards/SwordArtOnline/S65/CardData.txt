@@ -546,7 +546,10 @@ Auto: OnOtherFrontalAttacked
 		PayCost SendSelf Clock
 		{
 			TargetOther
-			MoveCard Clock
+			If OnStage
+			{
+				MoveCard Clock
+			}
 		}
 	}
 }

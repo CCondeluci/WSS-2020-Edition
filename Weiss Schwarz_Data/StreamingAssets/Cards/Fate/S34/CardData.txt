@@ -2256,39 +2256,3 @@ Auto: OnPlay
 }
 Text Auto: [(2)] When this card is placed on the stage from your hand, you may pay the cost. If you do, search your deck for up to one 《Master》 or 《Servant》 character, reveal it to your opponent, and put it into your hand. Shuffle your deck afterwards.
 EndCard
-
-Character: FS/S34-PE03
-Name Dancing in the Night, Rin & Archer
-Color R
-Level 1
-Cost 0
-Power 5000
-Trait1 Master
-Trait2 Servant
-Auto: OnUseAct
-{
-	GainPower 1000
-}
-Quick
-TimesPerTurn 2
-Text Auto: This ability activates up to twice per turn. When you use an ACT ability, this card gains +1000 power until end of turn.
-EndCard
-
-Character: FS/S34-PE04
-Name Occasional Break, Rin
-Color R
-Level 0
-Cost 0
-Power 2000
-Trait1 Master
-Trait2 Jewel
-Auto: OnPlay
-{
-	PayCost Discard 1 IsClimax
-	{
-		SearchWaitingRoom NameContains Rin && IsCharacter
-	}
-}
-Text Auto: [Discard a climax] When this card is placed on stage from your hand, you may pay the cost. If you do, choose a character in your waiting room with "Rin" in it's card name and return it to your hand.
-EndCard
-

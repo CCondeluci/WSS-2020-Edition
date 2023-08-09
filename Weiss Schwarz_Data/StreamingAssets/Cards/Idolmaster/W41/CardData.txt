@@ -437,7 +437,11 @@ Auto: OnPlay
 		{
 			Effect:
 			{
-				MoveCard Memory
+				TargetSelf
+				If OnStage
+				{
+					MoveCard Memory
+				}
 			}
 		}
 	}

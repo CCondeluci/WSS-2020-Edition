@@ -2731,19 +2731,6 @@ Text Auto:  [(4) Put 1 《Grotesque Race》 or 《Nazarick》 character from you
 Backup 2500
 EndCard
 
-Character: OVL/S62-PE01
-Name Ainz, Gratitude to You
-Color R
-Level 2
-Cost 1
-Trigger Soul
-Power 2000
-Trait1 Grotesque Race
-Trait2 Nazarick
-*BackupBonus1000(Grotesque Race|Nazarick)
-Backup 2500
-EndCard
-
 Character: OVL/S62-PE02
 Name Joyful Exclamation, Albedo
 Color R

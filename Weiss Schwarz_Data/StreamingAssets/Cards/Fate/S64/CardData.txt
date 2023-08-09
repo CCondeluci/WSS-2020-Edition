@@ -469,10 +469,13 @@ Auto: OnTriggerCheckClimax
 		PayCost Discard 1 Any
 		{
 			TargetLocation Clock
-			ChooseCardsFromTargets 1 1 Any
-			MoveCard Hand
-			TargetTop Deck 1
-			MoveCard Clock
+			If HasTarget
+			{
+				ChooseCardsFromTargets 1 1 Any
+				MoveCard Hand
+				TargetTop Deck 1
+				MoveCard Clock
+			}
 		}
 	}
 }

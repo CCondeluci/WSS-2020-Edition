@@ -2837,35 +2837,3 @@ Act: 2 RestSelf
 Text Act: [(2) Rest this card] Choose a character in your waiting room with "Sora" or "Shiro" in its name, and return it to your hand.
 EndCard
 
-Character: NGL/S58-P03
-Name Gamer Allies, Shiro & Izuna
-Color B
-Level 0
-Cost 0
-Power 2000
-Trait1 Game
-Trait2 Imanity
-Auto: OnPlay
-{
-	PayCost 1 Clock
-	{
-		*Check3Add1(Any)
-	}
-}
-Text Auto: [(1) Put the top card of your deck into your clock] When this card is placed on the stage from your hand, you may pay the cost, look at up to 3 cards from the top of your deck, choose a <Game> character to add to your hand, and put the rest into the waiting room.
-EndCard
-
-Character: NGL/S58-P04
-Name Enchanting Tail, Shiro
-Color B
-Level 0
-Cost 0
-Power 2000
-Trait1 Game
-Trait2 Imanity
-*OnPlayScryToBottom
-*OnAttackGivePowerForEachOther(500,Game)
-EndCard
-
-
- 

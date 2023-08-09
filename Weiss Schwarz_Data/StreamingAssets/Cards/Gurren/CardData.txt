@@ -451,7 +451,10 @@ Auto: OnReverseOpponent
 				If Compare CardsInMemory 2 OrLess
 				{
 					TargetSelf
-					MoveCard Memory
+					If OnStage
+					{
+						MoveCard Memory
+					}
 				}
 			}
 			Text Auto: When this card is attacked, if the number of cards in your memory is 2 or less, put this card into your memory.
@@ -2001,7 +2004,7 @@ Auto: OnPlay
 {
 	SearchWaitingRoom HasTrait Team DAI-GURREN
 }
-Text Auto: When this card is placed on the stage from your hand, you may choose a «Team DAI-GURREN» character in your waiting room, and return it to your hand.
+Text Auto: When this card is placed on the stage from your hand, you may choose a ï¿½Team DAI-GURRENï¿½ character in your waiting room, and return it to your hand.
 Auto: StartClimaxPhase
 {
 	PayCost SendSelf Hand

@@ -407,7 +407,11 @@ Auto: OnPlay
 Text Auto: [(2) Put the top card of your deck into your clock] When this card is placed on the stage from your hand, you may pay the cost. If you do, choose one of your opponent's cost 1 or lower characters, and put it into your opponent's stock.
 Auto: OnReversed
 {
-	MoveCard Memory
+	TargetSelf
+	If OnStage
+	{
+		MoveCard Memory
+	}
 }
 Text Auto: When this card becomes reversed in battle, put this card into your memory.
 EndCard
@@ -600,27 +604,6 @@ Trait2 Light Aircraft Carrier
 *GlobalPower(1000,Fleet Girl)
 *ClockShift(2,yellow)
 Text <color=red> * This card is exclusive to the EN format. </color>
-EndCard
-
-Character: KC/S25-028
-Name 2nd Hiyo-class Light Aircraft Carrier, Junyo
-Color Y
-Level 2
-Cost 1
-Trigger Soul
-Power 6000
-Trait1 Fleet Girl
-Trait2 Light Aircraft Carrier
-*HexProof
-Cont: GiveAll
-{
-	If Other && HasTrait Fleet Girl
-	{
-		GainSoul 1
-	}
-}
-Text Cont: All of your other 《Fleet Girl》 characters gets +1 soul.
-Text <color=red> * This card is exclusive to the JP format, and is currently limited to 2 copies. </color>
 EndCard
 
 Character: KC/S25-E029
@@ -969,7 +952,10 @@ Auto: OnPlay|PlacedBy 2nd Ise-class Battleship, Hyuga
 				If Yes
 				{
 					TargetBattleOpponent
-					MoveCard Clock
+					If OnStage
+					{
+						MoveCard Clock
+					}
 				}
 			}
 			Text Auto: When this card's battle opponent becomes reversed, you may put that character into your opponent's clock.

@@ -12,7 +12,10 @@ Auto: OnReversed
 	PayCost 1
 	{
 		TargetSelf
-		MoveCard Memory
+		If OnStage
+		{
+			MoveCard Memory
+		}
 	}
 }
 Text Auto: [(1)] When this card becomes reversed in battle, you may pay the cost. If you do, put this card into your memory.
@@ -50,7 +53,11 @@ Auto: OnPlay
 		{
 			Effect:
 			{
-				MoveCard Memory
+				TargetSelf
+				If OnStage
+				{
+					MoveCard Memory
+				}
 			}
 		}
 	}
@@ -244,7 +251,11 @@ Auto: OnReversed
 {
 	PayCost 1
 	{
-		MoveCard Memory
+		TargetSelf
+		If OnStage
+		{
+			MoveCard Memory
+		}
 	}
 }
 Text Auto: [(1)] When this card becomes reversed in battle, you may pay the cost. If you do, put this card into your memory.
@@ -792,7 +803,10 @@ Auto: OnReversed
 		If Yes
 		{
 			TargetSelf
-			MoveCard Memory
+			If OnStage
+			{
+				MoveCard Memory
+			}
 		}
 	}
 }
@@ -2567,273 +2581,3 @@ Cont: GiveFacing
 }
 Text Cont: The character facing this card gets "Auto: ENCORE [Discard a character]"
 EndCard
-
-Character: AB/W31-E125
-Name Leader of the Battlefront, Yuri
-Color R
-Level 1
-Cost 0
-Power 4500
-Trait1 Death
-Trait2 Weapon
-Act: Rest 1 HasTrait Death
-{
-	GainPower 1500
-}
-Text Act: [Rest 1 of your <Death> characters] This card gains +1500 power until end of turn.
-EndCard
-
-Character: AB/W31-E126
-Name Sharable Feelings, Yuri & Kanade
-Color Y
-Level 1
-Cost 0
-Power 5500
-Trait1 Death
-Trait2 Student Council
-EndCard
-
-Character: AB/W31-E127
-Name Defying God, Yuri
-Color R
-Level 1
-Cost 1
-Power 6500
-Trait1 Death
-Trait2 Weapon
-Act: 1
-{
-	TargetLocation OpponentCenterStage
-	NarrowTargets Compare ThatCardsLevel 0 OrLess
-	ChooseCharacterFromTargets Choose a character to put into your opponent's waiting room
-	MoveCard OpponentWaitingRoom
-}
-Text Act: [(1)] Choose a level 0 or lower character in your opponent's center stage and put it into their waiting room.
-EndCard
-
-Character: AB/W31-E128
-Name Cloth Change?! Kanade
-Color Y
-Level 2
-Cost 2
-Trigger Soul
-Power 8500
-Soul 2
-Trait1 Death
-Trait2 Student Council
-Auto: OnPlay
-{
-	PayCost 1
-	{
-		GainPower 2500
-	}
-}
-Text Auto: [(1)] When this card is placed on stage from your hand, you may pay the cost. If you do, this card gains +2500 power until end of turn.
-EndCard
-
-Character: AB/W31-E129
-Name Kanade, Mysterious Girl
-Color Y
-Level 0
-Cost 0
-Power 500
-Trait1 Death
-Trait2 Student Council
-*500Assist
-Act: Rest 2 Any
-{
-	TargetLocation Stage
-	ChooseCharacterFromTargets Choose a character to gain +1 level
-	GainLevel 1
-}
-Text Act: [Rest 2 of your characters] Choose one of your characters and that character gains +1 level until end of turn.
-EndCard
-
-Character: AB/W31-E130
-Name "First" Glasses, Kanade
-Color Y
-Level 0
-Cost 0
-Power 3000
-Trait1 Death
-Trait2 Glasses
-EndCard
-
-Character: AB/W31-E131
-Name Favorite Mapo Tofu, Kanade
-Color Y
-Level 1
-Cost 0
-Power 5500
-Trait1 Death
-Trait2 Student Council
-EndCard
-
-Character: AB/W31-E132
-Name Exist to Project Order, Kanade
-Color Y
-Level 0
-Cost 0
-Power 3500
-Trait1 Death
-Trait2 Student Council
-Auto: OnReversed
-{
-	If StageContainsOrLess 1 Other && HasTrait Death
-	{
-		TargetSelf
-		MoveCard Clock
-	}
-}
-Text Auto: When this card becomes reversed in battle, if you have 1 or less other <Death> characters put this card into your clock.
-EndCard
-
-Character: AB/W31-E133
-Name Leader of SSS, Yuri
-Color R
-Level 2
-Cost 1
-Trigger Soul
-Power 6500
-Trait1 Death
-Trait2 Weapon
-*GainPowerWhenAttackingLevel3(6000)
-*HandEncore
-EndCard
-
-Character: AB/W31-E134
-Name Diversion Squad of the Battlefront, Yui
-Color R
-Level 0
-Cost 0
-Power 1500
-Trait1 Death
-Trait2 Music
-Auto: OnClimaxPlay
-{
-	TargetLocation Stage
-	ChooseCharacterFromTargets Choose a character to gain +1000 power
-	GainPower 1000
-}
-Text Auto: When your climax is placed into your climax area, choose one of your characters and that character gains +1000 power until end of turn.
-*Act1RestSelfSearchBrainstorm(Death)
-EndCard
-
-Character: AB/W31-E135
-Name Warm Feelings, Kanade
-Color Y
-Level 3
-Cost 2
-Trigger Soul
-Power 9500
-Soul 2
-Trait1 Death
-Trait2 Student Council
-*EarlyPlay2OrLessClimax
-Cont: GiveSelf
-{
-	If MyTurn
-	{
-		SetXToNumberOfCharacters HasTrait Death && Other
-		MultiplyXValue 500
-		GainPower X
-	}
-}
-Text Cont: During your turn, this card gets +500 power for each of your other 《Death》 characters.
-*MusashiEffect
-EndCard
-
-Character: AB/W31-E136
-Name World Resistance, Yuri
-Color R
-Level 0
-Cost 0
-Power 2500
-Trait1 Death
-Trait2 Weapon
-Auto: OnAttack
-{
-	TargetLocation Stage
-	NarrowTargets CardPosition Stand
-	Rest
-}
-Text Auto: When this card attacks, rest all of your stand characters.
-Auto: OnSentFromStageToWaitingRoom
-{
-	PayCost Discard 1 Any
-	{
-		*Check4Add1Level1OrHigher
-	}
-}
-Text Auto: When this card is placed into your waiting room from stage, you may pay the cost. If you do, look at the top 4 cards from your deck, choose up to 1 level 1 or higher card, show it to your opponent and put the rest into your waiting room.
-EndCard
-
-Character: AB/W31-E137
-Name "Songwriter" Kanade
-Color Y
-Level 2
-Cost 1
-Trigger Soul
-Power 2500
-Trait1 Death
-Trait2 Student Council
-Backup 3000
-EndCard
-
-Character: AB/W31-E138
-Name Salvation of the Afterlife, Kanade
-Color Y
-Level 2
-Cost 1
-Trigger Soul
-Power 7500
-Trait1 Death
-Trait2 Student Council
-*OnPlayGivePower(1000,Any)
-EndCard
-
-Character: AB/W31-E139
-Name "First" Graduation Ceremony, Kanade
-Color Y
-Level 0
-Cost 0
-Power 2500
-Trait1 Death
-Trait2 Student Council
-Cont: GiveAll
-{
-	If MyTurn &&& Other && HasTrait Death
-	{
-		GainPower 500
-	}
-}
-Text Cont: During your turn, all of your other 《Death》 characters get +500 power.
-EndCard
-
-Character: AB/W31-E140
-Name Opened Up to Each Other, Kanade & Yuri
-Color Y
-Level 1
-Cost 1
-Power 6000
-Trait1 Death
-Trait2 Student Council
-Auto: OnAttack
-{
-	TargetLocation Stage
-	GainPower 500
-}
-Text Auto: When this card attacks, all of your characters gain +500 power until end of turn.
-EndCard
-
-Character: AB/W31-E141
-Name Good Night, Kanade
-Color Y
-Level 0
-Cost 0
-Power 2500
-Trait1 Death
-Trait2 Student Council
-*HandEncore
-EndCard
-

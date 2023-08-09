@@ -2017,7 +2017,10 @@ Trait2 Weapon
 Auto: OnReversed
 {
 	TargetSelf
-	MoveCard Memory
+	If OnStage
+	{
+		MoveCard Memory
+	}
 }
 Text Auto: When this card becomes reversed in battle, put this card into your memory.
 *BlueEarlyPlayBomb
@@ -2229,7 +2232,11 @@ Auto: OnPlay
 Text Auto: When this card is placed on the stage from your hand, put the top 3 cards from your deck into your waiting room. If there is a climax revealed among those cards, you may choose 1 level 3 or lower character on your opponent's center stage, and put it into his or her waiting room.
 Auto: OnReversed
 {
-	MoveCard Memory
+	TargetSelf
+	If OnStage
+	{
+		MoveCard Memory
+	}
 }
 Text Auto: When this card becomes reversed in battle, put this card into your memory.
 EndCard
@@ -2435,73 +2442,4 @@ Auto: OnOpponentClimaxPlay
 	}
 }
 Text Auto: When your opponent's climax is placed on the climax area, you may put this card into your stock.
-EndCard
-
-Character: GGO/S59-P03
-Name Wants to be Fashionable, LLENN
-Color G
-Level 1
-Cost 1
-Power 5500
-Trait1 Avatar
-Trait2 Weapon
-*CannotBeReversedByCost0
-EndCard
-
-Character: GGO/S59-P04
-Name Fukaziroh & LLENN & Pitohui
-Color R
-Level 0
-Cost 0
-Power 2000
-Trait1 Avatar
-Trait2 Weapon
-Auto: OnPlay
-{
-	PayCost 1 Discard 1 Any
-	{
-		SearchWaitingRoom HasTrait Avatar|Net
-		*GiveOtherCharacterPower(1000,Avatar|Net)
-	}
-}
-Text Auto: [(1) Put 1 card from your hand into your waiting room] When this card is placed on the stage from your hand, you may pay the cost. If you do, choose 1 《Avatar》 or 《Net》 character in your waiting room, return it to your hand, choose 1 of your other 《Avatar》 or 《Net》 characters, it gets +1000 power until end of turn.
-Auto: OnOpponentClimaxPlay
-{
-	Question Send this card to your stock?
-	If Yes
-	{
-		MoveCard Stock
-	}
-}
-Text Auto: When your opponent's climax is placed on the climax area, you may put this card into your stock.
-EndCard
-
-Character: GGO/S59-P05
-Name Even Swimsuit Buddies! LLENN & Fukaziroh
-Color R
-Level 0
-Cost 0
-Power 2500
-Trait1 Avatar
-Trait2 Weapon
-Auto: OnPlay
-{
-	PayCost StockClock
-	{
-		SearchDeck Rampaging in "GGO"! Fukaziroh
-	}
-}
-Text Auto: [Put the top card of your stock into your clock] When this card is placed on stage from your hand, you may pay the cost. If you do, search your deck for up to 1"Rampaging in "GGO"! Fukaziroh" and add it to your hand.
-EndCard
-
-Character: GGO/S59-P02
-Name Confident in Her Dexterity! LLENN
-Color R
-Level 0
-Cost 0
-Power 500
-Trait1 Avatar
-Trait2 Weapon
-*GiveMiddlePower(1000,Any)
-*OnClimaxPlayGivePower(1000)
 EndCard

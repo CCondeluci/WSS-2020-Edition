@@ -2099,15 +2099,3 @@ Trait2 Net
 *GiveMiddlePower(1000,Any)
 *OnPlayGiveOtherPower(1000,Avatar|Net)
 EndCard
-
-Character: AW/S43-P02
-Name Kuroyukihime, Colorful Japanese Outfit
-Color Y
-Level 1
-Cost 0
-Power 5000
-Trait1 Student Council
-Trait2 Net
-*OnAttackGivePowerForEachOther(500,Avatar|Net)
-EndCard
-

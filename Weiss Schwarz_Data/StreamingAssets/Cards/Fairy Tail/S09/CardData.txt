@@ -40,12 +40,6 @@ Trait1 Magic
 Trait2 Dragon
 EndCard
 
-Climax: FT/S09-T04
-Name The Day that Happy Was Born
-Color R
-*2SoulClimax
-EndCard
-
 Character: FT/S09-T05
 Name Ice Make Wizard, Gray
 Color G
@@ -265,22 +259,6 @@ TimesPerTurn 1
 Text Auto: This ability activates up to one time per turn. When you use an Act:, this card gets +1000 power and +1 soul until end of turn.
 EndCard
 
-Character: FT/S09-008
-Name Erza, S-Class Wizard
-Color Y
-Level 0
-Cost 0
-Power 2500
-Trait1 Magic
-Trait2 Weapon
-Act: Rest 2 HasTrait Magic
-{
-	TargetSelf
-	GainPower 2500
-}
-Text Act: [Rest two of your <Magic> characters] This card gains +2500 power until end of turn.
-EndCard
-
 Character: FT/S09-009
 Name Aria of the Heavens
 Color Y
@@ -301,29 +279,6 @@ Auto: OnUseThisCardsBackup
 }
 Text Auto: [(4) Put a climax from your hand into your waiting room] When you use this card's "BACKUP", you may pay the cost. If you do, choose one of your opponent's characters, and Rest it.
 Backup 1000 
-EndCard
-
-Character: FT/S09-010
-Name Erza, Large Luggage
-Color Y
-Level 1
-Cost 0
-Power 5000
-Trait1 Magic
-Trait2 Weapon
-Act: 2
-{
-	TargetSelf
-	GainPower 1000
-	GainEffect
-	{
-		Auto: OnOpponentReverse
-		{
-			SearchDeck HasTrait Weapon
-		}
-	}
-}
-Text Act: [2] This card gains +1000 power and the following ability until end of turn. "Auto: When this card's battle opponent becomes reversed, search your deck for up to 1 <Weapon> character, reveal it, and put it into your hand.
 EndCard
 
 Character: FT/S09-011
@@ -392,51 +347,6 @@ Trait2 Master
 *Act1Rest2SearchBrainstorm(Magic)
 EndCard
 
-Character: FT/S09-014
-Name Levy McGarden
-Color Y
-Level 0
-Cost 0
-Power 2000
-Trait1 Magic
-Trait2 Book
-Auto: OnSentFromStageToWaitingRoom
-{
-	PayCost 1
-	{
-		TargetSelf
-		MoveCard Memory
-	}
-}
-Text Auto: [(1)] When this card is placed from stage to your waiting room, you may pay the cost. If you do, send this card to your memory.
-*RestGivePower(1000,Magic)
-EndCard
-
-Character: FT/S09-015
-Name Laxus, S-Level Wizard
-Color Y
-Level 0
-Cost 0
-Power 2500
-Trait1 Magic
-Trait2 Dragon
-Cont: GiveSelf
-{
-	If HasMarker
-	{
-		GainPower 1000
-	}
-}
-Text Cont: If there is a marker underneath this card, this card gets +1000 power.
-Requirement Not HasMarker
-Act: 1
-{
-	TargetTop Deck 1
-	Marker_FaceDown
-}
-Text Act: [(1)] If there isn't a marker under this card, put the top card of your deck underneath this card as a marker.
-EndCard
-
 Character: FT/S09-016
 Name "The Reaper" Erigor
 Color Y
@@ -452,26 +362,6 @@ Act: 2
 	GainSoul 1
 }
 Text Act: [(2)] This card gets +3000 power and +1 soul until end of turn.
-EndCard
-
-Character: FT/S09-017
-Name Erza, Top Female Wizard of Fairy Tail
-Color Y
-Level 0
-Cost 0
-Power 3000
-Trait1 Magic
-Trait2 Weapon
-EndCard
-
-Character: FT/S09-018
-Name Makarov, Ten Wizard Saints
-Color Y
-Level 1
-Cost 0
-Power 5500
-Trait1 Magic
-Trait2 Master
 EndCard
 
 Character: FT/S09-019
@@ -499,35 +389,6 @@ Act: 1 RestSelf
 	MoveCard Hand
 }
 Text Act: [(1) Rest this card] Choose one of your opponent's level 0 or lower characters, and return it to your opponent's hand.
-EndCard
-
-Character: FT/S09-020
-Name "No Longer Lost" Erza
-Color Y
-Level 2
-Cost 2
-Trigger Soul
-Power 9000
-Trait1 Magic
-Trait2 Weapon
-EndCard
-
-Event: FT/S09-021
-Name Destroying the Moon!?
-Color Y
-Level 2
-Cost 0
-Effect:
-{
-	PayCost Rest 2 Any
-	{
-		TargetLocation OpponentStage
-		NarrowTargets Compare ThatCardsCost 0 OrLess
-		ChooseCharacterFromTargets Choose a character to put to your opponent's stock
-		MoveCard OpponentStock
-	}
-}
-Text Choose 2 of your characters and rest them. If you do, choose an opponent's character whose cost is 0 or lower, and put it into their stock
 EndCard
 
 Event: FT/S09-022
@@ -613,37 +474,6 @@ Auto: OnSpecificClimaxPlay Power of the Celestial Spirits
 }
 Text Auto: CxCombo [(2)] When a card named "Power of the Celestial Spirits" is placed on your climax area, if this card is on your center stage, you may pay the cost. If you do, search your deck for up to one level 2 or lower 《Key》 character, and put it on any position of your stage. Shuffle your deck afterwards.
 EndCard
-
-Character: FT/S09-028
-Name Lucy, Lady of Heartfilia Zaibatsu
-Color G
-Level 0
-Cost 0
-Power 1500
-Trait1 Magic
-Trait2 Key
-Cont: GiveSelf
-{
-	CanSendMarkersToPayForActEffect Any
-}
-Text Cont: If you would pay the Act: cost for one of your characters in your hand or stage, you may put a marker from underneath this card into your waiting room instead of a card from your stock.
-Auto: OnPlay
-{
-	PayCost Rest 2 Any
-	{
-		TargetTop Deck 1
-		Marker_FaceDown
-	}
-}
-Text Auto: [Rest two of your characters] When this card is placed on stage from your hand, you may pay the cost. If you do, put the top card of your deck face down under this as a marker.
-Act: 1
-{
-	TargetLocation Stage
-	ChooseCharacterFromTargets Choose a character to gain +1000 power
-	GainPower 1000
-}
-Text Act: [(1)] Choose 1 of your characters, and that character gains +1000 Power until end of turn.
-EndCard 
 
 Character: FT/S09-029
 Name Literature Girl, Lucy
@@ -941,44 +771,6 @@ Trait1 Magic
 Trait2 Key
 EndCard
 
-Character: FT/S09-043
-Name "Speaks with Fists" Elfman
-Color G
-Level 1
-Cost 0
-Power 4500
-Trait1 Magic
-Trait2 Animal 
-Act: Rest 1 Any
-{
-	TargetSelf
-	GainPower 1000
-}
-Text Act: [Rest one of your characters] This card gains +1000 power until end of turn.
-EndCard
-
-Character: FT/S09-044
-Name Lucy & Happy
-Color G
-Level 1
-Cost 0
-Power 5500
-Trait1 Magic
-Trait2 Key
-EndCard
-
-Character: FT/S09-045
-Name Virgo the Virgo
-Color G
-Level 2
-Cost 2
-Trigger Soul
-Power 9000
-Soul 2
-Trait1 Key
-Trait2 Maid
-EndCard
-
 Event: FT/S09-046
 Name Key to the Gate
 Color G
@@ -1226,35 +1018,6 @@ Cont: GiveSelf
 Text Cont: If the level of the character facing this card is 3 or higher, this card gains +7500 power.
 EndCard
 
-Character: FT/S09-060
-Name Natsu, Child Raised as Dragon
-Color R
-Level 0
-Cost 0
-Power 2500
-Trait1 Magic
-Trait2 Dragon
-Act: 1
-{
-	TargetSelf
-	GainPower 1000
-	GainEffect
-	{
-		Auto: OnOpponentReverse
-		{
-			Question Put the battle opponent on top of your opponent's deck?
-			If Yes
-			{
-				TargetFacing
-				MoveCard OpponentDeck
-			}
-		}
-		Text Auto: When this card's battle opponent becomes reversed, you may send it to the top of your opponent's deck.
-	}
-}
-Text Act: [(1)] This card gains +1000 power and the following ability until end of turn. "Auto: When this card's battle opponent becomes reversed, you may send it to the top of your opponent's deck."
-EndCard
-
 Character: FT/S09-061
 Name Childhood Natsu & Happy
 Color R
@@ -1297,39 +1060,6 @@ Cont: GiveSelf
 }
 Text Cont: If the number of cards named "Fire Dragon Roar" in your waiting room is two or more, this card gets +2000 power.
 *Healer
-EndCard
-
-Character: FT/S09-063
-Name Natsu, Always Full Strength
-Color R
-Level 0
-Cost 0
-Power 1500
-Trait1 Magic
-Trait2 Dragon
-Auto: OnReversed
-{
-	TargetLocation Stage
-	ChooseCharacterFromTargets Choose a character to gain +1000 power
-	GainPower 1000
-}
-Text Auto: When this card becomes reversed in battle, choose 1 of your characters, and that character gains +1000 power until end of turn.
-*HandEncore
-EndCard
-
-Character: FT/S09-064
-Name Happy
-Color R
-Level 0
-Cost 0
-Power 2500
-Trait1 Magic
-Trait2 Animal
-Act: 2 RestSelf
-{
-	SearchWaitingRoom HasTrait Dragon
-}
-Text Act: [(2) Rest this card] Choose a <Dragon> character in your waiting room and return it to your hand. 
 EndCard
 
 Character: FT/S09-065
@@ -1377,16 +1107,6 @@ Trait2 Dragon
 Backup 1500
 EndCard
 
-Character: FT/S09-068
-Name Natsu, Surprisingly Calm
-Color R
-Level 1
-Cost 0
-Power 5500
-Trait1 Magic
-Trait2 Dragon
-EndCard
-
 Character: FT/S09-069
 Name Great Fire Totomaru
 Color R
@@ -1408,18 +1128,6 @@ Auto: OnPlay
 	}
 }
 Text Auto: [Put a character from your hand into your waiting room] When this card is placed on stage from your hand, you may pay the cost. If you do not, put this card into your waiting room.
-EndCard
-
-Character: FT/S09-070
-Name Gajeel, Iron Dragon Slayer Wizard
-Color R
-Level 2
-Cost 2
-Trigger Soul
-Power 9000
-Soul 2
-Trait1 Magic
-Trait2 Dragon
 EndCard
 
 Event: FT/S09-071
@@ -1444,22 +1152,6 @@ Effect
 	}
 }
 Text Choose up to two of your characters, and they get the following ability until end of turn. "Auto: [(1)] When this card's battle opponent becomes reversed, you may pay the cost. If you do, choose a character in your waiting room, and return it to your hand."
-EndCard
-
-Event: FT/S09-072
-Name Dragon Egg
-Color R
-Level 1
-Cost 3
-Effect:
-{
-	PayCost Discard 1 IsClimax
-	{
-		SearchLocationForTargets WaitingRoom 0 1 With: CHANGE && Compare ThatCardsLevel 2 OrLess
-		PlaceOnStage False True True False
-	}
-}
-Text You may choose a climax in your hand and put it into your waiting room. If you do, choose a level 2 or lower character in your waiting room with CHANGE and put it on any position on your stage.
 EndCard
 
 Climax: FT/S09-073
@@ -1755,17 +1447,6 @@ Act: Send 1 WaitingRoom Other RestSelf
 Text Act: [Put one of your other characters from your stage into your waiting room & rest this card] Draw up to two cards, choose two cards in your hand, and put them into your waiting room.
 EndCard
 
-Character: FT/S09-088
-Name Gray, Lyon's Junior
-Color B
-Level 0
-Cost 0
-Power 1000
-Trait1 Magic
-Trait2 Ice
-*OnActGivePower(1000,1)
-EndCard
-
 Character: FT/S09-089
 Name Cold Emperor, Lyon
 Color B
@@ -1814,16 +1495,6 @@ Cont: GiveAll
 	}
 }
 Text Cont:  Your other character in the middle position of the center stage gets "Auto: Encore [Put a character from your hand into your waiting room]".
-EndCard
-
-Character: FT/S09-092
-Name Gray, Ice Magic
-Color B
-Level 0
-Cost 0
-Power 3000
-Trait1 Magic
-Trait2 Ice
 EndCard
 
 Character: FT/S09-093
@@ -1897,23 +1568,6 @@ Text Search your deck for up to one level 3 or higher character, reveal it to yo
 Text You may put the top card of your clock into your waiting room. Put this card into your memory.
 EndCard
 
-Event: FT/S09-097
-Name Banquet of Demons
-Color B
-Level 2
-Cost 1
-Effect:
-{
-	*OptionalDraw
-	TargetLocation Stage
-	ChooseCharacterFromTargets Choose a character to gain +2000 power
-	GainPower 2000
-	TargetSelf
-	MoveCard Memory
-}
-Text Draw up to one card and choose one of your characters and that character gains +2000 power until end of turn. Send this card to your memory.
-EndCard
-
 Climax: FT/S09-098
 Name Ice Geyser
 *BookClimax
@@ -1929,25 +1583,6 @@ Climax: FT/S09-100
 Name Water Lock
 Color B
 *DrawClimax
-EndCard
-
-Character: FT/S09-106
-Name Lucy, Guidance of Celestial Spirit
-Color G
-Level 2
-Cost 1
-Trigger Soul
-Power 8000
-Trait1 Magic
-Trait2 Key
-Act: 1
-{
-	TargetLocation Stage
-	NarrowTargets HasTrait Magic
-	ChooseCharacterFromTargets Choose a character to gain +2000 power
-	GainPower 2000
-}
-Text Act: [(1)] Choose one of your <Magic> characters, and that character gains +2000 power until end of turn.
 EndCard
 
 Character: FT/S09-107
@@ -1967,33 +1602,6 @@ Act: Discard 1 IsClimax
 Text Act: [Put a climax from your hand into your waiting room] This card gets +4000 power until end of turn.
 EndCard
 
-Character: FT/S09-108
-Name Plue, Pet Celestial Spirit
-Color G
-Level 0
-Cost 0
-Power 2500
-Trait1 Key
-Trait2 Animal
-*RestGivePower(1000,Key)
-EndCard
-
-Character: FT/S09-109
-Name Wendy, Wizard of Cait Shelter
-Color B
-Level 1
-Cost 0
-Power 4000
-Trait1 Magic
-Trait2 Dragon
-*OnPlayGiveOtherPower(1000,Magic)
-Act: 2 RestSelf
-{
-	Heal
-}
-Text Act: [(2) Rest this card] Put the top card of your clock into your waiting room.
-EndCard
-
 Character: FT/S09-110
 Name Natus & Lucy & Happy
 Color R
@@ -2009,40 +1617,3 @@ Auto: OnOtherReversed
 }
 Text Auto: When another of your characters becomes reversed in battle, this card gets +1000 power until end of turn.
 EndCard
-
-Character: FT/S09-111
-Name "Gangster" Natsu
-Color R
-Level 1
-Cost 1
-Trigger Soul
-Power 5500
-Trait1 Magic
-Trait2 Dragon
-Auto: OnUseAct
-{
-	TargetSelf
-	GainPower 1000
-}
-TimesPerTurn 1
-Text Auto: This ability activates up to once per turn. When you use an act ability, this card gains +1000 power until end of turn.
-EndCard
-
-Character: FT/S09-112
-Name "Gangster" Lucy
-Color G
-Level 1
-Cost 0
-Power 4500
-Trait1 Magic
-Trait2 Key
-Act: 1
-{
-	TargetLocation Stage
-	ChooseCharacterFromTargets Choose a character to get +1500 power
-	GainPower 1500
-}
-Text Act: [(1)] Choose one of your characters, it gets +1500 power until end of turn.
-EndCard
-
-

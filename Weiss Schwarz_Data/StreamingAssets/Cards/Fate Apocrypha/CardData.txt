@@ -442,8 +442,12 @@ Auto: OnPlay
 	{
 		Effect:
 		{
-			MoveCard Memory
-			FlipFaceDown
+			TargetSelf
+			If OnStage
+			{
+				MoveCard Memory
+				FlipFaceDown
+			}
 		}
 		Quick
 		Text Put this card into your memory and flip it face down
@@ -1677,15 +1681,19 @@ Auto: OnEndOfAttack
 {
 	If Climax Blasted Tree
 	{
-		MoveCard Memory
-		Mill 3
-		NarrowTargets IsClimax
-		If HasTarget
+		TargetSelf
+		If OnStage
 		{
-			Message Choose a character to return to your hand
-			SearchLocationForTargets WaitingRoom 1 1 IsCharacter
-			RevealTargets
-			MoveCard Hand
+			MoveCard Memory
+			Mill 3
+			NarrowTargets IsClimax
+			If HasTarget
+			{
+				Message Choose a character to return to your hand
+				SearchLocationForTargets WaitingRoom 1 1 IsCharacter
+				RevealTargets
+				MoveCard Hand
+			}
 		}
 	}
 }
@@ -1883,7 +1891,10 @@ Auto: OnReversed
 					Effect:
 					{
 						TargetSelf
-						MoveCard Memory
+						If OnStage
+						{
+							MoveCard WaitingRoom
+						}
 					}
 				}
 			}

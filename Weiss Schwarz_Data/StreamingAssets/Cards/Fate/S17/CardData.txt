@@ -671,7 +671,10 @@ Auto: OnOpponentReverse
 		PayCost 1
 		{
 			TargetBattleOpponent
-			MoveCard Clock
+			If OnStage
+			{	
+				MoveCard Clock
+			}
 		}
 	}
 }
@@ -1944,28 +1947,6 @@ Quick
 Text Auto: When a climax is placed into your climax area, this card gets +1500 power until end of turn.
 EndCard
 
-Character: FZ/S17-PE01
-Name Holy Spirit of Sword, Saber
-Color Y
-Level 0
-Cost 0
-Power 2500
-Trait1 Servant
-Trait2 Weapon
-*PowerOnMyTurn(1000)
-EndCard
-
-Character: FZ/S17-PE02
-Name Cute King of Knights, Saber
-Color Y
-Level 0
-Cost 0
-Power 2500
-Trait1 Servant
-Trait2 Royalty
-*PowerOnMyTurn(1000)
-EndCard
-
 Character: FZ/S17-PE03
 Name Master of the Golden Sheath, Saber
 Color Y
@@ -1988,23 +1969,6 @@ Trait2 Weapon
 *RestGivePower(1500,Master|Servant)
 EndCard
 
-Character: FZ/S17-PE05
-Name Illya & Irisviel
-Color Y
-Level 0
-Cost 0
-Power 2500
-Trait1 Homunculus
-Trait2 Alchemy
-Auto: OnAttack
-{
-	PayCost Clock
-	{
-		GainPower 2500
-	}
-}
-Text Auto: [Put the top card of your deck into your clock] When this card attacks, you may pay the cost. If you do, this card gets +2500 power until end of turn.
-EndCard
 
 Character: FZ/S17-PE06
 Name Saber & Irisviel & Illya
@@ -2024,55 +1988,6 @@ Auto: OnDirectAttack
 Text Auto: When this card direct attacks, choose another of your characters, and that character gets +1500 power until end of turn.
 EndCard
 
-Character: FZ/S17-PE07
-Name Protector of Chivalry, Saber
-Color Y
-Level 0
-Cost 0
-Power 2500
-Trait1 Servant
-Trait2 Weapon
-Cont: GiveSelf
-{
-	If Compare CardsInStock 4 OrMore
-	{
-		GainPower 1500
-	}
-}
-Text Cont: If the number of cards in your stock is four or more, this card gets +1500 power.
-EndCard
-
-Character: FZ/S17-PE08
-Name Infallible Balance, Kiritsugu
-Color Y
-Level 0
-Cost 0
-Power 2500
-Trait1 Master
-Trait2 Weapon
-Act: 2
-{
-	GainPower 3000
-	GainSoul 1
-}
-Text Act: [(2)] This card gets +3000 power and +1 soul until end of turn.
-EndCard
-
-Character: FZ/S17-PE09
-Name Upright Chivalry, Saber
-Color Y
-Level 1
-Cost 1
-Power 6500
-Trait1 Servant
-Trait2 Weapon
-Act: 1
-{
-	GainSoul 1
-}
-Text Act: [(1)] This card gets +1 soul until end of turn.
-EndCard
-
 Character: FZ/S17-PE10
 Name Style of a King, Saber
 Color Y
@@ -2083,15 +1998,3 @@ Trait1 Servant
 Trait2 Royalty
 *OnPlayGiveOtherPower(1000,Master|Homunculus)
 EndCard
-
-Character: FZ/S17-PE11
-Name Strongest Anti-Magic Power, Saber
-Color Y
-Level 1
-Cost 1
-Power 6500
-Trait1 Servant
-Trait2 Weapon
-*HexProof
-EndCard
-

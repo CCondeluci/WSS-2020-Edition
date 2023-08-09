@@ -810,17 +810,21 @@ Auto: StartMyEncoreStep
 		Question Put this card into your memory?
 		If Yes
 		{
-			MoveCard Memory
-			ScheduleEffect StartDrawPhase
+			TargetSelf
+			If OnStage
 			{
-				Effect:
+				MoveCard Memory
+				ScheduleEffect StartDrawPhase
 				{
-					SearchLocationForTargets Memory 1 1 NameEquals "View from the Helicopter" Mari Ohara
-					PlaceOnStage False True True False
-					GainLevel 2
-					GainPower 2500
+					Effect:
+					{
+						SearchLocationForTargets Memory 1 1 NameEquals "View from the Helicopter" Mari Ohara
+						PlaceOnStage False True True False
+						GainLevel 2
+						GainPower 2500
+					}
+					Text Choose a card named ""View from the Helicopter" Mari Ohara" in your memory, put it on any position of your stage, it gets +2 level and +2500 power until end of turn.
 				}
-				Text Choose a card named ""View from the Helicopter" Mari Ohara" in your memory, put it on any position of your stage, it gets +2 level and +2500 power until end of turn.
 			}
 		}
 	}
@@ -2216,7 +2220,11 @@ Auto: OnReversed
 {
 	If StageContainsOrLess 1 Other && HasTrait Music
 	{
-		MoveCard Clock
+		TargetSelf
+		If OnStage
+		{
+			MoveCard Clock
+		}
 	}
 }
 Text Auto: When this card becomes reversed in battle, if the number of your other 《Music》 characters is one or less, put this card into your clock.
@@ -2350,41 +2358,6 @@ Trait1 Music
 *GainPowerWhenOtherAttacks(1000,Music)
 EndCard
 
-Character: LSS/W45-PE02
-Name "Summer School Uniform" You Watanabe
-Color R
-Level 1
-Cost 0
-Power 5000
-Trait1 Music
-Auto: OnPlay
-{
-	PayCost 1
-	{
-		TargetLocation Stage
-		NarrowTargets Other && HasTrait Music
-		ChooseCharacterFromTargets Choose a character to gain the effect
-		GainEffect
-		{
-			Auto: OnReversed
-			{
-				TargetBattleOpponent
-				If Compare TargetCardsLevel ThisCardsLevel OrLess
-				{
-					Question Reverse this card's battle opponent?
-					If Yes
-					{
-						Reverse
-					}
-				}
-			}
-			Text Auto: When this card becomes reversed, if the level of this card's battle opponent is equal to or lower than this card's level, you may reverse that character.
-		}
-	}
-}
-Text Auto: [(1)] When this card is placed on stage from your hand, you may pay the cost. If you do, choose 1 of your other <Music> characters and that character gains the following ability until end of turn. "Auto: When this card becomes reversed, if the level of this card's battle opponent is equal to or lower than this card's level, you may reverse that character."
-EndCard
-
 Character: LSS/W45-PE03
 Name "Summer School Uniform" Riko Sakurauchi
 Color R
@@ -2395,86 +2368,3 @@ Trait1 Music
 *OnAttackGiveOtherPower(1000,Music)
 *HandEncore
 EndCard
-
-Character: LSS/W45-PE04
-Name "Summer School Uniform" Dia Kurosawa
-Color B
-Level 0
-Cost 0
-Power 4000
-Trait1 Music
-Auto: OnPlay
-{
-	TargetTop Deck 1
-	Reveal
-	IfTarget IsClimax
-	{
-		TargetSelf
-		MoveCard WaitingRoom
-	}
-}
-Text Auto: When this card is placed on stage from your hand, reveal the top card of your deck. If that card is a climax, put this card into your waiting room.
-EndCard
-
-Character: LSS/W45-PE05
-Name "Summer School Uniform" Kanan Matsuura
-Color B
-Level 1
-Cost 0
-Power 6000
-Trait1 Music
-*OthersCannotSideAttack
-EndCard
-
-Character: LSS/W45-PE06
-Name "Summer School Uniform" Mari Ohara
-Color B
-Level 1
-Cost 0
-Power 1500
-Trait1 Music
-Backup 1500
-EndCard
-
-Character: LSS/W45-PE07
-Name "Summer School Uniform" Yoshiko Tsushima
-Color Y
-Level 1
-Cost 0
-Power 4500
-Trait1 Music
-*GainPowerWhenOtherAttacks(1000,Music)
-*HandEncore
-EndCard
-
-Character: LSS/W45-PE08
-Name "Summer School Uniform" Hanamaru Kunikida
-Color Y
-Level 1
-Cost 1
-Trigger Soul
-Power 5000
-Trait1 Music
-Cont: GiveSelf
-{
-	If Compare CardsInStock 3 OrLess
-	{
-		GainEffect
-		{
-			*OnReverseBlindStock
-		}
-	}
-}
-Text Cont: If there are 3 or less cards in your stock, this card gains the following ability. "Auto: When this card's battle opponent becomes reversed, you may put the top card of your deck into your stock."
-EndCard
-
-Character: LSS/W45-PE09
-Name "Summer School Uniform" Ruby Kurosawa
-Color Y
-Level 0
-Cost 0
-Power 2500
-Trait1 Music
-*OnPlayGainPower(1500)
-EndCard
-

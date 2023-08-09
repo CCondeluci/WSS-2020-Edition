@@ -203,7 +203,10 @@ Cont: GiveSelf
 				If Yes
 				{
 					TargetOther
-					MoveCard Memory
+					If OnStage
+					{
+						MoveCard Memory
+					}
 				}
 			}
 			Quick
@@ -2628,17 +2631,6 @@ Text Cont: This card cannot side attack.
 *ContForEachOtherTrait(500,Magic|Weapon)
 EndCard
 
-Character: RZ/S46-P01
-Name Embarassed Look, Emilia
-Color B
-Level 0
-Cost 0
-Power 4000
-Trait1 Magic
-Trait2 Celestial Spirit
-*OnPlayMill2RestIfClimax
-EndCard
-
 Character: RZ/S46-PE02
 Name Roscchi's Library Librarian, Beatrice
 Color R
@@ -2692,125 +2684,6 @@ Auto: OnAttack
 	Rest
 }
 Text Auto: When this card attacks, rest all of your other standing characters.
-EndCard
-
-Character: RZ/S46-P04
-Name Hidden Feelings, Rem
-Color B
-Level 2
-Cost 1
-Trigger Soul
-Power 2500
-Trait1 Magic
-Trait2 Maid
-Auto: OnUseThisCardsBackup
-{
-	TargetBattleOpponent
-	If Compare TargetCardsLevel 3 OrMore
-	{
-		TargetMyCharacterInBattle
-		GainPower 1000
-	}
-}
-Text Auto: When you use this card's "<b>Backup</b>" if the level of your opponent's character in battle is 3 or higher, your character in battle gets +1000 power until end of turn.
-Backup 2500
-EndCard
-
-Character: RZ/S46-P05
-Name Tea So Expensive She Would Easily Go Berzerk Over, Ram
-Color R
-Level 1
-Cost 0 
-Power 5000
-Trait1 Magic
-Trait2 Maid
-Cont: GiveSelf
-{
-	If MyTurn && StageContainsOrLess 0 Not HasTrait Magic|Weapon
-	{
-		GainPower 2000
-	}
-}
-Text Cont: During your turn, if all of your characters are <Magic> or <Weapon>, this card gets +2000 power.
-EndCard
-
-Character: RZ/S46-P06
-Name Happy Birthday! Rem
-Color B
-Level 0
-Cost 0
-Power 2000
-Trait1 Magic
-Trait2 Maid
-Cont: GiveSelf
-{
-	If StageContains 1 Other && NameContains Rem|Ram|Subaru
-	{
-		GainPower 1500
-	}
-}
-Text Cont: If you have another character with "Rem" "Ram" or "Subaru" in its name, this card gets +1500 power.
-EndCard
-
-Character: RZ/S46-P07
-Name Strike of Anger, Rem
-Color B
-Level 1
-Cost 1
-Power 6000
-Trait1 Magic
-Trait2 Maid
-*ContForEachOtherTrait(500,Magic|Weapon)
-EndCard
-
-Character: RZ/S46-P08
-Name Lonely Night, Rem
-Color B
-Level 2
-Cost 1
-Trigger Soul
-Power 2000
-Trait1 Magic
-Trait2 Maid
-Auto: OnUseThisCardsBackup
-{
-	*CheckTopAddDiscard(Magic|Weapon)
-}
-Text Auto: When you use this card's "<b>Backup</b>", reveal the top card of your deck, if it is a <Magic> or <Weapon> character, add it to your hand, and discard a card.
-Backup 2500
-EndCard
-
-Character: RZ/S46-P09
-Name Eversummer Life in Another World ♪
-Color B
-Level 0
-Cost 0
-Power 2500
-Trait1 Magic
-Trait2 Swimsuit
-*OnPlayMill2GainPowerForEachCharacter(1000,Magic|Weapon)
-EndCard
-
-Character: RZ/S46-P10
-Name Going Out♪ Rem
-Color B
-Level 3
-Cost 2
-Trigger Soul
-Power 10000
-Soul 2
-Trait1 Magic
-Trait2 Maid
-*Healer
-Auto: OnOtherCharacterAttacks
-{
-	IfOther HasTrait Magic|Weapon
-	{
-		GainPower 1000
-	}
-}
-Quick
-Text Auto: When your other <Magic> or <Weapon> character attacks, this card gets +1000 power until end of turn.
 EndCard
 
 Character: RZ/S46-TE32
